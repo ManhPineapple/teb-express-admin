@@ -1,0 +1,122 @@
+export const CLAIM_STATUS_APPLYING = 1
+export const CLAIM_STATUS_PENDING = 2
+export const CLAIM_STATUS_PROCESSED = 3
+
+export const CLAIM_CUSTOMER_REPLY = 0
+export const CLAIM_ADMIN_REPLY = 1
+
+export const MAXIMUM_SIZE = 5
+
+export const CLAIM_STATUS = [
+  {
+    value: CLAIM_STATUS_APPLYING,
+    text: 'Xét duyệt',
+  },
+  {
+    value: CLAIM_STATUS_PENDING,
+    text: 'Đang xử lý',
+  },
+  {
+    value: CLAIM_STATUS_PROCESSED,
+    text: 'Đã xử lý',
+  },
+]
+
+export const MAP_CLAIM_STATUS = {
+  [CLAIM_STATUS_APPLYING]: {
+    text: 'Xét duyệt',
+    className: 'await',
+  },
+  [CLAIM_STATUS_PENDING]: {
+    text: 'Đang xử lý',
+    className: 'info',
+  },
+  [CLAIM_STATUS_PROCESSED]: {
+    text: 'Đã xử lý',
+    className: 'success',
+  },
+}
+
+export const REASON_CATEGORY_EDIT_ORDER = 1
+export const REASON_CATEGORY_SHIPPING_FEE_ORDER = 2
+export const REASON_CATEGORY_NO_CHANGE_STATUS = 3
+export const REASON_CATEGORY_OTHER = 4
+export const REASON_CATEGORY_MISSING_FAIL = 5
+export const REASON_CATEGORY_DELAY_STATUS_REFUND_CANCEL = 6
+export const REASON_CATEGORY_ORDER_SHIPPING_FEE = 7
+export const REASON_CATEGORY_OTHER_EDIT = 8
+export const REASON_CATEGORY_SYSTEM = 9
+
+export const REASON_CATEGORY_EDIT_ORDER_TEXT = 'Sửa đơn'
+export const REASON_CATEGORY_SHIPPING_FEE_ORDER_TEXT = 'Phí hóa đơn'
+export const REASON_CATEGORY_NO_CHANGE_STATUS_TEXT = 'Không cập nhật trạng thái'
+export const REASON_CATEGORY_OTHER_TEXT = 'Khác'
+export const REASON_CATEGORY_MISSING_FAIL_TEXT =
+  'Đơn hàng bị thất lạc, hỏng hóc'
+export const REASON_CATEGORY_DELAY_STATUS_REFUND_CANCEL_TEXT =
+  'Trễ hành trình, Không cập nhật trạng thái, Hoàn, Hủy'
+export const REASON_CATEGORY_ORDER_SHIPPING_FEE_TEXT = 'Hóa Đơn, Phí Vận chuyển'
+export const REASON_CATEGORY_OTHER_EDIT_TEXT = 'Thay đổi thông tin đơn hàng'
+export const REASON_CATEGORY_SYSTEM_TEXT = 'Hệ thống'
+
+export const MAP_REASON_CATEGORY_TEXT = {
+  [REASON_CATEGORY_EDIT_ORDER]: REASON_CATEGORY_EDIT_ORDER_TEXT,
+  [REASON_CATEGORY_SHIPPING_FEE_ORDER]: REASON_CATEGORY_SHIPPING_FEE_ORDER_TEXT,
+  [REASON_CATEGORY_NO_CHANGE_STATUS]: REASON_CATEGORY_NO_CHANGE_STATUS_TEXT,
+  [REASON_CATEGORY_OTHER]: REASON_CATEGORY_OTHER_TEXT,
+  [REASON_CATEGORY_MISSING_FAIL]: REASON_CATEGORY_MISSING_FAIL_TEXT,
+  [REASON_CATEGORY_DELAY_STATUS_REFUND_CANCEL]:
+    REASON_CATEGORY_DELAY_STATUS_REFUND_CANCEL_TEXT,
+  [REASON_CATEGORY_ORDER_SHIPPING_FEE]: REASON_CATEGORY_ORDER_SHIPPING_FEE_TEXT,
+  [REASON_CATEGORY_OTHER_EDIT]: REASON_CATEGORY_OTHER_EDIT_TEXT,
+  [REASON_CATEGORY_SYSTEM]: REASON_CATEGORY_SYSTEM_TEXT,
+}
+
+export const REASON_CATEGORIES = [
+  {
+    key: REASON_CATEGORY_MISSING_FAIL,
+    name: REASON_CATEGORY_MISSING_FAIL_TEXT,
+  },
+  {
+    key: REASON_CATEGORY_DELAY_STATUS_REFUND_CANCEL,
+    name: REASON_CATEGORY_DELAY_STATUS_REFUND_CANCEL_TEXT,
+  },
+  {
+    key: REASON_CATEGORY_ORDER_SHIPPING_FEE,
+    name: REASON_CATEGORY_ORDER_SHIPPING_FEE_TEXT,
+  },
+  {
+    key: REASON_CATEGORY_OTHER_EDIT,
+    name: REASON_CATEGORY_OTHER_EDIT_TEXT,
+  },
+  {
+    key: REASON_CATEGORY_SYSTEM,
+    name: REASON_CATEGORY_SYSTEM_TEXT,
+  },
+  {
+    key: REASON_CATEGORY_OTHER,
+    name: REASON_CATEGORY_OTHER_TEXT,
+  },
+]
+
+export const CLAIM_TYPE_DEFAULT = 1
+export const CLAIM_TYPE_RESHIP = 2
+export const CLAIM_TYPE_REFUND = 3
+
+export const CLAIM_TYPES = [
+  {
+    id: CLAIM_TYPE_DEFAULT,
+    name: 'Đóng',
+  },
+  {
+    id: CLAIM_TYPE_RESHIP,
+    name: 'Vận chuyển lại',
+  },
+  {
+    id: CLAIM_TYPE_REFUND,
+    name: 'Hoàn tiền',
+  },
+]
+
+export const CLAIM_REFUND_RATE = 2.5
+export const CLAIM_REFUND_MAX = 50

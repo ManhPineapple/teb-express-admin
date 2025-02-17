@@ -1,0 +1,103 @@
+.user-detail {
+    .user-info {
+        min-height: 172px;
+        .card {
+            height: 100%;
+            box-shadow: 0px 12px 20px -16px rgba(0, 0, 0, 0.08);
+            border-radius: 8px;
+            padding: 16px;
+            p {
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 20px;
+                margin-bottom: 4px;
+            }
+            .left {
+                p {
+                    width: max-content;
+                    color: $color-neutral-7;
+                }
+            }
+            .right {
+                margin-left: 16px;
+                p {
+                    font-weight: 500;
+                    color: $color-neutral-9;
+                    .is-top {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+    .multi-page {
+        .tab {
+            line-height: 44px;
+            a {
+                padding: 12px 16px;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 20px;
+                color: #8D8D8D;
+                &.active {
+                    font-weight: 700;
+                    color: #161616;
+                    background: white;
+                    border: 1px solid #E1E2E2;
+                    border-radius: 4px 4px 0px 0px;
+                }
+            }
+        }
+        .pages {
+            position: relative;
+            margin-top: 0;
+            margin-left: 0px;
+            width: 100%;
+            padding: 0;
+            background: #FFFFFF;
+            border-radius: 0px 0px 4px 4px;
+            .search-input,
+            .list__claim-search {
+                padding: 16px 16px 0 16px;
+                margin-bottom: 0;
+            }
+            .list__claim-search {
+                margin-bottom: 12px;
+            }
+            .card {
+                border: unset;
+                .card-body {
+                    padding-top: 0;
+                }
+            }
+        }
+        .list__bill {
+            .tab-type {
+                display: none;
+            }
+            .col-4 {
+                display: none;
+            }
+            .col-8 {
+                max-width: 100%;
+                flex: 1;
+            }
+        }
+        .list-packages {
+            .bulk-actions {
+                top: 78px;
+            }
+        }
+    }
+    @media (max-width: 1500px) {
+        .is-top {
+            display: block !important;
+            &::after {
+                width: max-content;
+            }
+        }
+        .full-text {
+            display: none
+        }
+    }
+}

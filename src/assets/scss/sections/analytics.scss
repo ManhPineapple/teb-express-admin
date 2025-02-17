@@ -1,0 +1,53 @@
+.analytics-page {
+    .reportrange-text {
+        position: relative !important;
+        padding: 10px 15px;
+        width: auto;
+        height: 40px;
+        background: #FFFFFF;
+        border: 1px solid #DFE3E8;
+        box-sizing: border-box;
+        border-radius: 4px;
+        img {
+            position: absolute;
+            top: 9px;
+            margin: 0 !important;
+            float: left !important;
+        }
+        span {
+            margin-left: 25px;
+            font-weight: 600;
+            font-size: 14px;
+            color: #37393E;
+        }
+    }
+    .daterangepicker {
+        left: 0 !important;
+        &::before {
+            left: 17px;
+        }
+        &::after {
+            left: 18px;
+        }
+        .drp-buttons {
+            .cancelBtn {
+                width: 90px;
+                height: 40px;
+                left: 563px;
+                top: 698px;
+                background: #FFFFFF;
+                border: 1px solid #C4CDD5;
+                box-sizing: border-box;
+                
+            }
+            .applyBtn {
+                width: 83px;
+                height: 40px;
+                left: 661px;
+                top: 698px;
+                background: #0554F2;
+                border-radius: 4px;
+            }
+        }
+    }
+}

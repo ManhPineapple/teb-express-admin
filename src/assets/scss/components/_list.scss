@@ -1,0 +1,34 @@
+.list-inline{
+  > li {
+    display: inline-block;
+  }
+}
+
+.lt1 {
+
+  > li {
+    position: relative;
+    padding-left: 16px;
+    margin-top: 9px;
+
+    &:before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      display: inline-block;
+      background-color: #666;
+      position: absolute;
+      left: 0;
+      top: 9px;
+
+        @media (max-width: 767px) {
+            top: 6px;
+        }
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

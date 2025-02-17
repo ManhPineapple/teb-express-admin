@@ -1,0 +1,144 @@
+.nav-tabs {
+  position: relative;
+  padding-bottom: 5px;
+  .nav-link {
+    color: $color-neutral-7;
+    //display: block;
+    //overflow: hidden;
+    margin-right: 15px;
+    padding: 0.715rem;
+    border-bottom: 2px solid transparent;
+    border-top-left-radius: 0.215rem;
+    border-top-right-radius: 0.215rem;
+    position: relative;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    &:hover,
+    &:focus {
+      background-color: transparent;
+      //border-bottom: 2px solid transparent;
+      &:after {
+        content: '';
+        position: absolute;
+        border-bottom: 2px solid #ccd5db;
+        width: 100%;
+        top: 106%;
+        left: 0%;
+      }
+    }
+    &:hover {
+      border-bottom-color: #ccd5db;
+      background: transparent;
+      transition: 0.25s;
+    }
+  }
+  .nav-link.active {
+    color: $color-neutral-10;
+    background-color: transparent;
+    transition: 0.25s;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    &:after {
+      content: '';
+      position: absolute;
+      border-bottom: 2px solid $color-turquoise-4;
+      width: 100%;
+      top: 106%;
+      left: 0;
+    }
+  }
+}
+
+.nav-tabs {
+  .nav-link {
+    border: none;
+  }
+}
+
+.tab-mnu {
+  background-color: #f8f8f8;
+  border-bottom: 2px solid #e0e0e0;
+  > li {
+    display: table-cell;
+    width: 1%;
+    text-align: center;
+    span {
+      display: inline-block;
+      color: #666;
+      padding: 12px 0 10px;
+      cursor: pointer;
+      position: relative;
+      &:after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 2px;
+        position: absolute;
+        left: 0;
+        bottom: -2px;
+      }
+      &:hover {
+        color: #e2490b;
+      }
+    }
+    &.active span {
+      color: #e2490b;
+      &:after {
+        background-color: #e2490b;
+      }
+    }
+  }
+}
+
+.tab-cont {
+  padding: 25px 20px;
+}
+
+.tab-pane {
+  > li {
+    float: left;
+    width: 20%;
+    color: #000;
+    margin-bottom: 4px;
+    cursor: pointer;
+    @media (max-width: 767px) {
+      width: 25%;
+    }
+    @media (max-width: 580px) {
+      width: math.div(100, 3) * 1%;
+    }
+    @media (max-width: 450px) {
+      width: 50%;
+    }
+    &:hover {
+      color: #e2490b;
+    }
+  }
+}
+
+.p-tabs.type-badge {
+  .nav-tabs {
+    border-bottom: none;
+    .nav-link {
+      padding: 0 12px;
+      height: 24px;
+      font-weight: 500;
+      color: #313232;
+      &:hover::after, &:focus::after {
+        content: none;
+      }
+    }
+
+    .nav-item.active .nav-link {
+      color: white;
+      background: #313232;
+      border-radius: 40px;
+      transition: 0.25s;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+    }
+  }
+}

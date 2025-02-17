@@ -1,0 +1,97 @@
+.modal {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  background-color: rgba(0,0,0,0.5);
+  overflow: auto;
+
+  @include m('show') {
+    display: block;
+  }
+
+  @include e('inner') {
+    width: 78rem;
+    margin: 8rem auto 2rem;
+    background-color: #fff;
+    position: relative;
+    border-radius: 0.4rem;
+    overflow: hidden;
+
+    @media (max-width: 768px) {
+      width: calc(100% - 20px);
+    }
+  }
+
+  @include e('header') {
+    padding: 1.8rem 2.4rem;
+    position: relative;
+    border-bottom: 1px dotted rgba(26,52,75,0.1);
+
+    @media (max-width: 767px) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+
+  @include e('title') {
+    font-size: 2.4rem;
+    font-weight: 400;
+    font-family: "Product Sans",sans-serif;
+    margin: 0;
+  }
+
+  @include e('x') {
+    position: absolute;
+    right: 2.4rem;
+    top: 50%;
+    @include transform(translateY(-50%));
+    font-size: 2rem;
+    color: #ccc;
+    z-index: 999;
+
+    &:hover {
+      color: #000;
+    }
+  }
+
+  @include e('close') {
+    cursor: pointer;
+  }
+
+  @include e('body') {
+    padding: 2rem 2.4rem 2.5rem;
+
+    @media (max-width: 767px) {
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+    }
+  }
+}
+
+.modal-open {
+  overflow: hidden;
+  padding-right: 17px;
+}
+
+.modal-lg, .modalCa {
+
+  .modal_inner {
+    @media (max-width: 991px) {
+      margin: 0;
+      border-radius: 0;
+      width: 100%;
+      height: 100%;
+      overflow-y: auto;
+    }
+  }
+}
+
+.alertify .ajs-modal {
+  z-index: 9999;
+}
+
+

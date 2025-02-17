@@ -1,0 +1,174 @@
+.saler-detail{
+  font-family: "Be VietNam Pro", sans-serif;
+  .page-header{
+    background: #FFFFFF;
+    margin-top:-24px;
+    margin-left:-24px;
+    margin-right:-24px;
+    margin-bottom: 24px;
+    padding: 24px;
+    .sale-info{
+      .txt-col{
+        margin-right: 55px;
+        &>div:first-child{
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 16px;
+          letter-spacing: 0.2px;
+          color: #898A8A;
+          margin-bottom: 4px;
+        }
+        &>div:last-child{
+          font-weight: 400;
+          font-size: 14px;
+          line-height: 20px;
+          color: #111212;
+        }
+      }
+    }
+  }
+
+  .page-not-found .content{
+    width: 200px !important;
+    height: 200px !important;
+  }
+  .page-not-found{
+    min-height: 320px !important;
+  }
+  
+  h3{
+    font-family: "Be VietNam Pro";
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 28px;
+    letter-spacing: 0.2px;
+    color: #898A8A;
+    margin-bottom: 12px;
+  }
+  .card-block{
+    padding:16px 24px;
+    box-shadow:unset;
+    border-radius: unset;
+    .card-header{
+      padding: unset;
+      border-radius: unset !important;
+      border-bottom: unset;
+      .card-title{
+        font-weight: 700;
+        font-size: 12px;
+        line-height: 14px;
+        letter-spacing: 0.75px;
+        text-transform: uppercase;
+        color: #898A8A;
+      }
+    }
+    .card-body{
+      padding: unset;
+      .txt-number{
+        margin-top: 16px;
+        color: #111212;
+        font-weight: 600;
+        font-size: 36px;
+        line-height: 54px;
+        display: inline-block;
+      }
+      .customer-note-block{
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #898A8A;
+        svg{
+          margin-top: -4px;
+        }
+        .up-trend{
+          color: #48BE78;
+        }
+      }
+    }
+    &.mdd-blk{
+      height: 250px;
+      &.top-5 #chart{
+        margin-top: 20px;
+        height: 184px;
+      }
+    }
+  }
+
+  .el-date-editor--monthrange{
+    position: absolute;
+    right: 25px;
+    top: 8px;
+    width: 208px !important;
+    padding: 2px 5px;
+    border-radius: unset;
+  }
+
+  .el-date-editor .el-range-input{
+    font-size: 12px;
+    font-family:  "Be VietNam Pro", sans-serif;
+  }
+
+  .el-date-editor .el-range-separator{
+    padding: unset !important;
+    font-family:  "Be VietNam Pro", sans-serif;
+    line-height: 26px;
+  }
+  .el-input__icon{
+    height: 30px;
+  }
+
+  .el-input__inner{
+    height: 30px;
+  }
+
+  .tbl-customers{
+    th{
+      border-top: 1px solid #EDEEEE;
+      font-weight: 700;
+      font-size: 12px;
+      line-height: 14px;
+      color: #111212;
+      letter-spacing: 0.75px;
+      text-transform: uppercase;
+      height: 60px;
+    }
+    td{
+      border-top: 1px solid #EDEEEE;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 20px;
+      color: #111212;
+      height: 44px;
+    }
+    tr:hover{
+      box-shadow: unset;
+    }
+    tr:first-child td{
+      border-top: 1px solid #E1E2E2;
+    }
+    tr:last-child td{
+      border-bottom: unset;
+    }
+  }
+  #chart{
+    .apx-legend-position-right{
+      right: 45px !important;
+      .apexcharts-legend-marker{
+        margin-bottom: -1px;
+      }
+    }
+    .apx-legend-position-top{
+      justify-content: left !important;
+      padding: 0;
+    }
+    .apexcharts-legend-series{
+      margin: 0px 8px 0px 0px !important;
+    }
+  }
+  .star-rating{
+    &:hover+.block-star{
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}

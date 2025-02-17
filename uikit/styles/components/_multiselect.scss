@@ -1,0 +1,46 @@
+.search-type {
+    .multiselect__tags {
+        height: 40px;
+        border: 1px solid #E5E7ED;
+        box-sizing: border-box;
+        border-radius: 8px;
+        background-color: #ffffff;
+        .multiselect__single,
+        .multiselect__placeholder {
+            margin-top: 4px;
+            background-color: #ffffff;
+            color: #111212;
+            padding-top: 0;
+            font-family: "Be VietNam", sans-serif;
+        }
+    }
+    .multiselect__select {
+        top: -2px
+    }
+    .multiselect--active .multiselect__select {
+        transform: none;
+    }
+    .multiselect--active .multiselect__tags {
+        border: 1px solid #111212;
+        border-radius: 8px 8px 0px 0px;
+    }
+    .multiselect__input {
+        font-size: 14px;
+        margin-top: 5px;
+        background-color: #ffffff;
+        color: #111212;
+        padding-top: 0;
+        padding-left: 0px;
+        font-family: "Be VietNam", sans-serif;
+    }
+    .multiselect__content-wrapper {
+        border: 1px solid #80bdff;
+        border-radius: 0px 0px 8px 8px;
+        max-height: none;
+    }
+    &.input-valid {
+        .multiselect__tags {
+            border: 1px solid #FFA39E !important;
+        }
+    }
+}

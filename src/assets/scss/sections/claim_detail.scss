@@ -1,0 +1,709 @@
+.claim-detail-page {
+  .table {
+    margin: 0;
+    th {
+      height: 66px;
+      &:first-child {
+        padding-left: 8px;
+      }
+    }
+    td {
+      height: 84px !important;
+      &:first-child {
+        padding-left: 8px;
+        .design-image {
+          width: 60px;
+          height: 60px;
+          position: relative;
+          border-radius: 4px;
+          object-fit: cover;
+        }
+      }
+      &:last-child {
+        text-align: center;
+        .icon-download {
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}
+
+.claim-detail-page {
+  .claim-left,
+  .claim-right {
+    min-height: 500px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .claim-left {
+    height: calc(100vh - 210px);
+  }
+
+  .page-header-group {
+    padding: 2.4rem 1.2rem;
+    margin-bottom: 2rem;
+    background-color: #fff;
+    border-radius: 4px;
+    border-left: 2px solid #87e8de;
+
+    &.info {
+      border-color: #7f5345;
+    }
+
+    &.await {
+      border-color: #722ed1;
+    }
+
+    button {
+      white-space: nowrap;
+      margin-left: 30px;
+      display: block;
+
+      + button {
+        margin-top: 5px;
+      }
+    }
+
+    .actions {
+      display: inline-block;
+      position: relative;
+      transition: all 0.2s;
+      font-weight: 700;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      padding: 1.2rem 1.6rem;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      color: #fff;
+      background-color: #00978c;
+      border-color: #00978c;
+      white-space: nowrap;
+      margin-left: 0.8rem;
+      height: 4.4rem;
+      z-index: 99;
+
+      .name {
+        color: #fff;
+        padding-right: 10px;
+      }
+
+      svg {
+        scale: 1.5;
+        transform: rotate(180deg);
+        transition: all 0.2s;
+        margin-top: -3px;
+
+        path {
+          stroke: #fff;
+        }
+      }
+
+      ul {
+        display: none;
+        transition: all 0.2s;
+        position: absolute;
+        border-radius: 8px;
+        top: 100%;
+        left: 0;
+        background-color: #00978c;
+        margin-top: 2px;
+        width: 100%;
+
+        li {
+          padding: 0 1.6rem;
+          a {
+            color: #fff;
+            display: block;
+            padding: 1.2rem 0;
+          }
+
+          + li a {
+            border-top: 1px solid #007672;
+          }
+
+          &.disable {
+            a {
+              color: #B0B3B9;
+              pointer-events: none;
+            }
+          }
+        }
+      }
+
+      &:hover {
+        ul {
+          display: block;
+        }
+
+        svg {
+          transform: rotate(0deg);
+        }
+      }
+    }
+  }
+
+  .page-header-title {
+    h1 {
+      font-size: 2.4rem;
+      line-height: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #111212;
+    }
+
+    .sub-title {
+      font-weight: 400;
+      font-size: 1.4rem;
+      line-height: 2rem;
+      color: #313232;
+    }
+  }
+
+  .card {
+    box-shadow: 0px 4px 32px -14px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    padding: 12px 24px 5px 24px;
+  }
+
+  .box-messages {
+    overflow-y: scroll;
+    padding-right: 16px;
+
+    .message {
+      & + .message {
+        margin-top: 24px;
+      }
+      p {
+        margin: 0;
+      }
+      .avatar {
+        height: 32px;
+        width: 32px;
+        margin-right: 8px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .user {
+        display: flex;
+        margin-bottom: 4px;
+        .info {
+          height: 32px;
+        }
+        .user-name {
+          line-height: 20px;
+          margin-bottom: -5px;
+          font-weight: 700;
+        }
+        .user-role {
+          font-size: 12px;
+          padding: 2px 8px;
+          color: #00b7b0;
+          border-radius: 50px;
+          background: #ddf2f2;
+          line-height: 16px;
+          margin-left: 4px;
+        }
+        .post-time {
+          font-size: 10px;
+          color: #626363;
+          font-weight: 600;
+        }
+      }
+      .message-content {
+        margin-left: 40px;
+        margin-right: 10%;
+        .message-text {
+          text-align: left;
+          .w-text {
+            padding: 16px;
+            background-color: #f6f7f7;
+            border-radius: 0 32px 32px 0;
+            display: inline-block;
+          }
+          & + .message-text {
+            margin-top: 1px;
+          }
+          &:last-child .w-text {
+            border-bottom-left-radius: 32px;
+          }
+        }
+      }
+    }
+    .message.me {
+      .user {
+        flex-direction: row-reverse;
+      }
+      .info {
+        text-align: right;
+      }
+      .avatar {
+        margin-right: 0;
+        margin-left: 8px;
+      }
+      .message-content {
+        flex-direction: row-reverse;
+        margin-left: 10%;
+        margin-right: 40px;
+        .message-text {
+          text-align: right;
+          .w-text {
+            background-color: #3f51b5;
+            color: #fff;
+            border-radius: 32px 0 0 32px;
+            a {
+              color: #fff;
+              text-decoration: underline;
+            }
+          }
+          &:last-child .w-text {
+            border-bottom-right-radius: 32px;
+          }
+        }
+      }
+    }
+  }
+
+  .claim-info {
+    .list-note {
+      .item-note {
+        line-height: 2.4rem;
+        margin-bottom: 0.6rem;
+        display: grid;
+        grid-template-columns: 12.5rem auto;
+
+        span {
+          font-style: normal;
+          font-weight: 400;
+          font-size: 1.4rem;
+          line-height: 2.4rem;
+          color: #313232;
+        }
+
+        .item-title {
+          width: 12rem;
+          display: inline-block;
+          color: #626363;
+        }
+
+        a {
+          color: #005c59;
+        }
+      }
+    }
+  }
+
+  .footer {
+    width: 100%;
+    .group-button {
+      float: right;
+      button {
+        margin: 0 4px;
+      }
+    }
+  }
+
+  .list-note {
+    li.br {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #edeeee;
+    }
+  }
+
+  .claim-messages {
+    min-height: 300px;
+
+    .card {
+      height: 100%;
+      padding-right: 0;
+      padding: 16px 0 16px 16px;
+    }
+    .scroll-y {
+      overflow-y: scroll;
+      position: relative;
+      height: 100%;
+    }
+    .list-messages {
+      padding-right: 16px;
+    }
+    .message {
+      & + .message {
+        margin-top: 24px;
+      }
+      p {
+        margin: 0;
+      }
+      .avatar {
+        height: 32px;
+        width: 32px;
+        margin-right: 8px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .user {
+        display: flex;
+        margin-bottom: 4px;
+        .info {
+          height: 32px;
+        }
+        .user-name {
+          line-height: 20px;
+          margin-bottom: -5px;
+          font-weight: 700;
+        }
+        .user-role {
+          font-size: 12px;
+          padding: 2px 8px;
+          color: #00b7b0;
+          border-radius: 50px;
+          background: #ddf2f2;
+          line-height: 16px;
+          margin-left: 4px;
+        }
+        .post-time {
+          font-size: 10px;
+          color: #626363;
+          font-weight: 600;
+        }
+      }
+      .message-content {
+        margin-left: 40px;
+        margin-right: 10%;
+        .message-text {
+          text-align: left;
+          .w-text {
+            padding: 16px;
+            background-color: #f6f7f7;
+            border-radius: 0 32px 32px 0;
+            display: inline-block;
+          }
+          & + .message-text {
+            margin-top: 1px;
+          }
+          &:last-child .w-text {
+            border-bottom-left-radius: 32px;
+          }
+        }
+      }
+    }
+    .message.me {
+      .user {
+        flex-direction: row-reverse;
+      }
+      .info {
+        text-align: right;
+      }
+      .avatar {
+        margin-right: 0;
+        margin-left: 8px;
+      }
+      .message-content {
+        flex-direction: row-reverse;
+        margin-left: 10%;
+        margin-right: 40px;
+        .message-text {
+          text-align: right;
+          .w-text {
+            background-color: #3f51b5;
+            color: #fff;
+            border-radius: 32px 0 0 32px;
+            a {
+              color: #fff;
+              text-decoration: underline;
+            }
+          }
+          &:last-child .w-text {
+            border-bottom-right-radius: 32px;
+          }
+        }
+      }
+    }
+  }
+
+  .ticket-attach-files {
+    .gallery-item {
+      position: relative;
+    }
+  }
+
+  .claim-attachment {
+    min-width: 250px;
+  }
+}
+
+.modal-reply-ticket {
+  background: #ffffff;
+  border-radius: 4px;
+  .modal-header {
+    padding: 12px 16px 12px 16px;
+  }
+  .modal-body {
+    padding: 16px;
+  }
+  .page-content {
+    margin: 0 !important;
+  }
+  .rule {
+    margin-top: 8px;
+    flex: 0 0 60%;
+    text-align: left;
+    font-size: 12px;
+    line-height: 18px;
+    color: #b0b3b9;
+  }
+  .form-control {
+    margin-top: 8px;
+    position: relative;
+    width: 100%;
+    border: 1px solid $color-neutral-4;
+    box-sizing: border-box;
+    border-radius: 8px;
+    min-height: 120px;
+    padding: 5px 0 0 16px;
+    color: $color-neutral-9;
+    &::placeholder {
+      color: $color-neutral-4;
+    }
+  }
+  .footer {
+    i {
+      font-size: 12px;
+      line-height: 16px;
+      /* identical to box height, or 133% */
+      /* Neutral / Neutral 7 */
+      color: #626363;
+    }
+    .group-button {
+      flex: 0 0 40%;
+      text-align: right;
+    }
+  }
+  .el-upload-dragger {
+    height: auto;
+    .el-upload__text {
+      line-height: 64px;
+      color: $color-java-blue-10;
+      font-weight: normal;
+    }
+  }
+  .remove-file {
+    cursor: pointer;
+    &:hover {
+      color: #db1802;
+    }
+  }
+}
+
+.ticket-attach-files {
+  .gallery-item::before {
+    content: none !important;
+  }
+  .gallery-item > div {
+    cursor: pointer;
+    &::before {
+      content: '';
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.2);
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+    }
+  }
+  .gallery-item:hover > div {
+    &::before {
+      opacity: 1;
+    }
+  }
+}
+
+.ticket__error {
+  font-size: 12px;
+  border: 1px solid #ed857a;
+  background-color: #fff4f3;
+  margin: 0 auto;
+  border-radius: 4px;
+  &-title {
+    padding: 10px;
+  }
+  &-list {
+    padding: 0 10px 10px;
+  }
+}
+
+.ticket__reply-files {
+  margin: 0 auto;
+}
+
+.claim-messages {
+  width: 100%;
+  position: relative;
+  .main-claim.fixed {
+    position: fixed;
+    z-index: 999;
+    top: 56px;
+    width: 100%;
+  }
+}
+
+.err-span {
+  color: red;
+  font-size: 12px;
+}
+
+.claim-reply {
+  .reply-form {
+    position: relative;
+    display: flex;
+
+    button {
+      white-space: nowrap;
+      margin-left: 0.8rem;
+      height: 4.4rem;
+    }
+  }
+
+  .form-control {
+    padding: 12px 12px 12px 61px;
+    height: 4.4rem;
+    line-height: 2rem;
+
+    &.error {
+      border-color: #db1802;
+    }
+  }
+
+  .invalid-error {
+    font-style: italic;
+    margin-top: 5px;
+    margin-bottom: 0;
+  }
+
+  .p-tooltip {
+    display: inline-block;
+  }
+
+  .form-upload {
+    z-index: 2;
+    position: absolute;
+    top: 1.1rem;
+    left: 1.4rem;
+
+    &::after {
+      content: '';
+      height: 2.4rem;
+      position: absolute;
+      border-right: 1px solid #edeeee;
+      padding-right: 1.5rem;
+    }
+  }
+
+  .file-uploader {
+    .el-upload-dragger {
+      width: auto;
+      height: auto;
+      border: 0;
+    }
+  }
+
+  .rule {
+    margin-top: 1.6rem;
+    font-style: italic;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: #898a8a;
+  }
+}
+
+.claim-attachments {
+  overflow-y: scroll;
+  max-height: 205px;
+
+  .thumb {
+    width: 48px !important;
+    height: 48px !important;
+    margin-right: 8px;
+    display: block;
+    position: relative;
+    background-color: #f6f7f7;
+    border-radius: 4px;
+    overflow: hidden;
+    cursor: pointer;
+    .icon {
+      position: absolute;
+      z-index: 99;
+      display: none;
+      width: 24px;
+      height: 24px;
+    }
+    &:hover::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.75);
+    }
+    &:hover {
+      .icon {
+        display: block;
+      }
+    }
+    img {
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      max-height: 100%;
+      max-width: 100%;
+      transform: translate(-50%, -50%);
+    }
+  }
+  .item {
+    clear: both;
+    margin-bottom: 0;
+    margin-right: 16px;
+    color: #111212;
+    span {
+      font-size: 14px;
+      width: calc(100% - 72px);
+    }
+    time {
+      display: block;
+      font-size: 12px;
+      line-height: 16px;
+      color: #313232;
+    }
+    + .item {
+      border-top: 1px solid #edeeee;
+      margin-top: 12px;
+      padding-top: 12px;
+    }
+  }
+}
+
+.claim-attachments {
+  &::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 4px;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: #fff;
+  }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #edeeee;
+    border-radius: 4px;
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #888;
+  }
+}

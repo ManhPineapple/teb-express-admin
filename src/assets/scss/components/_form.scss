@@ -1,0 +1,274 @@
+$input-height: 40px;
+$input-border-color: #f4f5f6;
+.form-control {
+    height: $input-height;
+    position: relative;
+    left: 0px;
+    top: 0px;
+    background: #ffffff;
+    border: 1px solid #cfd0d0;
+    box-sizing: border-box;
+    border-radius: 8px !important;
+    font-size: 14px;
+    box-shadow: none;
+    transition: box-shadow 0.25s linear, border 0.25s linear, color 0.25s linear, background-color 0.25s linear;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 5px 16px;
+    color: #313232;
+    // Placeholder
+    &::placeholder {
+        font-weight: $font-weight-light;
+    }
+}
+
+.form-label {
+    display: inline-block;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.form-control::-moz-placeholder {
+    color: #999;
+    opacity: 1;
+}
+
+.form-control:-ms-input-placeholder {
+    color: #999;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: #999;
+}
+
+.form-control::-ms-expand {
+    background-color: transparent;
+    border: 0;
+}
+
+.form-control[disabled],
+.form-control[readonly],
+fieldset[disabled] .form-control {
+    background-color: #eee;
+    opacity: 1;
+}
+
+.form-control[disabled],
+fieldset[disabled] .form-control {
+    cursor: not-allowed;
+}
+
+textarea.form-control {
+    height: auto;
+    overflow: hidden;
+}
+
+input[type='search'] {
+    -webkit-appearance: none;
+}
+
+.form-group {
+    margin-bottom: 25px;
+}
+
+.has-feedback {
+    position: relative;
+}
+
+.has-feedback .form-control {
+    padding-right: 34.5px;
+}
+
+.form-control-feedback {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    display: block;
+    width: 34px;
+    height: 42px;
+    line-height: 42px;
+    text-align: center;
+    pointer-events: none;
+}
+
+.c1 {
+    cursor: pointer;
+    >label {
+        cursor: pointer;
+    }
+    input[type='checkbox'],
+    input[type='radio'] {
+        margin: 0 2px 0 0;
+        position: relative;
+        top: 2px;
+    }
+}
+
+/// form icons
+// ================================
+.form-icons {
+    .form-control-icon {
+        position: absolute;
+        top: math.div($input-height, 2);
+        left: 20px;
+        z-index: 4;
+        transform: translateY(-50%);
+    }
+    .form-control-icon-eye {
+        position: absolute;
+        top: math.div($input-height, 2);
+        left: 20px;
+        z-index: 4;
+        transform: translateY(-30%);
+    }
+    .p-input-search {
+        border-radius: 8px !important;
+        line-height: $input-height;
+        padding-left: 40px;
+        &::placeholder {
+            color: $color-neutral-6;
+        }
+        &:focus {
+            background-color: white;
+        }
+    }
+    .round-input-control .form-control {
+        border-radius: 200px;
+    }
+    .form-control-icon-left {
+        &+.form-control {
+            padding-left: 40px;
+        }
+        &.wb-search {
+            color: #b0b3b9;
+        }
+    }
+    .form-control-icon-right {
+        top: 18px;
+        right: 16px;
+        left: auto;
+        z-index: 4;
+    }
+}
+
+///
+.advanced_click {
+    position: relative;
+    width: 50%;
+    button {
+        float: right;
+        background: #f4f5f6;
+        width: 252px;
+        height: 48px;
+        border-radius: 4px;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 24px;
+        letter-spacing: 0.2px;
+        color: #17191d;
+        border: none;
+    }
+}
+
+.more_filter {
+    img {
+        margin-bottom: 5px;
+    }
+    button {
+        margin-left: 8px;
+        float: right;
+        background: #fff;
+        width: 145px;
+        height: 48px;
+        border-radius: 4px;
+        font-family: Montserrat;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 24px;
+        border: 1px solid #d4d7dd;
+        border-radius: 8px;
+        letter-spacing: 0.2px;
+        color: #37393e;
+    }
+}
+
+.shippingmethod {
+    position: relative;
+    width: 60%;
+    .input-group>.form-control {
+        position: relative;
+        flex: none;
+        width: 60%;
+        min-width: 0;
+        margin-bottom: 0;
+        &:focus {
+            border-bottom-left-radius: 4px !important;
+            border-bottom-right-radius: 4px !important;
+        }
+    }
+    .shipping-method {
+        position: absolute;
+        z-index: 4;
+        background-color: white;
+        margin-top: -7px;
+        width: 60%;
+        border: 1px solid #37393e;
+        border-bottom-left-radius: 4px;
+        border-bottom-right-radius: 4px;
+        top: 100%;
+        .ship>li {
+            margin: 10px 0px 10px 8px;
+            font-size: 14px;
+            color: #35495e;
+            cursor: pointer;
+        }
+    }
+    .input-group-append {
+        flex: 1;
+        .dropdown-order {
+            height: 50px;
+            box-sizing: border-box;
+        }
+        .dropdown-order {
+            .multiselect__content-wrapper {
+                border: 1px solid;
+                font-size: 14px;
+            }
+            &.multiselect--active {
+                .multiselect__tags {
+                    border: 1px solid;
+                    background-color: white;
+                }
+            }
+            .multiselect--active {
+                border-top-left-radius: 4px !important;
+                border-top-right-radius: 4px;
+                border-bottom-left-radius: 0px !important;
+                border-bottom-right-radius: 0px !important;
+                border: 1px solid;
+            }
+            .multiselect--active:not(.multiselect--above) .multiselect__current,
+            .multiselect--active:not(.multiselect--above) .multiselect__input,
+            .multiselect--active:not(.multiselect--above) .multiselect__tags {
+                border-bottom-left-radius: 0px !important;
+                border-bottom-right-radius: 0px !important;
+            }
+            .multiselect__select {
+                height: 100%;
+            }
+        }
+        .multiselect__input {
+            vertical-align: middle;
+            margin-bottom: -8px;
+            font-size: 14px;
+        }
+    }
+}

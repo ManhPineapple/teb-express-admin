@@ -1,0 +1,61 @@
+.packages__return, .packages__reship{
+  .package-id{
+    color: $color-java-blue-10;
+  }
+  .card-body{
+    padding: 0 1.25rem;
+  }
+  #tbl-packages{
+    thead{
+      th{
+        color: $color-neutral-10;
+      }
+    }
+  }
+  .reason{
+    color: #FA8C16;
+
+    &.sent{
+      color:#3F51B5;
+        }
+  }
+  .btn-outline-info{
+    background: #DDF2F2;
+    color: #00978C;
+    border: none;
+    &:hover{
+      background: #00978C;
+      color: #DDF2F2;
+    }
+  }
+}
+.modal-return{
+  .rule{
+    font-size: 12px;
+    color: $color-neutral-6;
+    font-style: italic;
+  }
+  .modal-header{
+    border-bottom: 1px solid $color-neutral-5;
+  }
+  .btn-default{
+    border: 1px solid $color-neutral-3;
+  }
+  .modal-footer {
+    padding: 16px;
+    justify-content: flex-end;
+    border-top: 1px solid $color-neutral-5;
+  }
+
+}
+.packages__reship{
+  .table-responsive{
+    overflow-x: unset;
+  }
+  .p-tooltip::after{
+    width: 240%;
+  }
+  .tracking{
+    color: $color-neutral-9;
+  }
+}

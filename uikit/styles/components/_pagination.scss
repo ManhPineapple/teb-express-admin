@@ -1,0 +1,23 @@
+$pagination-ellipsis-color: $grey-light !default;
+
+.p-pagination {
+  margin: 0;
+  .p-pagination-ellipsis {
+    @extend %unselectable;
+    font-size: 1.5rem;
+    position: relative;
+    display: block;
+    padding: .643rem 1.072rem;
+    margin-left: -1px;
+    line-height: 1.57142857;
+    background-color: transparent;
+    color: $pagination-ellipsis-color;
+  }
+  &.pagination-sm {
+    .p-pagination-ellipsis {
+      padding: 0.429rem 0.786rem;
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  }
+}

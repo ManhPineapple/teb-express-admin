@@ -1,0 +1,457 @@
+$modal-z: 1700 !default;
+$modal-background-background-color: rgba($black, 0.86) !default;
+$modal-content-width: 640px !default;
+$modal-content-width-xl: 1140px !default;
+$modal-content-width-md: 760px !default;
+$modal-content-width-lg: 600px !default;
+$modal-content-width-sm: 300px !default;
+$modal-content-margin-mobile: 20px !default;
+$modal-content-spacing-mobile: 160px !default;
+$modal-content-spacing-tablet: 40px !default;
+$modal-close-dimensions: 40px !default;
+$modal-close-right: 20px !default;
+$modal-close-top: 20px !default;
+$modal-card-spacing: 40px !default;
+$modal-card-head-background-color: $white-ter !default;
+$modal-card-head-border-bottom: 1px solid $grey-lighter !default;
+$modal-card-head-padding: 20px !default;
+$modal-card-head-radius: $radius-large !default;
+$modal-card-title-color: $grey-darker !default;
+$modal-card-title-line-height: 1 !default;
+$modal-card-title-size: $size-8 !default;
+$modal-card-foot-radius: $radius-large !default;
+$modal-card-foot-border-top: 1px solid $grey-lighter !default;
+$modal-card-body-background-color: $white !default;
+$modal-card-body-padding: 20px !default;
+.p-modal {
+    @extend %overlay;
+    align-items: center;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+    position: fixed;
+    z-index: $modal-z;
+    // Modifiers
+    &.is-active {
+        display: flex;
+    }
+    &.is-full-screen {
+        >.p-animation-content,
+        >.p-animation-content>.p-modal-card {
+            width: 100%;
+            height: 100%;
+            max-height: 100vh;
+            margin: 0;
+            background-color: #ffffff;
+        }
+    }
+    &.is-full-height {
+        >.p-animation-content,
+        >.p-animation-content>.p-modal-card {
+            width: 370px;
+            height: 100%;
+            max-height: 100vh;
+            margin: 0;
+            background-color: #ffffff;
+            box-shadow: 0px 2px 4px rgba(40, 41, 61, 0.04), 0px 8px 16px rgba(96, 97, 112, 0.16);
+        }
+        .p-modal-content,
+        .modal-content {
+            border-radius: unset;
+            border: none;
+        }
+        .p-modal-background {
+            background-color: unset;
+        }
+        align-items: flex-end;
+    }
+    .p-animation-content {
+        margin: 0 20px;
+        .p-modal-card {
+            margin: 0;
+        }
+        @include mobile {
+            width: 100%;
+        }
+    }
+}
+
+.p-modal-background {
+    @extend %overlay;
+    background-color: $modal-background-background-color;
+}
+
+.p-modal-content,
+.p-modal-card {
+    margin: 0 $modal-content-margin-mobile;
+    max-height: calc(100vh - #{$modal-content-spacing-mobile});
+    overflow: auto;
+    position: relative;
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0px 12px 48px -16px rgba(0, 0, 0, 0.32);
+    // Responsiveness
+    @include tablet {
+        margin: 0 auto;
+        max-height: calc(100vh - #{$modal-content-spacing-tablet});
+        width: $modal-content-width;
+    }
+    @include desktop {
+        &.modal-lg {
+            width: $modal-content-width-lg !important;
+        }
+        &.modal-xl {
+            width: $modal-content-width-xl;
+        }
+        &.modal-sm {
+            width: $modal-content-width-sm !important;
+        }
+        &.modal-md {
+            width: $modal-content-width-md !important;
+        }
+    }
+}
+
+.p-modal-close {
+    @extend %delete;
+    background: none;
+    height: $modal-close-dimensions;
+    position: fixed;
+    right: $modal-close-right;
+    top: $modal-close-top;
+    width: $modal-close-dimensions;
+}
+
+.p-modal-card {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - #{$modal-card-spacing});
+    overflow: hidden;
+    -ms-overflow-y: visible;
+}
+
+.p-modal-card-head,
+.p-modal-card-foot {
+    align-items: center;
+    background-color: $modal-card-head-background-color;
+    display: flex;
+    flex-shrink: 0;
+    justify-content: flex-start;
+    padding: $modal-card-head-padding;
+    position: relative;
+}
+
+//.p-modal-card-head {
+//  border-bottom: $modal-card-head-border-bottom;
+//  border-top-left-radius: $modal-card-head-radius;
+//  border-top-right-radius: $modal-card-head-radius;
+//}
+.p-modal-card-title {
+    color: $modal-card-title-color;
+    flex-grow: 1;
+    flex-shrink: 0;
+    font-size: $modal-card-title-size;
+    line-height: $modal-card-title-line-height;
+}
+
+.p-modal-card-foot {
+    //border-bottom-left-radius: $modal-card-foot-radius;
+    //border-bottom-right-radius: $modal-card-foot-radius;
+    //border-top: $modal-card-foot-border-top;
+    .button {
+        &:not(:last-child) {
+            margin-right: 10px;
+        }
+    }
+}
+
+.p-modal-card-body {
+    @include overflow-touch;
+    background-color: $modal-card-body-background-color;
+    flex-grow: 1;
+    flex-shrink: 1;
+    overflow: auto;
+    padding: $modal-card-body-padding;
+}
+
+// Modal Image slider
+
+/* The Modal (background) */
+
+.img-modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 9909;
+    /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: hidden;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.9);
+    /* Black w/ opacity */
+}
+
+.img-modal.active {
+    display: block;
+}
+
+
+/* Modal Content (Image) */
+
+.img-modal .modal-content {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 auto;
+    text-align: left;
+    background: transparent;
+    padding: 10px 0;
+    width: 100%;
+    height: 100%;
+    .img {
+        width: auto;
+        max-width: 100%;
+        height: auto;
+        max-height: 100%;
+        display: block;
+        box-sizing: border-box;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+}
+
+
+/* Caption of Modal Image (Image Text) - Same Width as the Image */
+
+.img-modal .caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+
+/* Add Animation - Zoom in the Modal */
+
+.img-modal .modal-content,
+.caption {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+
+/* The Close Button */
+
+.img-modal .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 9;
+}
+
+.close {
+    opacity: unset;
+}
+
+.img-modal .close:hover,
+.img-modal .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+/* 100% Image Width on Smaller Screens */
+
+@media only screen and (max-width: 700px) {
+    .img-modal .modal-content {
+        width: 100%;
+    }
+}
+
+//custom
+.p-modal {
+    overflow-y: initial !important
+}
+
+.p-modal-content {
+    overflow-y: hidden;
+}
+
+.modal-content {
+    font-size: 14px;
+    box-shadow: 0px 12px 48px -16px rgba(0, 0, 0, 0.32);
+    border-radius: 12px;
+    .order-uploader {
+        margin-bottom: 15px;
+        width: 100%;
+    }
+    .example {
+        line-height: 160%;
+        display: block;
+        text-align: center;
+        margin-bottom: 8px;
+        a {
+            text-decoration: underline;
+        }
+    }
+    .overwrite {
+        display: block;
+        text-align: left;
+    }
+    .checkbox {
+        display: flex;
+    }
+    a {
+        color: #2A46B2;
+        ;
+    }
+    .center-error {
+        border-radius: 4px;
+        background-color: #FFE9E8;
+        .center-block-error {
+            width: 95%;
+            height: 95%;
+            text-align: left;
+            margin-left: 40px;
+            padding-bottom: 10px;
+            margin-bottom: 18px;
+            svg {
+                position: relative;
+                right: 24px;
+                top: 22px;
+            }
+            li {
+                position: relative;
+                margin: 5px 12px;
+                &:before {
+                    content: "";
+                    width: 4px;
+                    height: 4px;
+                    background-color: #37393E;
+                    position: absolute;
+                    border-radius: 50%;
+                    top: 8px;
+                    left: -13px;
+                }
+            }
+        }
+        .center-block-error1 {
+            width: 95%;
+            height: 95%;
+            text-align: left;
+            margin-left: 40px;
+            padding-bottom: 10px;
+            margin-bottom: 18px;
+            svg {
+                position: relative;
+                right: 24px;
+                top: 12px;
+            }
+            .example1 {
+                margin-top: -8px
+            }
+        }
+    }
+}
+
+.modal-header {
+    padding: 12px 16px;
+    .modal-title {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 150%;
+        letter-spacing: 0.2px;
+        color: #17191D;
+    }
+}
+
+.modal-body {
+    padding: 16px;
+    max-height: 70vh;
+    overflow-y: auto;
+    .order-info {
+        span {
+            font-size: 14px;
+            line-height: 160%;
+            color: #37393E;
+            margin-top: 8px;
+            &.order-title {
+                font-weight: bold;
+                color: #17191D;
+            }
+        }
+        .table-import {
+            overflow-x: scroll;
+            width: auto;
+            .table-orders {
+                border: 1px solid #DEDEDE;
+                border-radius: 4px;
+                thead,
+                th {
+                    padding: 0 16px;
+                    height: 42px;
+                    background: #F0F0F0;
+                    font-weight: 600;
+                    font-size: 14px;
+                    line-height: 160%;
+                    color: #37393E;
+                }
+                tbody {
+                    overflow-y: auto;
+                    td {
+                        padding: 0 16px;
+                        height: 40px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.modal-footer {
+    padding: 16px;
+    justify-content: space-between;
+    .group-button {
+        .p-button {
+            margin-left: 8px;
+        }
+    }
+    .btn {
+        min-width: 75px;
+    }
+}
+
+.modal-confirm {
+    .modal-footer {
+        justify-content: flex-end;
+    }
+}

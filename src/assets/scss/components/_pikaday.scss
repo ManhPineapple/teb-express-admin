@@ -1,0 +1,23 @@
+.pika-prev, .pika-next {
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  line-height: 3rem;
+  text-indent: -999px;
+}
+
+.pika-table abbr {
+  font-size: 1.2rem;
+  text-decoration: none;
+  color: #999;
+}
+
+.pika-button, .pika-table abbr {
+  text-align: center;
+}
+
+.pika-button:hover {
+  background-color: #37cda7;
+  border-radius: 0;
+}

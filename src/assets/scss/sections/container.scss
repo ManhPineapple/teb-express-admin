@@ -1,0 +1,63 @@
+.page__container{
+  .add_container{
+    svg{
+      margin-top: 0;
+    }
+  }
+  &-search{
+    width: 55%;
+
+    &.input-group {
+      margin-right: 8px;
+      border-color: $color-neutral-4;
+    }
+
+  }
+
+  .choose-warehouse{
+    border: 1px solid $color-neutral-2;
+    color: $color-neutral-7;
+
+    &:hover,&.active{
+      color: $color-java-blue-6;
+      border:1px solid $color-java-blue-6;
+    }
+    &:focus{
+      outline: none;
+      box-shadow: none;
+    }
+  }
+  .card-body{
+    padding: 12px 0;
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.12), 0px 0.5px 2px rgba(96, 97, 112, 0.26);
+    border-radius: 4px;
+  }
+  .nav-tabs{
+    padding: 0 16px 4px 16px;
+    .nav-link{
+      padding: .5rem 0;
+      margin-right: 18px;
+      color: $color-neutral-7;
+    }
+    .nav-link.active{
+      &:after{
+        border-bottom: 2px solid $color-java-blue-6;
+      }
+      color: $color-neutral-10;
+    }
+  }
+  thead{
+    th{
+      &:first-child{
+        padding-left: 16px;
+      }
+    }
+  }
+  tbody{
+    td{
+      &:first-child{
+        padding-left: 16px;
+      }
+    }
+  }
+}

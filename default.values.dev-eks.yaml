@@ -1,0 +1,27 @@
+replicaCount: 1
+
+app:
+  namespace: dev-shipment-web-ui
+  name: shipment-admin
+  port: 80
+  env: dev
+  image_pull_policy: Always
+  type: web-ui
+  mem_limit: 0
+  mem_required: 0
+  cpu_limit: 0
+  cpu_required: 0
+  storage_limit: 0
+  storage_required: 0
+  node_selectors:
+    env: dev
+    
+image:
+  name: nexus.lionnix.net/web-ui/shipment-admin
+  tag: latest
+
+# only set for internet exposed api like api-gateway or tracking.
+# for other app, leave it as is
+service:
+  type:
+  nodePort: 0

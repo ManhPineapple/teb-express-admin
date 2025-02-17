@@ -1,0 +1,8 @@
+.p-tabs {
+  &.is-fullwidth {
+    li {
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+  }
+}

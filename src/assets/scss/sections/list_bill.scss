@@ -1,0 +1,83 @@
+.list__bill {
+
+    #search,
+    #search>.multiselect .multiselect__tags {
+        border-top-right-radius: 0 !important;
+        border-bottom-right-radius: 0 !important;
+    }
+    select {
+        padding-left: 10px;
+        padding-right: 10px;
+        border-top-left-radius: 0 !important;
+        border-bottom-left-radius: 0 !important;
+    }
+    .topup-type {
+        ul {
+            border-bottom: none;
+            li {
+                a {
+                    padding: 0 12px;
+                    height: 24px;
+                    font-weight: 500;
+                    color: $color-neutral-9;
+                    &.active {
+                        color: white;
+                        background: $color-neutral-9;
+                        border-radius: 40px;
+                        &:after {
+                            content: none
+                        }
+                    }
+                    &:hover {
+                        &:after {
+                            content: none
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .col-4 {
+        .card-header {
+            border-bottom: 1px solid $color-neutral-2;
+            span {
+                font-weight: 700;
+                color: $color-neutral-10;
+            }
+            svg {
+                margin-left: 10px;
+                cursor: pointer;
+            }
+        }
+        .card-body {
+            min-height: 204px;
+            img {
+                position: absolute;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -30%);
+            }
+            .row {
+                margin-bottom: 8px;
+                &-seperate {
+                    margin-top: 16px;
+                    margin-bottom: 16px;
+                    height: 1px;
+                    background-color: $color-neutral-2;
+                }
+            }
+        }
+    }
+    .btn-danger {
+        min-width: fit-content;
+    }
+    .p-tooltip::after {
+        width: fit-content;
+        white-space: nowrap;
+    }
+    @media screen and (max-width: 1400px) {
+        #tbl-packages {
+            width: 1000px;
+        }
+    }
+}

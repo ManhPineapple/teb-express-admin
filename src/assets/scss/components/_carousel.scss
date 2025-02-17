@@ -1,0 +1,43 @@
+//Home
+.sH_2owl, .clients {
+
+  .owl-nav {
+
+    div {
+      width: 42px;
+      height: 42px;
+      line-height: 42px;
+      text-align: center;
+      background-color: #fff;
+      border-radius: 50%;
+      font-size: 3.6rem;
+      color: #9a9c9e;
+      box-shadow: 0 0 3px rgba(24, 22, 24, 0.2);
+      position: absolute;
+      z-index: 10;
+
+      &:hover {
+        box-shadow: 0 0 3px #37cda7;
+      }
+    }
+
+    .owl-prev {
+      display: none;
+    }
+
+    .owl-next {
+      right: -1.6rem;
+      padding-left: 2px;
+    }
+  }
+
+}
+
+.clients {
+
+  .owl-item {
+    min-height: 63px;
+    line-height: 63px;
+  }
+
+}

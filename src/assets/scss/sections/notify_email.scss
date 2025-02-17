@@ -1,0 +1,114 @@
+.list-notify-emails{
+    font-family: $default-font-bevn-pro;
+    .btn-create-noti{
+        white-space: nowrap;
+        width: 171px;
+        text-align: center;
+    }
+    .count-title{
+        position: absolute;
+        right: 26px;
+        bottom: 8px;
+        color: #CFD0D0;
+        z-index: 9999;
+    }
+    .tilte_noti{
+        input{
+            padding-right: 65px;
+        }
+        &.error{
+            input{
+                border: 1px solid #F5222D;
+            }  
+        }
+    }
+    
+    .ql-editor{
+        min-height: 122px;
+    }
+    .ql-container{
+        border-bottom-right-radius: 8px;
+        border-bottom-left-radius: 8px;
+        &.error{
+            border: 1px solid #F5222D; 
+        }
+    }
+    .ql-toolbar{
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        &.error{
+            border-left-color:#F5222D;
+            border-right-color:#F5222D;
+            border-top-color:#F5222D;
+        }
+    }
+    .ql-editor.ql-blank::before{
+        font-weight: 400;
+        font-style: normal;
+        font-size: 14px;
+        line-height: 20px;
+        color: #AAABAB;
+    }
+    .err-txt{
+        color: #DA1E28;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 16px;
+    }
+    .not_send_status{
+        color: #3F51B5;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        svg{
+            margin-top: -4px;
+            margin-right: 2px;
+        }
+    }
+    .sent_status{
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #48BE78;
+        svg{
+            margin-top: -4px;
+            margin-right: 2px;
+        }
+    }
+    .title_colum{
+        b{
+            display: inline-block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            max-width: calc(100% - 25px);
+        }
+        .p-tooltip::after{
+            max-width: calc(100% + 10px);
+        }
+    }
+    .table-notify-emails{
+        td {
+            button{
+                border-radius: 6px;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 20px;
+                height: 32px;
+                gap: 8px;
+                text-align: center;
+            }
+            .btn-detail{
+                width: 76px;
+                color: #00978C;
+                background: #DDF2F2;
+                border-color: #DDF2F2;
+                transition: all 0.2s;
+            }
+            .btn-send{
+                margin-right: 4px;
+                width: 49px;
+            }
+        }
+    }
+}

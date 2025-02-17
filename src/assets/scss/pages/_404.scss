@@ -1,0 +1,51 @@
+
+//CSS page 404 Page Not Found
+.page-not-found{
+  width: 100%;
+  min-height: 800px;
+  position: relative;
+  font-family: $font-family-sans-serif;
+  .content{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px;
+    height: 500px;
+    text-align: center;
+    .content_logo{
+      margin-bottom: 5%;
+    }
+      h2{
+        font-size: 24px;
+        font-weight: $font-weight-800;
+      }
+      .content_404-text{
+        font-size: 14px;
+      }
+      .content_404-link{
+        .content_404-list{
+          display: flex;
+          justify-content: center;
+            li{
+              padding: 0 16px;
+              position: relative;
+
+              &:before{
+                content: "";
+                width: 4px;
+                height: 4px;
+                background-color: #C4C4C4;
+                position: absolute;
+                border-radius: 50%;
+                top: 8px;
+                left: 8px;
+              }
+                  a{
+                    font-weight: $font-weight-600;
+                  }
+            }
+        }
+      }
+  }
+}

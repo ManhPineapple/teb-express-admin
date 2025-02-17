@@ -1,0 +1,275 @@
+// Variables
+// ========================================================================
+$checkbox-size: 20px !default;
+$checkbox-icon-size: 12px !default;
+$checkbox-label-gap: 10px !default;
+$checkbox-sm-size: 18px !default;
+$checkbox-sm-icon-size: 10px !default;
+$checkbox-sm-label-gap: 8px !default;
+$checkbox-lg-size: 24px !default;
+$checkbox-lg-icon-size: 14px !default;
+$checkbox-lg-label-gap: 12px !default;
+$checkbox-inline-gap: 20px !default;
+$color-white: #fff !default;
+$input-border: 4px !default;
+$input-disabled-bg: #e9ecef !default;
+$brand-primary: #015858 !default;
+$brand-danger: red !default;
+$brand-info: #00bcd4 !default;
+$brand-warning: orange !default;
+$brand-success: #4caf50 !default;
+$line-height-computed: 20px !default;
+$cursor-disabled: not-allowed !default;
+
+// Checkboxes
+
+.checkbox-custom {
+  z-index: 3;
+  padding-left: 0.732vw;
+
+  label {
+    position: relative;
+    display: inline-block;
+    padding-left: $checkbox-label-gap;
+    vertical-align: middle;
+
+    &:empty {
+      padding-left: 0;
+    }
+
+    &::before {
+      position: absolute;
+      left: 0;
+      display: inline-block;
+      width: $checkbox-size;
+      height: $checkbox-size;
+      margin-left: -$checkbox-size;
+      content: '';
+      background-color: $color-white;
+      border: 2px solid #dfe3e8;
+      border-radius: 4px;
+      transition: all 0.3s ease-in-out 0s;
+    }
+
+    &::after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      display: inline-block;
+      width: $checkbox-size;
+      height: $checkbox-size;
+      padding-top: 1px;
+      margin-left: -$checkbox-size;
+      font-size: $checkbox-icon-size;
+      line-height: $checkbox-size;
+      text-align: center;
+    }
+  }
+
+  input[type='checkbox'] {
+    z-index: 1;
+    width: $checkbox-size;
+    height: $checkbox-size;
+    cursor: pointer;
+    opacity: 0;
+
+    &:checked + label::before,
+    &:checked + input[type='hidden'] + label::before {
+      border-color: $input-border;
+      border-width: math.div($checkbox-size, 2);
+      transition: all 300ms ease-in-out 0s;
+    }
+
+    &:checked + label::after,
+    &:checked + input[type='hidden'] + label::after {
+      content: '';
+      background-image: url('~@/assets/img/Vector.png');
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+
+    &:disabled + label,
+    &:disabled + input[type='hidden'] + label {
+      opacity: 0.65;
+
+      &::before {
+        cursor: not-allowed;
+        background-color: $input-disabled-bg;
+        border-color: $input-border;
+        border-width: 1px;
+      }
+    }
+  }
+
+  &.checkbox-circle label::before {
+    border-radius: 50%;
+  }
+
+  &.checkbox-inline {
+    display: inline-block;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.checkbox-inline + .checkbox-inline {
+  margin-left: $checkbox-inline-gap;
+}
+
+// Checkbox Color Modifier
+// ========================================================================
+
+@mixin checkbox-variant($color) {
+  input[type='checkbox']:checked + label,
+  input[type='checkbox']:checked + input[type='hidden'] + label {
+    &::before {
+      background-color: $color;
+      border-color: $color;
+    }
+
+    &::after {
+      color: $color-white;
+    }
+  }
+}
+
+.checkbox-default {
+  input[type='checkbox']:checked + label,
+  input[type='checkbox']:checked + input[type='hidden'] + label {
+    &::before {
+      background-color: $color-white;
+      border-color: $input-border;
+      border-width: 1px;
+    }
+
+    &::after {
+      color: $brand-primary;
+    }
+  }
+}
+
+.checkbox-primary {
+  @include checkbox-variant($brand-primary);
+}
+
+.checkbox-danger {
+  @include checkbox-variant($brand-danger);
+}
+
+.checkbox-info {
+  @include checkbox-variant($brand-info);
+}
+
+.checkbox-warning {
+  @include checkbox-variant($brand-warning);
+}
+
+.checkbox-success {
+  @include checkbox-variant($brand-success);
+}
+
+// Checkbox Size Modifier
+// ========================================================================
+@mixin checkbox-size($size, $icon-size, $label-gap) {
+  padding-left: $size;
+
+  label {
+    padding-left: $label-gap;
+
+    &:empty {
+      padding-left: 0;
+    }
+
+    &::before,
+    &::after {
+      width: $size;
+      height: $size;
+      margin-left: -$size;
+    }
+
+    &::after {
+      font-size: $icon-size;
+      line-height: $size;
+    }
+  }
+
+  input[type='checkbox'] {
+    width: $size;
+    height: $size;
+
+    &:checked + label::before,
+    &:checked + input[type='hidden'] + label::before {
+      border-width: ($size / 2);
+    }
+  }
+}
+
+//.checkbox-sm {
+//  @include checkbox-size($checkbox-sm-size, $checkbox-sm-icon-size, $checkbox-sm-label-gap);
+//}
+//
+//.checkbox-lg {
+//  @include checkbox-size($checkbox-lg-size, $checkbox-lg-icon-size, $checkbox-lg-label-gap);
+//}
+
+// Checkboxes
+// ========================================================================
+.checkbox-custom {
+  position: absolute;
+  display: block;
+  //margin-top: 10px;
+  //margin-bottom: 10px;
+  top: calc(50% - 12px);
+  left: 11px;
+
+  label {
+    min-height: $line-height-computed; // Ensure the input doesn't jump when there is no text
+    margin-bottom: 0;
+    font-weight: $font-weight-normal;
+    cursor: pointer;
+    margin-left: 10px;
+  }
+}
+
+.checkbox-custom input[type='checkbox'] {
+  position: absolute;
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: -20px;
+}
+
+.checkbox-custom {
+  &.disabled,
+  fieldset[disabled] & {
+    label {
+      cursor: $cursor-disabled;
+    }
+  }
+}
+
+.input-group-addon {
+  .radio-custom,
+  .checkbox-custom {
+    margin: 0;
+  }
+}
+.order-select-checkbox {
+  label {
+    &::before {
+      //border: 2px solid #686B70;
+    }
+  }
+}
+
+.checkAll {
+  label::before {
+    background-color: $color-java-blue-10;
+    border-color: $color-java-blue-10;
+    background-image: url('~@/assets/img/minus.png');
+    background-position: center;
+  }
+}

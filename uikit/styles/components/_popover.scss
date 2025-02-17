@@ -1,0 +1,46 @@
+.p-popover {
+  position: absolute;
+  background: $white;
+  min-width: 0;
+  border-radius: 4px;
+  border: 1px solid $grey-lighter;
+  padding: 12px;
+  z-index: 2000;
+  color: $grey-dark;
+  line-height: 1.4;
+  text-align: justify;
+  font-size: 14px;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+
+  &.is-dark {
+    background: $grey-darker;
+    color: $white;
+  }
+
+  &--plain {
+    padding: 18px 20px;
+  }
+
+  &--compact {
+    padding: 4px 8px;
+  }
+
+  &__title {
+    color: $grey-darker;
+    font-size: 16px;
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  &__reference {
+    &:focus:not(.focusing),
+    &:focus:hover {
+      outline-width: 0;
+    }
+  }
+
+  &:focus:active,
+  &:focus {
+    outline-width: 0;
+  }
+}

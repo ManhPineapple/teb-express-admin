@@ -1,0 +1,35 @@
+name: Build Application
+
+on:
+  push:
+    branches:
+      - '"develop"'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: self-hosted
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: develop
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '16'
+
+      # - name: Setup Bun
+      #   uses: oven-sh/setup-bun@v2
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+        
+
+      - name: Switch to www user and run build
+        run: |
+          yarn install && yarn build

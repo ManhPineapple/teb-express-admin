@@ -1,0 +1,35 @@
+.parsley-errors-list {
+	.parsley-required {
+		display: none;
+		width: 100%;
+		margin-top: .286rem;
+		font-size: 0.8rem;
+	}
+
+	.text-danger {
+		color: #ff4c52;
+	}
+
+	.text-success {
+		color: #11c26d;
+	}
+
+	.text-warning {
+		color: #ffc107;
+	}
+
+	.text-primary {
+		color: #589ffc;
+	}
+}
+.form-group.has-error {
+	input[type="text"], input[type="email"] {
+		border-color: #ff4c52;
+	}
+
+	.parsley-errors-list {
+		.parsley-required {
+			display: block;
+		}
+	}
+}

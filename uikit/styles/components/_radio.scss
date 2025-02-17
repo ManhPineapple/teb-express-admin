@@ -1,0 +1,27 @@
+.radio{
+  margin-top: 15px;
+}
+.p-radio {
+  margin-bottom: 10px;
+  input:disabled ~span{
+    color: #B0B3B9;
+  }
+  label {
+    font-size: 14px;
+    line-height: 160%;
+    color: #37393E;
+    display: flex;
+    align-items: center;
+    position: relative;
+    padding-left: 15px;
+    input {
+      position: absolute;
+      bottom: 5px;
+      left: 0;
+    }
+    .select-export {
+      margin-top: 0;
+      margin-left: 20px;
+    }
+  }
+}

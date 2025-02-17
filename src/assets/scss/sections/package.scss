@@ -1,0 +1,99 @@
+.create__package{
+  .card-body{
+    padding: 32px 32px 0 32px !important;
+  }
+  &-footer{
+    display: flex;
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.12), 0px 0.5px 2px rgba(96, 97, 112, 0.26);
+    border-radius: 4px 4px 0 0 ;
+  }
+  &-price{
+    width: 60%;
+    align-items: center;
+    padding-left: 16px;
+  }
+  &-divider{
+    width: 1%;
+    position: relative;
+    &:before{
+      content: '';
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      border-left: 1px dashed $color-neutral-5;
+    }
+  }
+  &-notch{
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background-color: white;
+    left: -12px;
+    top: -11px;
+    border-radius: 50%;
+    background:linear-gradient(#ffffff 0%, #ffffff 50%);
+    box-shadow: 0px 0px 1px rgba(40, 41, 61, 0.12), 0px 0.5px 2px rgba(96, 97, 112, 0.26);
+    &::after{
+      position: absolute;
+      width: 26px;
+      height: 24px;
+      background-color: white;
+      content: "";
+      top: -50%;
+      left: -1px;
+    }
+  }
+  &-total{
+    width: 39%;
+    padding: 16px;
+   .rule{
+     position: relative;
+     padding-bottom: 16px;
+     &-text{
+      color: $color-neutral-7;
+     }
+     &-link{
+       color: $color-java-blue-10;
+       text-decoration: underline;
+     }
+     label:before{
+       top: 3px;
+     }
+     label:after{
+       top: 3px;
+     }
+   }
+    .total-title{
+      color: $color-neutral-10;
+      font-weight: 600;
+      span{
+        font-weight: 700;
+        font-size: 20px;
+      }
+    }
+    a.btn{
+      display: block;
+      margin-top: 22px;
+    }
+  }
+  .price-title{
+      &-item{
+        color: $color-neutral-9;
+      }
+  }
+  .price-price{
+    margin-left: 6px;
+    &-item{
+      color: $color-neutral-10;
+      font-weight: 500;
+    }
+  }
+}
+
+.table-packages {
+  tbody tr td {
+    height: auto!important;
+    padding: 7.5px 5px;
+  }
+}

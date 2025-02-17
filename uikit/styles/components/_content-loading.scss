@@ -1,0 +1,101 @@
+$skeleton-background-color: #dfe3e8;
+
+.skeleton-page {
+  &__title-and-primary {
+    display: flex;
+  }
+  &__title {
+    flex: 1 1 0%;
+  }
+  &__primary {
+    align-self: stretch;
+    > * {
+      min-width: 6.25rem;
+    }
+  }
+  &__actions {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+  }
+  &__action {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 1.75rem;
+    padding-right: 1.5rem;
+    margin-top: -.25rem;
+    margin-bottom: -.25rem;
+    padding-top: 1rem;
+  }
+}
+
+.skeleton-body-text-container {
+  backface-visibility: hidden;
+  will-change: opacity;
+  animation: skeletonShimmerAnimation .8s linear infinite alternate;
+}
+
+.skeleton-body-text {
+  height: 0.5rem;
+  position: relative;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    background-color: $skeleton-background-color;
+    border-radius: 3px;
+  }
+  &:last-child:not(:first-child) {
+    width: 80%;
+  }
+  & + .skeleton-body-text {
+    margin-top: .75rem;
+  }
+}
+
+.skeleton-text-container {
+  & > :not(:first-child) {
+    margin-top: 1rem;
+  }
+}
+.skeleton-display-text {
+  max-width: 7.5rem;
+  backface-visibility: hidden;
+  will-change: opacity;
+  position: relative;
+  animation: skeletonShimmerAnimation .8s linear infinite alternate;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: block;
+    background-color: $skeleton-background-color;
+    border-radius: 3px;
+  }
+  &--size-small {
+    height: 1.75rem;
+  }
+  &--size-large {
+    height: 2rem;
+  }
+}
+
+@keyframes skeletonShimmerAnimation {
+  0% {
+    opacity: 0.45;
+  }
+
+  100% {
+    opacity: 0.9;
+  }
+}

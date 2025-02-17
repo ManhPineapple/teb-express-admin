@@ -1,0 +1,20 @@
+// Typography
+$color-text-bold: #17191D;
+$color-text-normal: #37393E;
+$font-weight-light: 100;
+$font-weight-normal: 400;
+$font-weight-medium: 500;
+$font-weight-bold: 700;
+$font-weight-600: 600;
+$font-weight-800: 800;
+// Variables colors
+@import "colors";
+$color-primary: $color-blue-500;
+$color-success: $color-green-500;
+$color-warning: $color-orange-500;
+$color-danger: $color-red;
+$color-info: $color-turquoise-6;
+$color-secondary: $color-grey-500;
+$color-light: $color-gray-100;
+$color-dark: $color-gray-900;
+$theme-colors: ( "primary": $color-primary, "secondary": $color-secondary, "success": $color-success, "info": $color-info, "warning": $color-warning, "danger": $color-danger, "light": $color-light, "dark": $color-dark) !default;

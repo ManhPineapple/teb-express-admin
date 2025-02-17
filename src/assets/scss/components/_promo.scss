@@ -1,0 +1,43 @@
+.wil-promo {
+  position: relative;
+  z-index: 9;
+  background-color: #eef0f4;
+  padding: 60px 0 40px;
+  overflow: hidden;
+  box-shadow: inset 0px -5px 8px 0 rgba(0,0,0,0.01);
+
+  @include media("<desktop-md") {
+    padding: 95px 0 25px;
+  }
+}
+
+.promo-item {
+  box-shadow: 0 5px 10px 0 rgba(0,0,0,.05);
+  text-align: center;
+
+  &__image {
+    padding-top: 56.25%;
+    background-size: cover;
+    background-position: 50% 50%;
+  }
+
+  &__body {
+    padding: 17px 15px;
+    background-color: #fff;
+  }
+
+  &__text {
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &__title {
+    margin-top: 0;
+    margin-bottom: 3px;
+    font-family: 'Shadows Into Light',cursive;
+    font-size: 30px;
+    color: #9182da;
+  }
+}

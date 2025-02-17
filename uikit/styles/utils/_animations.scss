@@ -1,0 +1,220 @@
+// Some of the animations are from animate.css (https://daneden.github.io/animate.css)
+
+// Fade out
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+.fadeOut {
+  animation-name: fadeOut;
+}
+
+@keyframes fadeOutDown {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+}
+.fadeOutDown {
+  animation-name: fadeOutDown;
+}
+
+@keyframes fadeOutUp {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+}
+.fadeOutUp {
+  animation-name: fadeOutUp;
+}
+
+// Fade In
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+.fadeIn {
+  animation-name: fadeIn;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadeInDown {
+  animation-name: fadeInDown;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.fadeInUp {
+  animation-name: fadeInUp;
+}
+
+// Spin Around
+@keyframes spinAround {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+// Shimmer effect
+@keyframes moving-gradient {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+// Loading detail page
+@keyframes polaris-SkeletonShimmerAnimation {
+  0% {
+    opacity: 0.45;
+  }
+  to {
+    opacity: 0.9;
+  }
+}
+
+/**
+ * Vue Transitions
+ */
+
+// Fade
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity $speed-slow $easing;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+// Zoom In
+.zoom-in-enter-active,
+.zoom-in-leave-active {
+  transition: opacity $speed-slow $easing;
+  .s-animation-content,
+  .s-animation-content {
+    transition: transform $speed-slow $easing;
+  }
+}
+.zoom-in-enter,
+.zoom-in-leave-active {
+  opacity: 0;
+  .s-animation-content,
+  .s-animation-content {
+    transform: scale(0.95);
+  }
+}
+
+// Zoom Out
+.zoom-out-enter-active,
+.zoom-out-leave-active {
+  transition: opacity $speed-slow $easing;
+  .s-animation-content,
+  .s-animation-content {
+    transition: transform $speed-slow $easing;
+  }
+}
+.zoom-out-enter,
+.zoom-out-leave-active {
+  opacity: 0;
+  .s-animation-content,
+  .s-animation-content {
+    transform: scale(1.05);
+  }
+}
+
+// Slide
+.slide-next-enter-active,
+.slide-next-leave-active,
+.slide-prev-enter-active,
+.slide-prev-leave-active {
+  transition: transform $speed-slower cubic-bezier(0.785, 0.135, 0.15, 0.86);
+}
+.slide-prev-leave-to,
+.slide-next-enter {
+  transform: translate3d(-100%, 0, 0);
+  position: absolute;
+  width: 100%;
+}
+.slide-prev-enter,
+.slide-next-leave-to {
+  transform: translate3d(100%, 0, 0);
+  position: absolute;
+  width: 100%;
+}
+
+.s-zoom-in-top-enter-active,
+.s-zoom-in-top-leave-active {
+  opacity: 1;
+  transform: scaleY(1);
+  transition: transform 300ms cubic-bezier(0.23, 1, 0.32, 1),
+    opacity 300ms cubic-bezier(0.23, 1, 0.32, 1);
+  transform-origin: center top;
+}
+.s-zoom-in-top-enter,
+.s-zoom-in-top-leave-active {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+.collapse-transition {
+  transition: 0.3s height ease-in-out, 0.3s padding-top ease-in-out, 0.3s padding-bottom ease-in-out;
+  will-change: height, padding-top, padding-bottom;
+}
+
+//slide-fade
+
+.slide-fade-enter-active {
+  transition: .2s ;
+}
+
+.slide-fade-leave-active {
+  transition: .4s ;
+}
+.slide-fade-leave-to {
+  transform: translateX(50%);
+  opacity: 1;
+  transition: .2s ;
+}
+.slide-fade-enter{
+  transform: translateX(100%);
+  opacity: 1;
+  transition: .2s ;
+}

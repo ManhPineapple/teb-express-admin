@@ -1,0 +1,46 @@
+.p-button {
+  &.btn-loading {
+    position: relative;
+    border: 1px solid rgba(82, 92, 101, 0.1);
+    color: transparent !important;
+    pointer-events: none;
+    &::after {
+      @extend %loader;
+      @include center(1em);
+      position: absolute !important;
+    }
+  }
+}
+.ui-button--link, .btn--link {
+  position: relative;
+  box-sizing: border-box;
+  display: inline-block;
+  height: auto;
+  margin: 0;
+  background: inherit;
+  border: 0;
+  border-radius: inherit;
+  font-family: inherit;
+  font-weight: 400;
+  cursor: pointer;
+  text-transform: none;
+  user-select: none;
+  vertical-align: middle;
+  appearance: none;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  color: #007ace;
+  text-decoration: none;
+  user-select: text;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 2rem;
+  text-transform: initial;
+  letter-spacing: initial;
+  padding: 0;
+  text-align: left;
+  white-space: normal;
+  vertical-align: initial;
+}

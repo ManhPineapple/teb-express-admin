@@ -1,0 +1,195 @@
+.order-thumbnail {
+    width: 48px;
+    height: 48px;
+    position: relative;
+    cursor: pointer;
+  }
+  .order-image {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+  }
+  .order-list-page{
+    .table-responsive{
+      overflow-x: unset;
+    }
+  }
+
+  .order-items-table {
+      margin: 0;
+      thead {
+          tr {
+            th {
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 160%;
+                color: #37393E;
+                padding: 0 12px;
+                border-bottom: 1px solid #DFE3E8;
+            }
+          }
+      }
+      tbody {
+        tr {
+          td {
+            height: 72px !important;
+            font-weight: normal;
+            font-size: 14px;
+            line-height: 160%;
+            color: #37393E;
+            padding: 0 12px;
+          }
+        }
+      }
+  }
+.table-design{
+  td{
+    padding:12px 0px !important;
+  }
+}
+  //26/12/2020
+.order-tracking {
+  height:206px;
+  .order-tracking-table {
+    margin: 0;
+    background: #FFFFFF;
+    height: 144px !important;
+    thead {
+      tr {
+        th {
+          font-weight: 600;
+          font-size: 14px;
+          line-height: 160%;
+          color: #37393E;
+          padding: 0 12px;
+          border-bottom: 1px solid #DFE3E8;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        td {
+          height: 72px !important;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 160%;
+          color: #37393E;
+          padding: 0 12px;
+        }
+      }
+    }
+  }
+}
+.section-claims{
+  padding: 0 !important;
+  .section-claims_header{
+    padding: 16px 24px 16px 24px;
+    border-bottom: 1px solid #E5E7ED;
+    p{
+      margin: 0;
+    }
+    .header_title{
+      color: #17191D;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .header_add{
+      color: #0554F2;
+      cursor: pointer;
+      img{
+        margin: 0 9px 2px 0;
+      }
+    }
+  }
+
+  .section-claims_table{
+    padding: 18px 30px 0 30px ;
+    .table-responsive{
+      table{
+        width: 100%;
+        thead{
+          th{
+            padding-bottom: 10px;
+          }
+        }
+        tr{
+          height: 46px;
+          td{
+            line-height: unset;
+            vertical-align: middle;
+            border-top: 1px solid #F4F6F8;
+            border-bottom: 1px solid #F4F6F8;
+          }
+        }
+      }
+    }
+
+    @media only screen and (max-width: 1366px){
+      table{
+        thead{
+          th{
+            padding-bottom: 10px;
+            width: 224px;
+          }
+        }
+        tr{
+          height: 46px;
+          td{
+            line-height: 46px;
+            border-top: 1px solid #F4F6F8;
+            border-bottom: 1px solid #F4F6F8;
+          }
+        }
+      }
+      table th:nth-of-type(1) {padding: 0 12px 0 0}
+      table th:nth-of-type(2) {padding: 0 12px;min-width: 308px !important;}
+      table th:nth-of-type(3) { padding: 0 12px}
+      table th:nth-of-type(4) { padding: 0 12px}
+      table td:nth-of-type(1) {padding: 0 12px 0 0;max-width: 250px !important;min-width: 250px !important;}
+      table td:nth-of-type(2) {padding: 0 12px;max-width: 308px !important; }
+      table td:nth-of-type(3) { padding: 0 12px}
+      table td:nth-of-type(4) { padding: 0 12px}
+    }
+  }
+
+  .section-claims_pagination{
+    padding: 23px 0;
+    .pagination-box{
+      .select_limit_box{
+        display: none;
+      }
+    }
+  }
+}
+.d-filters{
+  .btn-filter{
+    height: 32px;
+    background: #F9FAFB;
+    border: 1px solid #DFE3E8;
+    box-sizing: border-box;
+    border-radius: 8px;
+    color: #37393E;
+    margin-right: 8px;
+    span{
+      display: inline-block;
+      margin-top: 5px;
+    }
+    .text{
+      font-weight: normal;
+      font-size: 14px;
+    }
+    .value{
+      font-weight: 600;
+      font-size: 14px;
+    }
+    a{
+      margin-left: 8px;
+      color: #37393E;
+      font-size: 13px;
+      margin-right: 4px;
+    }
+  }
+}

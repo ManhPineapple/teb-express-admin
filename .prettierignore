@@ -1,0 +1,5 @@
+/node_modules/**
+/dist/**
+/src/stories**
+/src/uikit/stories**
+/tests/unit/coverage/**

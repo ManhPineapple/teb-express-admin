@@ -1,0 +1,120 @@
+.list__claim {
+    padding: 24px;
+    .card {
+        border: none;
+        padding: 0;
+    }
+    // .table-responsive {
+    //     overflow: revert;
+    // }
+    &-search {
+        .btn {
+            min-width: 150px;
+        }
+    }
+    &-title {
+        th {
+            font-size: 12px;
+            color: $color-neutral-5 !important;
+        }
+    }
+    .page-content{
+        .btn-info{
+            white-space: nowrap;
+        }
+    }
+
+    &-search{
+
+        .group{
+            width: 70%;
+            display: flex;
+
+            select{
+                width: 40%;
+                border-bottom-left-radius: unset !important;
+                border-top-left-radius: unset !important;
+            }
+            .p-input-search{
+                border-bottom-right-radius: unset !important;
+                border-top-right-radius: unset !important;
+                border-right: 1px solid transparent;
+            }
+        }
+        .date-search{
+            .label-date-picker{
+                margin-top: 2px;
+                display: inline-block;
+            }
+        }
+
+
+        .date-search{
+            flex: 1;
+            margin-left: 8px;
+        }
+    }
+}
+
+.modal__add-claim {
+    .form-control {
+        position: relative;
+        top: 0;
+        left: 0;
+    }
+    &-label {
+        margin-bottom: 4px;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 160%;
+        span {
+            color: red;
+        }
+    }
+    &-upload {
+        width: 100%;
+        .el-upload-dragger {
+            height: 64px;
+        }
+        .el-upload__text {
+            line-height: 64px;
+            color: $color-java-blue-10;
+            font-weight: normal;
+        }
+    }
+    .rule {
+        font-size: 12px;
+        color: $color-neutral-7;
+    }
+    .text__aria {
+        &-content {
+            width: 100%;
+            border: 1px solid $color-neutral-4;
+            box-sizing: border-box;
+            border-radius: 8px;
+            min-height: 120px;
+            padding: 5px 0 0 16px;
+            color: $color-neutral-9;
+            &::placeholder {
+                color: $color-neutral-4
+            }
+        }
+    }
+    .ticket__error {
+        font-size: 12px;
+        border: 1px solid #ED857A;
+        background-color: #FFF4F3;
+        width: 95%;
+        margin: 0 auto;
+        border-radius: 4px;
+        &-title {
+            padding: 10px;
+        }
+        &-list {
+            padding: 0 10px 10px;
+        }
+    }
+    .icon-remove {
+        cursor: pointer;
+    }
+}

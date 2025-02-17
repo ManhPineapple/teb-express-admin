@@ -1,0 +1,118 @@
+.reviews {
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #ddd;
+
+  @include e('item') {
+    position: relative;
+    padding: 15px 15px 0;
+    margin-bottom: 30px;
+    border-radius: 3px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px 0;
+    box-shadow: rgba(0, 0, 0, 0.4) 0 1px 3px 0;
+  }
+
+  @include e('user') {
+    width: 100%;
+    line-height: 1.4;
+    margin-bottom: 10px;
+  }
+
+  @include e('avatar') {
+    width: 40px;
+    @include border-radius();
+    display: table-cell;
+
+    a {
+      display: block;
+      width: 40px;
+      height: 40px;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      @include border-radius();
+    }
+  }
+
+  @include e('name') {
+    padding-left: 15px;
+
+    time {
+      font-size: 13px;
+      color: #999;
+    }
+  }
+
+  @include e('point') {
+    width: 140px;
+    text-align: right;
+  }
+
+  @include e('des') {
+    padding-top: 10px;
+    border-top: #f6f6f6 1px solid;
+  }
+
+  @include e('not') {
+    font-size: 13px;
+    color: #999;
+  }
+
+  @include e('feel') {
+    padding: 10px 0;
+
+    li {
+      display: inline-block;
+      margin-right: 15px;
+
+      a {
+        color: #666;
+        display: block;
+        line-height: 1;
+        font-size: 14px;
+      }
+
+      span {
+        display: inline-block;
+        vertical-align: middle;
+        width: 18px;
+        fill: #666;
+      }
+    }
+  }
+
+  @include e('fb') {
+    margin-left: -15px;
+    margin-right: -15px;
+    padding: 10px 15px;
+    background-color: #f9f9f9;
+  }
+
+  @include e('cmtext') {
+    padding-left: 15px;
+  }
+
+  @include e('input') {
+    border: 1px solid #e2e2e2;
+    position: relative;
+    background: #fff;
+    padding: 8px;
+
+    textarea {
+      width: 100%;
+      height: 16px;
+      border: none;
+      outline: 0;
+      margin: 0;
+      max-width: 100%;
+      line-height: 1;
+      display: block;
+      z-index: 2;
+      position: relative;
+      font-size: 13px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+  }
+}
