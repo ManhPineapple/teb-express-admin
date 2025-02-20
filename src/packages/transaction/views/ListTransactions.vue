@@ -133,8 +133,12 @@
                       </div>
                       <span v-else style="white-space: nowrap"
                         >{{ item.type === typePay ? '-' : '+' }}
-                        {{ Math.abs(item.amount) | formatPrice }}</span
-                      >
+                        {{ Math.abs(item.amount) | formatPriceCustomPrefix }}
+                        {{
+                          Math.abs(item.amount_china)
+                            | formatPriceCustomPrefix('¥')
+                        }}
+                      </span>
                     </td>
                     <td>{{ item.admin ? item.admin.full_name : '' }}</td>
                     <td class="btn-action">
