@@ -308,6 +308,17 @@
                             {{ package_detail.package.custom_cn_barcode }}
                           </div>
                         </div>
+                        <div
+                          class="row"
+                          v-if="package_detail.package.service.code === 'CN'"
+                        >
+                          <div class="col-5 mb-8">Link mua hàng:</div>
+                          <div class="col-7">
+                            {{
+                              package_detail.package.cn_product_link || 'N/A'
+                            }}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -465,7 +476,7 @@
                             >{{ item.extra_fee_types.name }} :</div
                           >
                           <div class="col-4 text-right">
-                            <div>{{ item.amount | formatPrice }}</div>
+                            <div>{{ item.amount | formatPriceCN }}</div>
                           </div>
                         </div>
                       </div>
@@ -485,14 +496,14 @@
                           <div class="col-4 text-right">
                             <div>{{
                               $evaluate('package_detail.package?.shipping_fee')
-                                | formatPrice
+                                | formatPriceCN
                             }}</div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-8 mb-8">Phí phát sinh:</div>
                           <div class="col-4 more-extra-fee text-right">
-                            <div>{{ sumExtraFee | formatPrice }}</div>
+                            <div>{{ sumExtraFee | formatPriceCN }}</div>
                           </div>
                         </div>
                         <hr
@@ -507,7 +518,7 @@
                             >Tổng cước:</div
                           >
                           <div class="col-4 text-right">
-                            <div>{{ sumFee | formatPrice }}</div>
+                            <div>{{ sumFee | formatPriceCN }}</div>
                           </div>
                         </div>
                       </div>

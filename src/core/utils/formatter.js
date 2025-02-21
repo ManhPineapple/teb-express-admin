@@ -67,6 +67,14 @@ export const formatPriceCustomPrefix = (value, prefix = '$') => {
   return `${prefix}${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
 }
 
+export const formatPriceCN = (value) => {
+  let val = (Math.abs(value) / 1).toFixed(2)
+  if (value < 0 && val != 0) {
+    return `-¥${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+  }
+  return `¥${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+}
+
 export const round = (value, digits = 0) => {
   digits = parseInt(digits)
   if (digits < 0) return NaN

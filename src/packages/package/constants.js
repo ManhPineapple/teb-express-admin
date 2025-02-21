@@ -81,6 +81,10 @@ export const PACKAGE_STATUS_TAB = [
     text: 'All',
   },
   {
+    value: PACKAGE_STATUS_PURCHASED_TEXT,
+    text: 'Purchased',
+  },
+  {
     value: PACKAGE_STATUS_CREATED_TEXT,
     text: 'Pending',
   },
@@ -226,6 +230,10 @@ export const MAP_NAME_STATUS_STRING_PACKAGE = {
     value: '-',
     class: '',
   },
+  // [PACKAGE_STATUS_PURCHASED_TEXT]: {
+  //   value: 'purchased',
+  //   class: 'badge-primary',
+  // },
   [PACKAGE_STATUS_CREATED_TEXT]: {
     value: 'pending',
     class: 'badge-primary',

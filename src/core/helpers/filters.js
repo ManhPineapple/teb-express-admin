@@ -3,6 +3,7 @@ export { date, datetime, timeAgo } from '@core/utils/datetime'
 export {
   formatPrice as priceFormat,
   formatPrice,
+  formatPriceCN,
   formatNumber as numberFormat,
   formatNumber,
   formatNumberV2,
