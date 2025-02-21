@@ -196,8 +196,8 @@
                             </div>
                             <span v-else style="white-space: nowrap"
                               >{{ item.type === typePay ? '-' : '+' }}
-                              {{ Math.abs(item.amount) | formatPrice }}</span
-                            >
+                              {{ Math.abs(item.amount) | formatPrice }}
+                            </span>
                           </td>
                           <td>{{ item.admin ? item.admin.full_name : '' }}</td>
                           <td class="btn-action" v-if="filter.type == 1">
