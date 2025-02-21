@@ -329,6 +329,9 @@
                         </span>
                       </p-tooltip>
                     </td>
+                    <td v-if="item.service.code == 'CN'">{{
+                      convertPrice(item) | formatPriceCN
+                    }}</td>
                     <td v-else>{{ convertPrice(item) | formatPrice }}</td>
                   </tr>
                 </tbody>

@@ -20,6 +20,7 @@ export const PACKAGE_STATUS_RESHIP = 80
 export const PACKAGE_STATUS_UNDELIVERED = 90
 export const PACKAGE_STATUS_ARCHIVED = 55
 
+export const PACKAGE_STATUS_PURCHASED_TEXT = 'purchased'
 export const PACKAGE_STATUS_CREATED_TEXT = 'pending'
 export const PACKAGE_STATUS_PENDING_PICKUP_TEXT = 'pre-transit'
 export const PACKAGE_STATUS_PROCESSING_TEXT = 'processing'
@@ -77,6 +78,10 @@ export const PACKAGE_STATUS_TAB = [
   {
     value: '',
     text: 'All',
+  },
+  {
+    value: PACKAGE_STATUS_PURCHASED_TEXT,
+    text: 'Purchased',
   },
   {
     value: PACKAGE_STATUS_CREATED_TEXT,
@@ -215,6 +220,10 @@ export const MAP_NAME_STATUS_STRING_PACKAGE = {
     value: '-',
     class: '',
   },
+  // [PACKAGE_STATUS_PURCHASED_TEXT]: {
+  //   value: 'purchased',
+  //   class: 'badge-primary',
+  // },
   [PACKAGE_STATUS_CREATED_TEXT]: {
     value: 'pending',
     class: 'badge-primary',
