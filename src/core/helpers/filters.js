@@ -8,6 +8,7 @@ export {
   formatNumber,
   formatNumberV2,
   formatPrice2,
+  formatPriceCustomPrefix,
   formatTwoDigits as twoDigits,
   formatUnitString,
   formatTobe,

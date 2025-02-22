@@ -57,6 +57,16 @@ export const formatPrice = (value) => {
   return `$${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
 }
 
+export const formatPriceCustomPrefix = (value, prefix = '$') => {
+  if (value == 0) return '' // Nếu giá trị bằng 0, trả về chuỗi rỗng
+
+  let val = (Math.abs(value) / 1).toFixed(2)
+  if (value < 0) {
+    return `-${prefix}${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+  }
+  return `${prefix}${val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')}`
+}
+
 export const formatPriceCN = (value) => {
   let val = (Math.abs(value) / 1).toFixed(2)
   if (value < 0 && val != 0) {
