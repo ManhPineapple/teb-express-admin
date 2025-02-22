@@ -475,8 +475,14 @@
                           <div class="col-8 mb-8"
                             >{{ item.extra_fee_types.name }} :</div
                           >
-                          <div class="col-4 text-right">
+                          <div
+                            v-if="package_detail.package.service.code == 'CN'"
+                            class="col-4 text-right"
+                          >
                             <div>{{ item.amount | formatPriceCN }}</div>
+                          </div>
+                          <div v-else class="col-4 text-right">
+                            <div>{{ item.amount | formatPrice }}</div>
                           </div>
                         </div>
                       </div>
@@ -494,16 +500,28 @@
                         <div class="row">
                           <div class="col-8 mb-8">Phí giao hàng:</div>
                           <div class="col-4 text-right">
-                            <div>{{
+                            <div
+                              v-if="package_detail.package.service.code == 'CN'"
+                              >{{
+                                $evaluate(
+                                  'package_detail.package?.shipping_fee'
+                                ) | formatPriceCN
+                              }}</div
+                            >
+                            <div v-else>{{
                               $evaluate('package_detail.package?.shipping_fee')
-                                | formatPriceCN
+                                | formatPrice
                             }}</div>
                           </div>
                         </div>
                         <div class="row">
                           <div class="col-8 mb-8">Phí phát sinh:</div>
                           <div class="col-4 more-extra-fee text-right">
-                            <div>{{ sumExtraFee | formatPriceCN }}</div>
+                            <div
+                              v-if="package_detail.package.service.code == 'CN'"
+                              >{{ sumExtraFee | formatPriceCN }}</div
+                            >
+                            <div v-else>{{ sumExtraFee | formatPrice }}</div>
                           </div>
                         </div>
                         <hr
@@ -518,7 +536,11 @@
                             >Tổng cước:</div
                           >
                           <div class="col-4 text-right">
-                            <div>{{ sumFee | formatPriceCN }}</div>
+                            <div
+                              v-if="package_detail.package.service.code == 'CN'"
+                              >{{ sumFee | formatPriceCN }}</div
+                            >
+                            <div v-else>{{ sumFee | formatPrice }}</div>
                           </div>
                         </div>
                       </div>
