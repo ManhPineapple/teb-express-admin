@@ -392,7 +392,7 @@
                       ></multiselect>
                     </div>
                   </div>
-                  <div class="card__w-item">
+                  <!-- <div class="card__w-item">
                     <label class="card__w-label">
                       Loại đơn hàng: <span>*</span>
                     </label>
@@ -406,74 +406,86 @@
                         <option value="Purchased">Hàng đã mua</option>
                       </select>
                     </div>
-                  </div>
+                  </div> -->
 
-                  <div class="card__w-item">
-                    <label class="card__w-label"> Link sản phẩm: </label>
-                    <div class="card__w-input">
-                      <p-input
-                        placeholder="Nhập mã barcode "
-                        type="text"
-                        v-model="form.cn_product_link"
-                        :input="form.width"
-                        name="width"
-                        :disabled="this.package_detail.package.tracking != null"
-                      />
+                  <div v-if="this.package_detail.package.service.code === 'CN'">
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Link sản phẩm: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập link"
+                          type="text"
+                          v-model="form.cn_product_link"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="card__w-item">
-                    <label class="card__w-label"> Giá sản phẩm: </label>
-                    <div class="card__w-input">
-                      <p-input
-                        placeholder="Nhập mã barcode "
-                        type="text"
-                        v-model="form.cn_product_price"
-                        :input="form.width"
-                        name="width"
-                        :disabled="this.package_detail.package.tracking != null"
-                      />
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Giá sản phẩm: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập giá sản phẩm"
+                          type="text"
+                          v-model="form.cn_product_price"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
                     </div>
-                  </div>
 
-                  <div class="card__w-item">
-                    <label class="card__w-label"> Giá ship: </label>
-                    <div class="card__w-input">
-                      <p-input
-                        placeholder="Nhập mã barcode "
-                        type="text"
-                        v-model="form.cn_shipping_fee"
-                        :input="form.width"
-                        name="width"
-                        :disabled="this.package_detail.package.tracking != null"
-                      />
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Giá ship: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập giá ship"
+                          type="text"
+                          v-model="form.cn_shipping_fee"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="card__w-item">
-                    <label class="card__w-label"> Ảnh biên nhận: </label>
-                    <div class="card__w-input">
-                      <p-input
-                        placeholder="Nhập mã barcode "
-                        type="text"
-                        v-model="form.custom_cn_barcode"
-                        :input="form.width"
-                        name="width"
-                        :disabled="this.package_detail.package.tracking != null"
-                      />
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Ảnh biên nhận: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập ảnh biên nhận"
+                          type="text"
+                          v-model="form.custom_cn_barcode"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div class="card__w-item">
-                    <label class="card__w-label">
-                      Label CN: <span>*</span>
-                    </label>
-                    <div class="card__w-input">
-                      <p-input
-                        placeholder="Nhập mã barcode "
-                        type="text"
-                        v-model="form.custom_cn_barcode"
-                        :input="form.width"
-                        name="width"
-                        :disabled="this.package_detail.package.tracking != null"
-                      />
+                    <div class="card__w-item">
+                      <label class="card__w-label">
+                        Label CN: <span>*</span>
+                      </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập mã barcode"
+                          type="text"
+                          v-model="form.custom_cn_barcode"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
