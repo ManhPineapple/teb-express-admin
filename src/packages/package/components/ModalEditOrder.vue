@@ -441,7 +441,39 @@
                     </div>
 
                     <div class="card__w-item">
-                      <label class="card__w-label"> Giá ship: </label>
+                      <label class="card__w-label"> Giá ship CN-VN: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập giá ship"
+                          type="text"
+                          v-model="form.cn_shipping_to_vn_fee"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Phí dán label CN: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập giá ship"
+                          type="text"
+                          v-model="form.cn_label_extra_fee"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="card__w-item">
+                      <label class="card__w-label">
+                        Giá ship nội địa CN:
+                      </label>
                       <div class="card__w-input">
                         <p-input
                           placeholder="Nhập giá ship"
@@ -471,9 +503,7 @@
                       </div>
                     </div>
                     <div class="card__w-item">
-                      <label class="card__w-label">
-                        Label CN: <span>*</span>
-                      </label>
+                      <label class="card__w-label"> Label CN: </label>
                       <div class="card__w-input">
                         <p-input
                           placeholder="Nhập mã barcode"
@@ -652,6 +682,8 @@ export default {
         cn_shipping_fee: '',
         custom_cn_barcode: '',
         cn_package_status: 1,
+        cn_label_extra_fee: '',
+        cn_shipping_to_vn_fee: '',
       },
       loading: false,
       isDisable: true,
@@ -1078,6 +1110,8 @@ export default {
         cn_product_price: +this.form.cn_product_price,
         cn_product_link: this.form.cn_product_link,
         cn_shipping_fee: +this.form.cn_shipping_fee,
+        cn_shipping_to_vn_fee: +this.form.cn_shipping_to_vn_fee,
+        cn_label_extra_fee: +this.form.cn_label_extra_fee,
         status: this.form.cn_package_status,
       }
       this.isUpdate = false
