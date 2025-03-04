@@ -107,6 +107,22 @@
             >
               Thêm hành trình
             </p-button>
+            <p-button
+              type="info"
+              v-if="showBtnCnPurchased"
+              id="btn_CN_purchased"
+              disabled="true"
+            >
+              Hàng đã mua
+            </p-button>
+            <p-button
+              type="info"
+              @click="handlePurchased"
+              v-if="showBtnCnPrePurchased"
+              id="btn_CN_prepurchased"
+            >
+              Hàng nhờ mua
+            </p-button>
           </div>
         </div>
       </div>
@@ -308,6 +324,17 @@
                             {{ package_detail.package.custom_cn_barcode }}
                           </div>
                         </div>
+                        <div
+                          class="row"
+                          v-if="package_detail.package.service.code === 'CN'"
+                        >
+                          <div class="col-5 mb-8">Link mua hàng:</div>
+                          <div class="col-7">
+                            {{
+                              package_detail.package.cn_product_link || 'N/A'
+                            }}
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -464,7 +491,13 @@
                           <div class="col-8 mb-8"
                             >{{ item.extra_fee_types.name }} :</div
                           >
-                          <div class="col-4 text-right">
+                          <div
+                            v-if="package_detail.package.service.code == 'CN'"
+                            class="col-4 text-right"
+                          >
+                            <div>{{ item.amount | formatPriceCN }}</div>
+                          </div>
+                          <div v-else class="col-4 text-right">
                             <div>{{ item.amount | formatPrice }}</div>
                           </div>
                         </div>
@@ -483,7 +516,15 @@
                         <div class="row">
                           <div class="col-8 mb-8">Phí giao hàng:</div>
                           <div class="col-4 text-right">
-                            <div>{{
+                            <div
+                              v-if="package_detail.package.service.code == 'CN'"
+                              >{{
+                                $evaluate(
+                                  'package_detail.package?.shipping_fee'
+                                ) | formatPriceCN
+                              }}</div
+                            >
+                            <div v-else>{{
                               $evaluate('package_detail.package?.shipping_fee')
                                 | formatPrice
                             }}</div>
@@ -492,7 +533,11 @@
                         <div class="row">
                           <div class="col-8 mb-8">Phí phát sinh:</div>
                           <div class="col-4 more-extra-fee text-right">
-                            <div>{{ sumExtraFee | formatPrice }}</div>
+                            <div
+                              v-if="package_detail.package.service.code == 'CN'"
+                              >{{ sumExtraFee | formatPriceCN }}</div
+                            >
+                            <div v-else>{{ sumExtraFee | formatPrice }}</div>
                           </div>
                         </div>
                         <hr
@@ -507,7 +552,11 @@
                             >Tổng cước:</div
                           >
                           <div class="col-4 text-right">
-                            <div>{{ sumFee | formatPrice }}</div>
+                            <div
+                              v-if="package_detail.package.service.code == 'CN'"
+                              >{{ sumFee | formatPriceCN }}</div
+                            >
+                            <div v-else>{{ sumFee | formatPrice }}</div>
                           </div>
                         </div>
                       </div>
@@ -959,6 +1008,18 @@ export default {
         (this.$isAdmin() || this.$isBusinessManager())
       )
     },
+    showBtnCnPurchased() {
+      return (
+        this.package_detail.package.status === 3 &&
+        this.package_detail.package.service.code === 'CN'
+      )
+    },
+    showBtnCnPrePurchased() {
+      return (
+        this.package_detail.package.status === 1 &&
+        this.package_detail.package.service.code === 'CN'
+      )
+    },
     showButtonEdit() {
       const { status } = (this.package_detail || {}).package || {}
       if (!status) return false
@@ -1198,6 +1259,18 @@ export default {
     init2() {
       location.reload()
     },
+    async init3() {
+      try {
+        let res = await api.fetchPackage(this.package_detail.package.id)
+        console.log('Dữ liệu từ API khi load lại:', res)
+
+        if (res && res.package) {
+          this.package_detail = res
+        }
+      } catch (error) {
+        console.error('Lỗi khi load dữ liệu:', error)
+      }
+    },
     async downloadReturnFile(file) {
       const res = await api.fetchFile({
         url: file,
@@ -1272,6 +1345,100 @@ export default {
     },
     showModalCreateTracking() {
       this.isVisisbleModalCreateTracking = true
+    },
+    async handlePurchased() {
+      if (this.isSubmitting) return
+
+      this.isSubmitting = true
+
+      // Kiểm tra package_detail có tồn tại không
+      if (!this.package_detail || !this.package_detail.package) {
+        console.error('❌ Lỗi: package_detail hoặc package không tồn tại!')
+        this.isSubmitting = false
+        return
+      }
+
+      const oldStatus = this.package_detail.package.status
+      console.log('🔍 Trạng thái ban đầu:', oldStatus)
+
+      // Thay đổi trạng thái trên frontend
+      this.package_detail.package.status = 3
+      console.log(
+        '🟡 Cập nhật status ở frontend:',
+        this.package_detail.package.status
+      )
+
+      try {
+        // Chuẩn bị dữ liệu gửi lên API
+        const updateData = {
+          id: this.package_detail.package.id,
+          status: 3,
+          recipient: this.package_detail.package.recipient,
+          weight: +this.package_detail.package.weight,
+          width: +this.package_detail.package.width,
+          length: +this.package_detail.package.length,
+          height: +this.package_detail.package.height,
+          service: this.package_detail.package.service.name,
+          address_1: this.package_detail.package.address_1,
+          country_code: this.package_detail.package.country_code,
+          city: this.package_detail.package.city,
+          state_code: this.package_detail.package.state_code,
+          zipcode: this.package_detail.package.zipcode,
+          detail: this.package_detail.package.detail,
+          sku: this.package_detail.package.order_number,
+        }
+
+        console.log('📤 Gửi dữ liệu updatePackage:', updateData)
+
+        // Gọi API để cập nhật package
+        let result = await this[UPDATE_PACKAGE](updateData)
+
+        console.log('📥 Kết quả API updatePackage:', result)
+
+        if (result.error) {
+          console.error('❌ API báo lỗi:', result.message)
+          this.$toast.error(result.message, { duration: 3000 })
+
+          // Khôi phục lại trạng thái ban đầu nếu API thất bại
+          this.package_detail.package.status = oldStatus
+          console.log(
+            '🔄 Khôi phục trạng thái cũ:',
+            this.package_detail.package.status
+          )
+
+          this.isSubmitting = false
+          return
+        }
+
+        // Cập nhật thành công
+        this.isVisibleModalCreateTracking = true
+        this.$toast.success('✅ Cập nhật trạng thái thành công!', {
+          duration: 3000,
+        })
+
+        // Kiểm tra dữ liệu sau khi cập nhật
+        console.log(
+          '✅ Trạng thái sau khi cập nhật thành công:',
+          this.package_detail.package.status
+        )
+
+        // Load lại dữ liệu từ server
+        await this.init3()
+      } catch (error) {
+        console.error('❌ Lỗi khi cập nhật trạng thái:', error)
+        this.$toast.error('⚠ Có lỗi xảy ra, vui lòng thử lại!', {
+          duration: 3000,
+        })
+
+        // Khôi phục lại trạng thái ban đầu nếu gặp lỗi
+        this.package_detail.package.status = oldStatus
+        console.log(
+          '🔄 Khôi phục trạng thái cũ do lỗi:',
+          this.package_detail.package.status
+        )
+      } finally {
+        this.isSubmitting = false
+      }
     },
     async cancelPackageAction() {
       if (

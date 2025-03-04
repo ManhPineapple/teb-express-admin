@@ -381,7 +381,7 @@
                     </label>
                     <div class="card__w-input">
                       <multiselect
-                        :disabled="isReLabel"
+                        :disabled="true"
                         class="multiselect-custom dropdown-reason"
                         v-model="service"
                         :options="services"
@@ -392,22 +392,130 @@
                       ></multiselect>
                     </div>
                   </div>
-                  <div
-                    class="card__w-item"
-                    v-if="this.form.service.name == 'Express (CN exclusive)'"
-                  >
+                  <!-- <div class="card__w-item">
                     <label class="card__w-label">
-                      Label CN: <span>*</span>
+                      Loại đơn hàng: <span>*</span>
                     </label>
                     <div class="card__w-input">
-                      <p-input
-                        placeholder="Nhập mã barcode "
-                        type="text"
-                        v-model="form.custom_cn_barcode"
-                        :input="form.width"
-                        name="width"
-                        :disabled="this.package_detail.package.tracking != null"
-                      />
+                      <select
+                        v-model="cnPackageType"
+                        class="multiselect-custom dropdown-reason"
+                        @change="handleCnPackageTypeChange"
+                      >
+                        <option value="Pre-purchased">Hàng nhờ mua</option>
+                        <option value="Purchased">Hàng đã mua</option>
+                      </select>
+                    </div>
+                  </div> -->
+
+                  <div v-if="this.package_detail.package.service.code === 'CN'">
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Link sản phẩm: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập link"
+                          type="text"
+                          v-model="form.cn_product_link"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Giá sản phẩm: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập giá sản phẩm"
+                          type="text"
+                          v-model="form.cn_product_price"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
+                    </div>
+
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Giá ship CN-VN: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập giá ship"
+                          type="text"
+                          v-model="form.cn_shipping_to_vn_fee"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Phí dán label CN: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập giá ship"
+                          type="text"
+                          v-model="form.cn_label_extra_fee"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="card__w-item">
+                      <label class="card__w-label">
+                        Giá ship nội địa CN:
+                      </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập giá ship"
+                          type="text"
+                          v-model="form.cn_shipping_fee"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Ảnh biên nhận: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập ảnh biên nhận"
+                          type="text"
+                          v-model="form.custom_cn_barcode"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
+                    </div>
+                    <div class="card__w-item">
+                      <label class="card__w-label"> Label CN: </label>
+                      <div class="card__w-input">
+                        <p-input
+                          placeholder="Nhập mã barcode"
+                          type="text"
+                          v-model="form.custom_cn_barcode"
+                          :input="form.width"
+                          name="width"
+                          :disabled="
+                            this.package_detail.package.tracking != null
+                          "
+                        />
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -504,6 +612,11 @@ export default {
       package_detail: (state) => state.package_detail,
       products: (state) => state.products,
     }),
+    // cnPackageType() {
+    //   return this.package_detail && this.package_detail.package.status === 3
+    //   ? "Purchased"
+    //   : "Pre-purchased";
+    // },
     ...mapGetters('package', {
       services: GET_SERVICE,
     }),
@@ -564,6 +677,13 @@ export default {
         package_name: '',
         package_quantity: 0,
         product_price: 0,
+        cn_product_link: '',
+        cn_product_price: '',
+        cn_shipping_fee: '',
+        custom_cn_barcode: '',
+        cn_package_status: 1,
+        cn_label_extra_fee: '',
+        cn_shipping_to_vn_fee: '',
       },
       loading: false,
       isDisable: true,
@@ -575,6 +695,24 @@ export default {
       product_sku: [],
       product_option: [],
       feeReship: 0,
+      cnPackageType: '',
+      cnPackageOptions: [
+        { value: 'Pre-purchased', label: 'Hàng nhờ mua' },
+        { value: 'Purchased', label: 'Hàng đã mua' },
+      ],
+    }
+  },
+  mounted() {
+    if (
+      this.package_detail &&
+      this.package_detail.package &&
+      this.package_detail.package.status === 3
+    ) {
+      this.cnPackageType = 'Purchased'
+      this.form.cn_package_status = 3
+    } else {
+      this.cnPackageType = 'Pre-purchased'
+      this.form.cn_package_status = 1
     }
   },
   created() {
@@ -719,6 +857,10 @@ export default {
       if (this.form.weight < pkg.actual_weight) {
         this.form.weight = pkg.actual_weight
       }
+      this.form.cn_product_link = pkg.cn_product_link
+      this.form.cn_product_price = pkg.cn_product_price
+      this.form.cn_shipping_fee = pkg.cn_shipping_fee
+      this.form.custom_cn_barcode = pkg.custom_cn_barcode
 
       if (
         this.form.width * this.form.length * this.form.height <
@@ -776,6 +918,14 @@ export default {
         quantity: '',
         name: 'Tên sản phẩm',
       })
+    },
+
+    handleCnPackageTypeChange() {
+      if (this.cnPackageType === 'Purchased') {
+        this.form.cn_package_status = 3
+      } else {
+        this.form.cn_package_status = 1
+      }
     },
 
     handleSelectProd(value, index) {
@@ -957,6 +1107,12 @@ export default {
         package_quantity: Number(this.form.package_quantity) || 0,
         product_price: parseFloat(this.form.product_price) || 0,
         custom_cn_barcode: this.form.custom_cn_barcode,
+        cn_product_price: +this.form.cn_product_price,
+        cn_product_link: this.form.cn_product_link,
+        cn_shipping_fee: +this.form.cn_shipping_fee,
+        cn_shipping_to_vn_fee: +this.form.cn_shipping_to_vn_fee,
+        cn_label_extra_fee: +this.form.cn_label_extra_fee,
+        status: this.form.cn_package_status,
       }
       this.isUpdate = false
       this.$emit('submit', params)

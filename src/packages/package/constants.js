@@ -3,6 +3,7 @@ export const PACKAGE_STATUS_DEACTIVATE = 0
 export const PACKAGE_CODE_TEMP = 2
 export const PACKAGE_STATUS_CREATED = 1
 export const PACKAGE_STATUS_PENDING_PICKUP = 2
+export const PACKAGE_STATUS_PURCHASED = 3
 export const PACKAGE_STATUS_RE_PENDING_PICKUP = 3
 export const PACKAGE_STATUS_PICKED = 10
 export const PACKAGE_STATUS_WAREHOUSE_LABELED = 11
@@ -21,6 +22,7 @@ export const PACKAGE_STATUS_UNDELIVERED = 90
 export const PACKAGE_STATUS_ARCHIVED = 55
 
 export const PACKAGE_STATUS_CREATED_TEXT = 'pending'
+export const PACKAGE_STATUS_PURCHASED_TEXT = 'purchased'
 export const PACKAGE_STATUS_PENDING_PICKUP_TEXT = 'pre-transit'
 export const PACKAGE_STATUS_PROCESSING_TEXT = 'processing'
 export const PACKAGE_STATUS_IN_TRANSIT_TEXT = 'in-transit'
@@ -79,8 +81,16 @@ export const PACKAGE_STATUS_TAB = [
     text: 'All',
   },
   {
+    value: PACKAGE_STATUS_PURCHASED_TEXT,
+    text: 'Purchased',
+  },
+  {
     value: PACKAGE_STATUS_CREATED_TEXT,
     text: 'Pending',
+  },
+  {
+    value: PACKAGE_STATUS_PURCHASED_TEXT,
+    text: 'Purchased',
   },
   {
     value: PACKAGE_STATUS_PENDING_PICKUP_TEXT,
@@ -127,6 +137,7 @@ export const PACKAGE_STATUS_TAB = [
 export const MAP_PACKAGE_STATUS_TEXT = {
   [PACKAGE_STATUS_CREATED]: PACKAGE_STATUS_CREATED_TEXT,
   [PACKAGE_STATUS_PENDING_PICKUP]: PACKAGE_STATUS_PENDING_PICKUP_TEXT,
+  [PACKAGE_STATUS_PURCHASED]: PACKAGE_STATUS_PURCHASED_TEXT,
   [PACKAGE_STATUS_PICKED]: PACKAGE_STATUS_PROCESSING_TEXT,
   [PACKAGE_STATUS_WAREHOUSE_LABELED]: PACKAGE_STATUS_PROCESSING_TEXT,
   [PACKAGE_STATUS_WAREHOUSE_IN_CONTAINER]: PACKAGE_STATUS_PROCESSING_TEXT,
@@ -146,6 +157,10 @@ export const MAP_PACKAGE_STATUS_TEXT = {
 export const MAP_PACKAGE_STATUS_CLASSNAMES = {
   [PACKAGE_STATUS_CREATED]: {
     text: PACKAGE_STATUS_CREATED_TEXT,
+    className: 'await',
+  },
+  [PACKAGE_STATUS_PURCHASED]: {
+    text: PACKAGE_STATUS_PURCHASED_TEXT,
     className: 'await',
   },
   [PACKAGE_STATUS_PENDING_PICKUP]: {
@@ -215,8 +230,16 @@ export const MAP_NAME_STATUS_STRING_PACKAGE = {
     value: '-',
     class: '',
   },
+  // [PACKAGE_STATUS_PURCHASED_TEXT]: {
+  //   value: 'purchased',
+  //   class: 'badge-primary',
+  // },
   [PACKAGE_STATUS_CREATED_TEXT]: {
     value: 'pending',
+    class: 'badge-primary',
+  },
+  [PACKAGE_STATUS_PURCHASED_TEXT]: {
+    value: 'purchased',
     class: 'badge-primary',
   },
   [PACKAGE_STATUS_PENDING_PICKUP_TEXT]: {
@@ -329,6 +352,7 @@ export const CHANGE_PACKAGE_TYPE = {
 export const DELIVER_LOG_PACKAGE = {
   [PACKAGE_STATUS_IN_TRANSIT]: 'Arriving at international airport to go abroad',
   [PACKAGE_STATUS_CREATED]: ' Shipping label created, LionBay awaiting item',
+  [PACKAGE_STATUS_PURCHASED]: ' Shipping label created, LionBay awaiting item',
   [PACKAGE_STATUS_PENDING_PICKUP]:
     'Shipping label created, LionBay awaiting item',
   [PACKAGE_STATUS_RE_PENDING_PICKUP]:
@@ -399,6 +423,10 @@ export const MAP_NAME_STATUS_WAREHOUSE = {
 export const MAP_SHIPMENT_STATUS = {
   [PACKAGE_STATUS_CREATED]: {
     text: PACKAGE_STATUS_CREATED_TEXT,
+    className: 'await',
+  },
+  [PACKAGE_STATUS_PURCHASED]: {
+    text: PACKAGE_STATUS_PURCHASED_TEXT,
     className: 'await',
   },
   [PACKAGE_STATUS_PENDING_PICKUP]: {
