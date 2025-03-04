@@ -13,7 +13,7 @@ export default {
   },
 
   fetchPackageByCode(payload) {
-    return http.get(`/packages/${payload}/code`)
+    return http.get(`/packages/code/${payload}`)
   },
   /**
    * fetch list service

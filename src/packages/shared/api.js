@@ -34,7 +34,7 @@ export default {
    * @return {*}
    */
   fetchWareHouses(payload) {
-    return http.get(`/warehouses/warehouses?${buildQueryString(payload)}`)
+    return http.get(`/warehouses?${buildQueryString(payload)}`)
   },
 
   fetchNotifications(payload) {
