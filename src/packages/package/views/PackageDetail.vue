@@ -1371,6 +1371,7 @@ export default {
       try {
         // Chuẩn bị dữ liệu gửi lên API
         const updateData = {
+          ...this.package_detail.package,
           id: this.package_detail.package.id,
           status: 3,
           recipient: this.package_detail.package.recipient,
