@@ -203,8 +203,8 @@ export default {
       }
 
       const payload = {
-        user_id: this.user_id,
-        package_code: this.package_code.trim(),
+        user_id: [this.user_id],
+        package_code: [this.package_code.trim()],
         extra_fee_type_id: this.extra_fee_type_id,
         amount: parseFloat(this.amount.replace(/\s+/g, '').replaceAll(',', '')),
         description: this.description,

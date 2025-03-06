@@ -1518,8 +1518,8 @@ export default {
       const payload = {
         ...param,
         ...{
-          package_code: this.package_detail.package.package_code.code,
-          user_id: this.package_detail.package.user_id,
+          package_code: [this.package_detail.package.package_code.code],
+          user_id: [this.package_detail.package.user_id],
         },
       }
       this.isSubmitting = true
