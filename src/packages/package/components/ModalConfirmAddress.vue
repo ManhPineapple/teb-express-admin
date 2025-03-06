@@ -8,9 +8,9 @@
     <div class="text-center confirm-container">
       <div class="address-box">
         <strong>Order:</strong>
-        <span class="address">{{ pkg.order_number }}</span>
+        <span class="address">{{ pkg ? pkg.order_number : '' }}</span>
         <strong>Address:</strong>
-        <span class="address">{{ pkg.address_1 }}</span>
+        <span class="address">{{ pkg ? pkg.address_1 : '' }}</span>
       </div>
       <p>Are you sure this is a valid address? Please kindly confirm!</p>
     </div>
@@ -33,7 +33,7 @@ export default {
     },
     pkg: {
       type: Object,
-      required: true,
+      required: false,
     },
   },
   methods: {

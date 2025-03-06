@@ -1371,6 +1371,7 @@ export default {
       try {
         // Chuẩn bị dữ liệu gửi lên API
         const updateData = {
+          ...this.package_detail.package,
           id: this.package_detail.package.id,
           status: 3,
           recipient: this.package_detail.package.recipient,
@@ -1517,8 +1518,8 @@ export default {
       const payload = {
         ...param,
         ...{
-          package_code: this.package_detail.package.package_code.code,
-          user_id: this.package_detail.package.user_id,
+          package_code: [this.package_detail.package.package_code.code],
+          user_id: [this.package_detail.package.user_id],
         },
       }
       this.isSubmitting = true

@@ -109,6 +109,11 @@
                         @click="handleExport"
                         >Xuất Excel</p-button
                       >
+                      <p-button
+                        class="bulk-actions__selection-status"
+                        @click="isVisibleModalExtraFee = true"
+                        >Tạo phí phát sinh</p-button
+                      >
                     </div>
                   </div>
                   <tr>
@@ -371,20 +376,29 @@
       :pkg="comfirmAddressPkg"
       @confirm="handleConfirmAddress"
     />
+    <modal-create-extra-fee
+      :visible.sync="isVisibleModalExtraFee"
+      :loading="isSubmitting"
+      @save="handleSubmitExtraFee"
+    ></modal-create-extra-fee>
+    <OverLoading :is-loading="isSubmitting" />
   </div>
 </template>
 <script>
 import ModalImport from '@/components/shared/modal/ModalImport'
 import mixinDownload from '@/packages/shared/mixins/download'
 import EmptySearchResult from '@components/shared/EmptySearchResult'
+import OverLoading from '@components/shared/OverLoading'
 import mixinRoute from '@core/mixins/route'
 import mixinTable from '@core/mixins/table'
 import { date } from '@core/utils/datetime'
 import { truncate } from '@core/utils/string'
 import jsPDF from 'jspdf'
 import { mapActions, mapState } from 'vuex'
+import { CREATE_EXTRA_FEE } from '../../bill/store/index'
 import { FETCH_WAREHOUSE } from '../../shared/store'
 import ModalConfirmAddress from '../components/ModalConfirmAddress.vue'
+import ModalCreateExtraFee from '../components/ModalCreateExtraFee'
 import ModalExport from '../components/ModalExport'
 import ModalExportPackage from '../components/ModalExportPackage'
 import PackageStatusTab from '../components/PackageStatusTab'
@@ -425,6 +439,8 @@ export default {
     ModalImport,
     ModalExportPackage,
     ModalConfirmAddress,
+    ModalCreateExtraFee,
+    OverLoading,
   },
   props: {
     user_id: {
@@ -478,6 +494,8 @@ export default {
       visibleConfirmCancel: false,
       isVisibleExport: false,
       isVisibleComfirmAdress: false,
+      isSubmitting: false,
+      isVisibleModalExtraFee: false,
       comfirmAddressPkg: null,
       selected: [],
       warehoseLoaded: false,
@@ -554,6 +572,7 @@ export default {
       EXPORT_PACKAGE_AU,
       CONFIRM_ADDRESS,
     ]),
+    ...mapActions('bill', [CREATE_EXTRA_FEE]),
     truncate,
     async init() {
       this.isFetching = true
@@ -652,7 +671,6 @@ export default {
     },
     handleValue(e) {
       this.selected = JSON.parse(JSON.stringify(e))
-      // console.log('select:',this.selected);
     },
 
     async downloadBarcode() {
@@ -683,19 +701,7 @@ export default {
 
         for (const item of this.selected) {
           if (item.tracking === null) continue
-
-          // const code =
-          //   (item.package_code && item.package_code.code) || 'Unknown'
-
           const canvas = document.createElement('canvas')
-          // JsBarcode(canvas, code, {
-          //   format: 'CODE128',
-          //   width: 1,
-          //   height: 50,
-          //   displayValue: true,
-          //   fontSize: 14,
-          // })
-
           const barcodeImage = canvas.toDataURL('image/png')
 
           pdf.addImage(barcodeImage, 'PNG', 10, yOffset, 100, 50)
@@ -720,71 +726,6 @@ export default {
         })
       }
     },
-    //   async downloadBarcode() {
-    //   if (!this.selected.length) {
-    //     return this.$toast.open({
-    //       type: 'warning',
-    //       message: 'Vui lòng chọn ít nhất một hàng để xuất mã vạch!'
-    //     });
-    //   }
-
-    //   const pdf = new jsPDF();
-    //   let yOffset = 10;
-    //   const barcodeHeight = 30;  // Chiều cao mã vạch
-    //   const barcodeWidth = 120;  // Chiều rộng mã vạch, có thể tăng để mã vạch rõ hơn
-    //   const spacing = 15;        // Khoảng cách giữa các mã vạch
-
-    //   try {
-    //     for (const { package_code } of this.selected) {
-    //       const code = (item.package_code && item.package_code.code) || 'Unknown';
-
-    //       const canvas = document.createElement('canvas');
-    //       const canvasContext = canvas.getContext('2d');
-
-    //       // Tăng kích thước canvas để tạo độ phân giải cao hơn
-    //       canvas.width = 300;  // Tăng chiều rộng canvas
-    //       canvas.height = 100; // Tăng chiều cao canvas
-
-    //       // Tạo mã vạch
-    //       JsBarcode(canvas, code, {
-    //         format: 'CODE128',
-    //         width: 2,           // Tăng độ rộng thanh mã vạch
-    //         height: 50,         // Chiều cao mã vạch, có thể tùy chỉnh
-    //         displayValue: true,
-    //         fontSize: 12,       // Tăng kích thước chữ hiển thị mã vạch
-    //         background: '#fff', // Màu nền trắng
-    //         lineColor: '#000'   // Màu của các thanh mã vạch
-    //       });
-
-    //       // Tạo hình ảnh từ canvas
-    //       const barcodeImage = canvas.toDataURL('image/png', 1.0); // Đảm bảo chất lượng ảnh tốt nhất (đặt giá trị 1.0)
-
-    //       // Thêm ảnh vào PDF
-    //       pdf.addImage(barcodeImage, 'PNG', 10, yOffset, barcodeWidth, barcodeHeight);
-
-    //       yOffset += barcodeHeight + spacing; // Cập nhật giá trị yOffset để tạo khoảng cách giữa các mã vạch
-
-    //       // Nếu vượt quá chiều cao trang, thêm trang mới
-    //       if (yOffset > 270) {
-    //         pdf.addPage();
-    //         yOffset = 10;
-    //       }
-    //     }
-
-    //     pdf.save('barcode_list.pdf');
-    //     this.$toast.open({
-    //       type: 'success',
-    //       message: 'Tải file PDF mã vạch thành công!'
-    //     });
-    //   } catch (error) {
-    //     console.error('Lỗi khi tạo file PDF:', error);
-    //     this.$toast.open({
-    //       type: 'error',
-    //       message: 'Đã xảy ra lỗi khi tạo file PDF. Vui lòng thử lại!'
-    //     });
-    //   }
-    // },
-
     async handleExport() {
       this.isVisibleExport = true
       const result = await this[EXPORT_PACKAGE]({
@@ -806,6 +747,41 @@ export default {
         'danh_sach_van_don_'
       )
       this.isVisibleExport = false
+    },
+    async handleSubmitExtraFee(param) {
+      const payload = {
+        user_id: [],
+        package_code: [],
+        ...param,
+      }
+      for (const pkg of this.selected) {
+        if (pkg.package_code === null) {
+          this.$toast.open({
+            type: 'error',
+            message: `Đơn hàng ${pkg.order_number} chưa tạo tracking, không thể thêm phí phát sinh`,
+          })
+          return
+        } else {
+          payload.user_id.push(pkg.user_id)
+          payload.package_code.push(pkg.package_code.code)
+        }
+      }
+      this.isSubmitting = true
+      const result = await this[CREATE_EXTRA_FEE](payload)
+      this.isSubmitting = false
+      this.isVisibleModalExtraFee = false
+      if (!result.success) {
+        this.$toast.open({
+          type: 'error',
+          message: result.message,
+        })
+        return
+      }
+      this.$toast.open({
+        type: 'success',
+        message: 'Tạo phí phát sinh thành công',
+      })
+      this.init()
     },
     convertPrice(item) {
       if (item.status_string == PACKAGE_STATUS_CREATED_TEXT) {
