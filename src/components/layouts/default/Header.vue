@@ -196,10 +196,10 @@ export default {
       READ_NOTIFICATION,
     ]),
     async init() {
-      const result = await this[FETCH_NOTIFICATIONS](this.filter)
-      if (!result.success) {
-        this.$toast.open({ message: result.message, type: 'error' })
-      }
+      // const result = await this[FETCH_NOTIFICATIONS](this.filter)
+      // if (!result.success) {
+      //   this.$toast.open({ message: result.message, type: 'error' })
+      // }
     },
     async handleReadAll() {
       const result = await this[READ_NOTIFICATIONS]()

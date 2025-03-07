@@ -118,15 +118,15 @@ export default {
               alias: ['/packages', '/packages/:id'],
               disable: this.$isMarketing(),
             },
-            {
-              route: '/packages/return',
-              title: ' Đơn hàng trả về',
-              alias: ['/packages/return'],
-              disable:
-                this.$isSupportLeader() ||
-                this.$isWarehouse() ||
-                this.$isMarketing(),
-            },
+            // {
+            //   route: '/packages/return',
+            //   title: ' Đơn hàng trả về',
+            //   alias: ['/packages/return'],
+            //   disable:
+            //     this.$isSupportLeader() ||
+            //     this.$isWarehouse() ||
+            //     this.$isMarketing(),
+            // },
             {
               route: '/packages/fba',
               title: 'Đơn hàng FBA',
@@ -143,45 +143,45 @@ export default {
                 this.$isAccountant() ||
                 this.$isMarketing(),
             },
-            {
-              route: '/claims',
-              title: 'Khiếu nại',
-              alias: ['/claims', '/claims/:id'],
-              disable:
-                this.$isWarehouse() ||
-                this.$isMarketing() ||
-                this.$isShipPartner() ||
-                this.$isSaleOperation(),
-            },
-            {
-              route: '/promotions',
-              title: 'Promotion',
-              alias: ['/promotions'],
-              disable:
-                this.$isAccountant() ||
-                this.$isWarehouse() ||
-                this.$isHub() ||
-                this.$isShipPartner() ||
-                this.$isSaleOperation() ||
-                this.$isBusinessManager(),
-            },
-            {
-              route: '/coupons',
-              title: 'Coupon',
-              alias: ['/coupons'],
-              disable:
-                this.$isAccountant() ||
-                this.$isWarehouse() ||
-                this.$isHub() ||
-                this.$isMarketing() ||
-                this.$isSupportLeader() ||
-                this.$isMarketing() ||
-                this.$isSupport() ||
-                this.$isSale() ||
-                this.$isSaleOperation() ||
-                this.$isBusinessManager() ||
-                this.$isShipPartner(),
-            },
+            // {
+            //   route: '/claims',
+            //   title: 'Khiếu nại',
+            //   alias: ['/claims', '/claims/:id'],
+            //   disable:
+            //     this.$isWarehouse() ||
+            //     this.$isMarketing() ||
+            //     this.$isShipPartner() ||
+            //     this.$isSaleOperation(),
+            // },
+            // {
+            //   route: '/promotions',
+            //   title: 'Promotion',
+            //   alias: ['/promotions'],
+            //   disable:
+            //     this.$isAccountant() ||
+            //     this.$isWarehouse() ||
+            //     this.$isHub() ||
+            //     this.$isShipPartner() ||
+            //     this.$isSaleOperation() ||
+            //     this.$isBusinessManager(),
+            // },
+            // {
+            //   route: '/coupons',
+            //   title: 'Coupon',
+            //   alias: ['/coupons'],
+            //   disable:
+            //     this.$isAccountant() ||
+            //     this.$isWarehouse() ||
+            //     this.$isHub() ||
+            //     this.$isMarketing() ||
+            //     this.$isSupportLeader() ||
+            //     this.$isMarketing() ||
+            //     this.$isSupport() ||
+            //     this.$isSale() ||
+            //     this.$isSaleOperation() ||
+            //     this.$isBusinessManager() ||
+            //     this.$isShipPartner(),
+            // },
           ],
         },
         {
@@ -227,63 +227,63 @@ export default {
                 this.$isSale() ||
                 this.$isBusinessManager(),
             },
-            {
-              route: '/claims-process',
-              title: 'Xét duyệt khiếu nại',
-              alias: ['/claims-process'],
-              disable: !this.$isAdmin() && !this.$isAccountant(),
-            },
+            // {
+            //   route: '/claims-process',
+            //   title: 'Xét duyệt khiếu nại',
+            //   alias: ['/claims-process'],
+            //   disable: !this.$isAdmin() && !this.$isAccountant(),
+            // },
           ],
         },
-        {
-          title: 'Thống kê ',
-          icon: 'analytic',
-          iconActive: 'analyticActive',
-          route: { name: 'statistic' },
-          class: '',
-          isOpen: false,
-          disable:
-            this.$isAccountant() ||
-            this.$isSupport() ||
-            this.$isSale() ||
-            this.$isHub() ||
-            this.$isSupportLeader() ||
-            this.$isWarehouse() ||
-            this.$isMarketing() ||
-            this.$isShipPartner() ||
-            this.$isSaleOperation() ||
-            this.$isBusinessManager(),
-          sub: [
-            {
-              route: '/statistics',
-              title: ' Tài chính',
-              alias: ['/statistics'],
-              disable:
-                this.$isAccountant() ||
-                this.$isSupport() ||
-                this.$isSale() ||
-                this.$isHub() ||
-                this.$isSupportLeader() ||
-                this.$isWarehouse() ||
-                this.$isShipPartner() ||
-                this.$isBusinessManager(),
-            },
-            {
-              route: '/statistic-claims',
-              title: 'Khiếu nại',
-              alias: ['/statistic-claims'],
-              disable:
-                this.$isAccountant() ||
-                this.$isSupport() ||
-                this.$isSale() ||
-                this.$isHub() ||
-                this.$isSupportLeader() ||
-                this.$isWarehouse() ||
-                this.$isShipPartner() ||
-                this.$isBusinessManager(),
-            },
-          ],
-        },
+        // {
+        //   title: 'Thống kê ',
+        //   icon: 'analytic',
+        //   iconActive: 'analyticActive',
+        //   route: { name: 'statistic' },
+        //   class: '',
+        //   isOpen: false,
+        //   disable:
+        //     this.$isAccountant() ||
+        //     this.$isSupport() ||
+        //     this.$isSale() ||
+        //     this.$isHub() ||
+        //     this.$isSupportLeader() ||
+        //     this.$isWarehouse() ||
+        //     this.$isMarketing() ||
+        //     this.$isShipPartner() ||
+        //     this.$isSaleOperation() ||
+        //     this.$isBusinessManager(),
+        //   sub: [
+        //     {
+        //       route: '/statistics',
+        //       title: ' Tài chính',
+        //       alias: ['/statistics'],
+        //       disable:
+        //         this.$isAccountant() ||
+        //         this.$isSupport() ||
+        //         this.$isSale() ||
+        //         this.$isHub() ||
+        //         this.$isSupportLeader() ||
+        //         this.$isWarehouse() ||
+        //         this.$isShipPartner() ||
+        //         this.$isBusinessManager(),
+        //     },
+        //     {
+        //       route: '/statistic-claims',
+        //       title: 'Khiếu nại',
+        //       alias: ['/statistic-claims'],
+        //       disable:
+        //         this.$isAccountant() ||
+        //         this.$isSupport() ||
+        //         this.$isSale() ||
+        //         this.$isHub() ||
+        //         this.$isSupportLeader() ||
+        //         this.$isWarehouse() ||
+        //         this.$isShipPartner() ||
+        //         this.$isBusinessManager(),
+        //     },
+        //   ],
+        // },
         {
           title: 'Kho',
           icon: 'warehouse',
@@ -413,43 +413,43 @@ export default {
               alias: ['/user', '/user/:id'],
               disable: this.$isAccountant(),
             },
-            {
-              route: '/sales',
-              title: 'Quản lý sales',
-              alias: ['/sales', '/sales/:id'],
-              disable: !this.$isAdmin() && !this.$isBusinessManager(),
-            },
-            {
-              route: '/notify',
-              title: 'Thông báo',
-              alias: ['/notify'],
-              disable:
-                this.$isAccountant() ||
-                this.$isSupport() ||
-                this.$isSale() ||
-                this.$isWarehouse() ||
-                this.$isHub() ||
-                this.$isSupportLeader() ||
-                this.$isShipPartner(),
-            },
-            {
-              route: '/carrier-prices',
-              title: 'So sánh giá',
-              alias: ['/carrier-prices'],
-              disable: !this.$isAdmin(),
-            },
-            {
-              route: '/setting/point',
-              title: 'Quản lý tích điểm',
-              alias: ['/setting/point'],
-              disable: !this.$isAdmin(),
-            },
-            {
-              route: '/setting/referal',
-              title: 'Cấu hình Referral',
-              alias: ['/setting/referal'],
-              disable: !this.$isAdmin(),
-            },
+            // {
+            //   route: '/sales',
+            //   title: 'Quản lý sales',
+            //   alias: ['/sales', '/sales/:id'],
+            //   disable: !this.$isAdmin() && !this.$isBusinessManager(),
+            // },
+            // {
+            //   route: '/notify',
+            //   title: 'Thông báo',
+            //   alias: ['/notify'],
+            //   disable:
+            //     this.$isAccountant() ||
+            //     this.$isSupport() ||
+            //     this.$isSale() ||
+            //     this.$isWarehouse() ||
+            //     this.$isHub() ||
+            //     this.$isSupportLeader() ||
+            //     this.$isShipPartner(),
+            // },
+            // {
+            //   route: '/carrier-prices',
+            //   title: 'So sánh giá',
+            //   alias: ['/carrier-prices'],
+            //   disable: !this.$isAdmin(),
+            // },
+            // {
+            //   route: '/setting/point',
+            //   title: 'Quản lý tích điểm',
+            //   alias: ['/setting/point'],
+            //   disable: !this.$isAdmin(),
+            // },
+            // {
+            //   route: '/setting/referal',
+            //   title: 'Cấu hình Referral',
+            //   alias: ['/setting/referal'],
+            //   disable: !this.$isAdmin(),
+            // },
           ],
         },
       ],
