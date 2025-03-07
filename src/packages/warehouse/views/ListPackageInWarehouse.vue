@@ -364,7 +364,6 @@ export default {
     },
 
     async handleExportWrongWeight(payload) {
-      console.log(payload)
       this.isExporting = true
       const result = await this.exportPackageWrong(payload)
       this.isExporting = false

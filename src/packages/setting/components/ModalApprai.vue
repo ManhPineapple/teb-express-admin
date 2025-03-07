@@ -211,9 +211,6 @@ export default {
       }
 
       const payload = {}
-      console.log(this.data)
-      console.log(this.data.phone_number.trim())
-
       if (this.user.full_name.trim() != this.data.full_name) {
         payload.full_name = this.user.full_name.trim()
       }

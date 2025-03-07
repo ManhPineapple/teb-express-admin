@@ -156,7 +156,6 @@ export default {
       this.right = document.getElementById(selector).offsetLeft - 34
     },
     openExportModal() {
-      console.log('Opening export modal')
       this.showExportModal = true
     },
   },
