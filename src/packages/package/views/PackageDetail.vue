@@ -335,6 +335,13 @@
                             }}
                           </div>
                         </div>
+                        <div
+                          class="row"
+                          v-if="package_detail.package.service.code === 'CN'"
+                        >
+                          <div class="col-5 mb-8">Ảnh biên nhận:</div>
+                          <a class="col-7" href="/"> Xem ảnh </a>
+                        </div>
                       </div>
                     </div>
                   </div>
