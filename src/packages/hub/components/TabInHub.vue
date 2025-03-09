@@ -128,7 +128,6 @@ export default {
         return
       }
       let result = ''
-      console.log(labelUrl)
       const payload = {
         url: labelUrl,
         type: 'labels',

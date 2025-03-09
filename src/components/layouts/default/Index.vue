@@ -25,7 +25,6 @@ import '@assets/fonts/web-icons/web-icons.min.css'
 import PHeader from './Header'
 import PSidebar from './Sidebar'
 import { GET_USER, GET_CONFIGS } from '../../../packages/shared/store'
-import firebase from '../../../core/services/firebase'
 export default {
   name: 'Version2',
   components: {
@@ -47,7 +46,6 @@ export default {
 
   mounted() {},
   created() {
-    firebase.setup()
     this.init()
   },
   methods: {
@@ -55,15 +53,15 @@ export default {
     async init() {
       await this.getUser()
 
-      const result = await this[GET_CONFIGS]()
+      // const result = await this[GET_CONFIGS]()
 
-      if (!result.success) {
-        this.$toast.open({
-          type: 'error',
-          message: result.message,
-          duration: 4000,
-        })
-      }
+      // if (!result.success) {
+      //   this.$toast.open({
+      //     type: 'error',
+      //     message: result.message,
+      //     duration: 4000,
+      //   })
+      // }
     },
     toggleShowSidebar() {
       this.isSidebarOpen = !this.isSidebarOpen

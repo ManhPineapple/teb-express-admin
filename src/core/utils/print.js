@@ -20,8 +20,6 @@ export function printImage(url) {
 
   specs = specs.length > 0 ? specs.join(',') : ''
 
-  console.log(url)
-
   let html = `
 		<!DOCTYPE html>
 		<html lang="en">

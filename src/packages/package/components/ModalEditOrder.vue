@@ -487,21 +487,6 @@
                       </div>
                     </div>
                     <div class="card__w-item">
-                      <label class="card__w-label"> Ảnh biên nhận: </label>
-                      <div class="card__w-input">
-                        <p-input
-                          placeholder="Nhập ảnh biên nhận"
-                          type="text"
-                          v-model="form.custom_cn_barcode"
-                          :input="form.width"
-                          name="width"
-                          :disabled="
-                            this.package_detail.package.tracking != null
-                          "
-                        />
-                      </div>
-                    </div>
-                    <div class="card__w-item">
                       <label class="card__w-label"> Label CN: </label>
                       <div class="card__w-input">
                         <p-input

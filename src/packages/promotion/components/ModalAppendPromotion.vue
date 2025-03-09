@@ -246,7 +246,6 @@ export default {
       this.removeSelectedUser()
     },
     addSelectedUser() {
-      console.log(1)
       let checked = []
       this.users = this.users.filter((i) => {
         if (this.checkedLeft.includes(i.id) && this.selected.indexOf(i) < 0) {

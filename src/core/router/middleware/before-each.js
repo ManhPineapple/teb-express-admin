@@ -1,13 +1,11 @@
 import Browser from '@core/helpers/browser'
 import AuthService from '@core/services/auth'
-import firebase from '../../services/firebase'
 // eslint-disable-next-line
 const beforeEach = (router, store) => {
   router.beforeEach(async (to, from, next) => {
     // Logout
     if (to.fullPath.startsWith('/logout')) {
       AuthService.clear()
-      await firebase.unsubscribe()
       Browser.redirect('/')
       return
     }
