@@ -143,6 +143,7 @@ export const actions = {
       result = {
         ...result,
         packages: list.packages,
+        count_item: list.count_item,
       }
     }
 

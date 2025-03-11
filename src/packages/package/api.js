@@ -1,6 +1,6 @@
+import { RESPONSE_TYPE_BLOB } from '@core/constants/http'
 import http from '@core/services/http'
 import { buildQueryString } from '@core/utils/url'
-import { RESPONSE_TYPE_BLOB } from '@core/constants/http'
 
 export default {
   /**
@@ -104,8 +104,8 @@ export default {
     return http.post('/packages/import/tracking', formData)
   },
   confirmAddress(payload) {
-    return http.post('/packages/validate-address', payload, {
-      base_path: 'v1/shipment',
+    return http.post('/address/validate', payload, {
+      base_path: '/v1/packages',
     })
   },
 }

@@ -95,7 +95,7 @@
               :class="`mr-3`"
               v-if="
                 !isStartScan &&
-                  container_detail.status === CONTAINER_WAITING_CLOSE
+                container_detail.status === CONTAINER_WAITING_CLOSE
               "
               @click="handleStartScan"
             >
@@ -105,7 +105,7 @@
               id="stopScanButton"
               v-if="
                 isStartScan &&
-                  container_detail.status === CONTAINER_WAITING_CLOSE
+                container_detail.status === CONTAINER_WAITING_CLOSE
               "
               @click="handleStopScan"
               type="info"
@@ -637,12 +637,28 @@ export default {
       Browser.downloadBlob(result.blob, labelUrl.split('/').pop())
     },
     async handleExportCustomsForm() {
-      let payload = {
+      const payload = {
         page: 1,
-        limit: 1000,
+        limit: 250,
         code: this.$route.params.code,
       }
       const result = await this[FETCH_CONTAINER_DETAIL](payload)
+
+      const maxPage = Math.ceil(result.count_item / 250)
+      if (maxPage > 1) {
+        const pageRequests = Array.from({ length: maxPage - 1 }, (_, i) =>
+          this[FETCH_CONTAINER_DETAIL]({
+            page: i + 2,
+            limit: 250,
+            code: this.$route.params.code,
+          })
+        )
+
+        const moreResults = await Promise.all(pageRequests)
+        result.packages = result.packages.concat(
+          ...moreResults.map((r) => r.packages)
+        )
+      }
 
       // Create a new workbook
       const workbook = XLSX.utils.book_new()
@@ -669,6 +685,7 @@ export default {
         'HAWBWeight',
         'PIECEUOM',
         'HAWBDescription',
+        'ProductDetails',
         'CountryOfOrigin',
         'HAWBValue',
         'CurrencyCode',
@@ -694,6 +711,7 @@ export default {
           pkg.tracking.weight || '',
           '',
           pkg.package_name,
+          pkg.detail,
           'VN',
           pkg.product_price || '',
           'USD',
@@ -731,7 +749,7 @@ export default {
   },
   watch: {
     filter: {
-      handler: function(newFilter) {
+      handler: function (newFilter) {
         this.changePage(newFilter.page)
         this.init()
       },
