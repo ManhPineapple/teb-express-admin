@@ -108,4 +108,12 @@ export default {
       base_path: '/v1/packages',
     })
   },
+  getCNInvoiceImage(url) {
+    return http.get(
+      '/uploads/file-export/download?type=export_packages&url=' + url,
+      {
+        type: 'blob',
+      }
+    )
+  },
 }

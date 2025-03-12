@@ -340,7 +340,13 @@
                           v-if="package_detail.package.service.code === 'CN'"
                         >
                           <div class="col-5 mb-8">Ảnh biên nhận:</div>
-                          <a class="col-7" href="/"> Xem ảnh </a>
+                          <a
+                            class="col-7 text-blue-500 underline cursor-pointer"
+                            href="javascript:void(0);"
+                            @click="viewImage"
+                          >
+                            Xem ảnh
+                          </a>
                         </div>
                       </div>
                     </div>
@@ -1456,7 +1462,19 @@ export default {
         this.$toast.error('File error !!!')
       }
     },
-
+    async viewImage() {
+      const data = await api.getCNInvoiceImage(
+        this.package_detail.package.cn_invoice_image
+      )
+      try {
+        Browser.downloadBlob(
+          data,
+          `Image ${this.package_detail.package.order_number}`
+        )
+      } catch (error) {
+        this.$toast.open({ type: 'error', message: 'File error !!!' })
+      }
+    },
     isOverThanOld(prop) {
       if (!this.package_detail.package) {
         return false
