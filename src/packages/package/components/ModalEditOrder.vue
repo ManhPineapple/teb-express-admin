@@ -417,7 +417,7 @@
                           type="text"
                           v-model="form.cn_product_link"
                           :input="form.width"
-                          name="width"
+                          name="product_link"
                           :disabled="
                             this.package_detail.package.tracking != null
                           "
@@ -432,7 +432,7 @@
                           type="text"
                           v-model="form.cn_product_price"
                           :input="form.width"
-                          name="width"
+                          name="cn_product_price"
                           :disabled="
                             this.package_detail.package.tracking != null
                           "
@@ -449,7 +449,7 @@
                           type="text"
                           v-model="form.cn_shipping_fee"
                           :input="form.width"
-                          name="width"
+                          name="cn_shipping_fee"
                           :disabled="
                             this.package_detail.package.tracking != null
                           "
@@ -464,7 +464,7 @@
                           type="text"
                           v-model="form.cn_shipping_to_vn_fee"
                           :input="form.width"
-                          name="width"
+                          name="cn_shipping_to_vn_fee"
                           :disabled="
                             this.package_detail.package.tracking != null
                           "
@@ -472,14 +472,14 @@
                       </div>
                     </div>
                     <div class="card__w-item">
-                      <label class="card__w-label"> Phí dán label CN: </label>
+                      <label class="card__w-label"> Phí Handling: </label>
                       <div class="card__w-input">
                         <p-input
-                          placeholder="Nhập giá ship"
+                          placeholder="Nhập giá handling"
                           type="text"
                           v-model="form.cn_label_extra_fee"
                           :input="form.width"
-                          name="width"
+                          name="cn_label_extra_fee"
                           :disabled="
                             this.package_detail.package.tracking != null
                           "
@@ -494,7 +494,7 @@
                           type="text"
                           v-model="form.custom_cn_barcode"
                           :input="form.width"
-                          name="width"
+                          name="custom_cn_barcode"
                           :disabled="
                             this.package_detail.package.tracking != null
                           "
@@ -562,7 +562,7 @@ import { cloneDeep } from '@core/utils'
 import valider from '@core/valider'
 import { mapActions, mapGetters, mapState } from 'vuex'
 import PButton from '../../../../uikit/components/button/Button'
-import { PACKAGE_STATUS_CREATED } from '../constants'
+import { PACKAGE_STATUS_CREATED, PACKAGE_STATUS_PURCHASED } from '../constants'
 import {
   FETCH_LIST_PRODUCTS,
   FETCH_PACKAGE_DETAIL,
@@ -664,7 +664,7 @@ export default {
         cn_shipping_to_vn_fee: '',
       },
       loading: false,
-      isDisable: true,
+      isDisable: false,
       isUpdate: false,
       valider: null,
       validErrors: {},
@@ -883,6 +883,10 @@ export default {
         quantity: '',
         name: 'Tên sản phẩm',
       })
+
+      this.isDisable =
+        this.package_detail.package.status != PACKAGE_STATUS_CREATED &&
+        this.package_detail.package.status != PACKAGE_STATUS_PURCHASED
     },
     handleSelectProd(value, index) {
       let i = this.products.findIndex(

@@ -114,17 +114,9 @@
                 package_detail.package.status != statusCreated &&
                 package_detail.package.status != statusArchived
               "
-              id="btn_create_tracking"
+              id="btn_print_label"
             >
               In label
-            </p-button>
-            <p-button
-              type="info"
-              v-if="showBtnCnPurchased"
-              id="btn_CN_purchased"
-              disabled="true"
-            >
-              Hàng đã mua
             </p-button>
             <p-button
               type="info"
@@ -132,7 +124,15 @@
               v-if="showBtnCnPrePurchased"
               id="btn_CN_prepurchased"
             >
-              Hàng nhờ mua
+              Chuyển đơn sang đã mua
+            </p-button>
+            <p-button
+              type="info"
+              @click="createLabel"
+              v-if="showBtnCnPurchased"
+              id="btn_create_label"
+            >
+              Tạo theo dõi đơn
             </p-button>
           </div>
         </div>
@@ -1340,6 +1340,35 @@ export default {
         console.error('Error downloading label file:', error)
         this.$toast.error('Có lỗi xảy ra khi tải file!')
       }
+    },
+    async createLabel() {
+      if (!this.package_detail.package.custom_cn_barcode) {
+        return this.$toast.open({
+          type: 'error',
+          message:
+            'Đơn hàng CN Exclusive cần bổ sung mã vạch tự tạo, hãy cập nhật thông tin đơn hàng',
+          duration: 3000,
+        })
+      }
+      const payload = {
+        id: this.package_detail.package.id,
+      }
+      this.isSubmitting = true
+      const res = await api.processPackageCn(payload)
+      this.isSubmitting = false
+      if (!res || res.error) {
+        return this.$toast.open({
+          type: 'error',
+          message: res.errorMessage,
+          duration: 3000,
+        })
+      }
+      this.$toast.open({
+        type: 'success',
+        message: 'Tạo lịch sử tracking thành công',
+        duration: 3000,
+      })
+      this.init()
     },
     changeDisplayDeliverDetail() {
       this.displayDeliverDetail = !this.displayDeliverDetail
