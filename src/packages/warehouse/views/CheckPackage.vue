@@ -184,19 +184,19 @@
   </div>
 </template>
 <script>
-import {
-  FETCH_PACKAGE_DETAIL,
-  ACCEPT_PACKAGE_LABEL,
-  RETURN_PACKAGE,
-  CANCEL_LABEL,
-} from '../store'
-import { mapActions, mapState, mapMutations } from 'vuex'
-import { PACKAGE_WAREHOUSE_STATUS_PICK } from '../constants'
+import ModalConfirm from '@components/shared/modal/ModalConfirm'
 import mixinBarcode from '@core/mixins/barcode'
 import { print } from '@core/utils/print'
-import ModalConfirm from '@components/shared/modal/ModalConfirm'
+import { mapActions, mapMutations, mapState } from 'vuex'
 import { FETCH_SERVICE, FETCH_WAREHOUSE } from '../../shared/store'
 import ModalChoiceHub from '../components/ModalChoiceHub'
+import { PACKAGE_WAREHOUSE_STATUS_PICK } from '../constants'
+import {
+  ACCEPT_PACKAGE_LABEL,
+  CANCEL_LABEL,
+  FETCH_PACKAGE_DETAIL,
+  RETURN_PACKAGE,
+} from '../store'
 
 export default {
   name: 'CheckPackage',
@@ -557,8 +557,14 @@ export default {
       document.activeElement && document.activeElement.blur()
 
       try {
-        if (!this.tracking.label_url) return
-        print(this.tracking.label_url)
+        const url = this.tracking.label_url
+        if (!url) return
+
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+          window.open(url, '_blank')
+        } else {
+          print(this.tracking.label_url)
+        }
       } catch (error) {
         this.$toast.error('File error !!!')
       }

@@ -217,7 +217,7 @@
                       </div>
                     </td>
                     <td class="text-center">
-                      <span v-if="item.custom_label_url !== ''">
+                      <span v-if="item.service.code === 'T'">
                         <img
                           src="img/tiktok-icon.svg"
                           alt="TikTok"
@@ -554,7 +554,7 @@ export default {
     },
     filteredPackages() {
       if (this.filter.customLabel) {
-        return this.packages.filter((pkg) => pkg.custom_label_url !== '')
+        return this.packages.filter((pkg) => pkg.service.code === 'T')
       }
       return this.packages
     },
