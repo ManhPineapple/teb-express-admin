@@ -109,6 +109,17 @@
             </p-button>
             <p-button
               type="info"
+              @click="downloadLabelFile"
+              v-if="
+                package_detail.package.status != statusCreated &&
+                package_detail.package.status != statusArchived
+              "
+              id="btn_create_tracking"
+            >
+              In label
+            </p-button>
+            <p-button
+              type="info"
               v-if="showBtnCnPurchased"
               id="btn_CN_purchased"
               disabled="true"
@@ -1310,6 +1321,25 @@ export default {
         duration: 3000,
       })
       this.init()
+    },
+    async downloadLabelFile() {
+      try {
+        const file = this.package_detail.package.label
+        if (!file) {
+          throw new Error('File URL is missing')
+        }
+
+        const res = await api.fetchFile({ url: file, type: 'labels' })
+
+        if (res instanceof Blob) {
+          Browser.downloadBlob(res, file.split('/').pop())
+        } else {
+          throw new Error('Invalid file response')
+        }
+      } catch (error) {
+        console.error('Error downloading label file:', error)
+        this.$toast.error('Có lỗi xảy ra khi tải file!')
+      }
     },
     changeDisplayDeliverDetail() {
       this.displayDeliverDetail = !this.displayDeliverDetail
