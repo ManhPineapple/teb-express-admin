@@ -12,6 +12,10 @@ export default {
     return http.get(`/packages/${payload}`)
   },
 
+  processPackageCn(payload) {
+    return http.post(`/packages/process_cn`, payload)
+  },
+
   /**
    * fetch list product
    * @param payload
