@@ -1324,17 +1324,20 @@ export default {
     },
     async downloadLabelFile() {
       try {
-        const file = this.package_detail.package.label
-        if (!file) {
+        const url = this.package_detail.package.label
+        if (!url) {
           throw new Error('File URL is missing')
         }
 
-        const res = await api.fetchFile({ url: file, type: 'labels' })
-
-        if (res instanceof Blob) {
-          Browser.downloadBlob(res, file.split('/').pop())
+        if (url.startsWith('http://') || url.startsWith('https://')) {
+          window.open(url, '_blank')
         } else {
-          throw new Error('Invalid file response')
+          const res = await api.fetchFile({ url: url, type: 'labels' })
+          if (res instanceof Blob) {
+            Browser.downloadBlob(res, url.split('/').pop())
+          } else {
+            throw new Error('Invalid file response')
+          }
         }
       } catch (error) {
         console.error('Error downloading label file:', error)
