@@ -114,6 +114,11 @@
                         @click="isVisibleModalExtraFee = true"
                         >Tạo phí phát sinh</p-button
                       >
+                      <p-button
+                        class="bulk-actions__selection-status"
+                        @click="handleOcrTiktok"
+                        >Quét thông tin người nhận</p-button
+                      >
                     </div>
                   </div>
                   <tr>
@@ -425,6 +430,7 @@ import {
   IMPORT_PACKAGE,
   IMPORT_TRACKING,
   PROCESS_PACKAGE,
+  OCR_TIKTOK_LABEL,
 } from '../store'
 // import JsBarcode from 'jsbarcode'
 
@@ -571,6 +577,7 @@ export default {
       IMPORT_TRACKING,
       EXPORT_PACKAGE_AU,
       CONFIRM_ADDRESS,
+      OCR_TIKTOK_LABEL,
     ]),
     ...mapActions('bill', [CREATE_EXTRA_FEE]),
     truncate,
@@ -747,6 +754,33 @@ export default {
         'danh_sach_van_don_'
       )
       this.isVisibleExport = false
+    },
+    async handleOcrTiktok() {
+      this.isFetching = true
+      for (const pkg of this.selected) {
+        if (pkg.service.code !== 'T') {
+          this.$toast.open({
+            type: 'error',
+            message: 'Có đơn không phải dịch vụ Tiktok được chọn.',
+            duration: 3000,
+          })
+          this.isFetching = false
+          return
+        }
+      }
+      const result = await this[OCR_TIKTOK_LABEL]({
+        ids: this.selectedIds,
+      })
+      if (!result.success) {
+        this.$toast.open({
+          type: 'error',
+          message: result.message,
+          duration: 3000,
+        })
+        this.isFetching = false
+        return
+      }
+      this.isFetching = false
     },
     async handleSubmitExtraFee(param) {
       const payload = {
