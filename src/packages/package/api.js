@@ -57,6 +57,9 @@ export default {
       base_path: 'v1/export/shipment',
     })
   },
+  ocrPackage(payload) {
+    return http.post(`/packages/ocr`, payload)
+  },
   updatePackage(payload) {
     return http.put(`/packages/${payload.id}`, payload)
   },

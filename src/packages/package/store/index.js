@@ -22,6 +22,7 @@ export const COUNT_CUSTOMER_SHIPMENT = 'countCustomerShipment'
 export const FETCH_DETAIL_CUSTOMER_SHIPMENT = 'fetchDetailCustomerShipment'
 
 export const EXPORT_PACKAGE = 'exportPackage'
+export const OCR_TIKTOK_LABEL = 'ocrTiktokLabel'
 export const EXPORT_PACKAGE_AU = 'exportPackageAu'
 export const GET_SERVICE = 'getService'
 export const RESHIP_PACKAGE = 'reshipPackage'
@@ -237,6 +238,20 @@ export const actions = {
       }
     } else {
       result.url = response.download
+    }
+
+    return result
+  },
+  // eslint-disable-next-line no-unused-vars
+  async [OCR_TIKTOK_LABEL]({ commit }, payload) {
+    let result = { success: true }
+    const response = await api.ocrPackage(payload)
+
+    if (response.error || response.message) {
+      result = {
+        success: false,
+        message: response.errorMessage || response.error || response.message,
+      }
     }
 
     return result
