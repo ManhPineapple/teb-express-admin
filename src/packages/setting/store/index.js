@@ -53,10 +53,10 @@ export const SAVE_SETTING_KPI = 'saveSettingKpi'
 export const FETCH_SETING_KPI = 'fetchSettingKpi'
 
 import {
-  USER_CLASS_PUBLIC,
-  USER_CLASS_PRIORITY,
-  USER_CLASS_PARTNER,
   MAP_USER_CLASS_TEXT,
+  USER_CLASS_PARTNER,
+  USER_CLASS_PRIORITY,
+  USER_CLASS_PUBLIC,
 } from '../constants'
 
 /**
@@ -242,14 +242,17 @@ export const getters = {
     prices.sort((a, b) => a.weight < b.weight)
 
     const display = []
-    for (const key in prices) {
-      if (!Object.hasOwnProperty.call(prices, key)) continue
+    const sortedPrices = Object.keys(prices)
+      .map((key) => ({ key, ...prices[key] }))
+      .sort((a, b) => a.price - b.price)
 
-      const item = Object.assign({}, prices[key])
+    for (let i = 0; i < sortedPrices.length; i++) {
+      const item = Object.assign({}, sortedPrices[i])
+      const preweight = i > 0 ? sortedPrices[i - 1].weight || 0 : 0
 
-      let preweight = key > 0 ? prices[key - 1].weight || 0 : 0
       item.weight_text =
         preweight == 0 ? `<${item.weight}` : `${preweight}-${item.weight}`
+
       if (item.service_code != SERVICE_CODE_FBA) {
         display.push(item)
       } else if (preweight != 0) {
