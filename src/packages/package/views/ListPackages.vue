@@ -222,7 +222,12 @@
                       </div>
                     </td>
                     <td class="text-center">
-                      <span v-if="item.service.code === 'T'">
+                      <span
+                        v-if="
+                          item.service.code === 'T' ||
+                          item.custom_tiktok_barcode
+                        "
+                      >
                         <img
                           src="img/tiktok-icon.svg"
                           alt="TikTok"
@@ -429,8 +434,8 @@ import {
   FETCH_LIST_PACKAGES,
   IMPORT_PACKAGE,
   IMPORT_TRACKING,
-  PROCESS_PACKAGE,
   OCR_TIKTOK_LABEL,
+  PROCESS_PACKAGE,
 } from '../store'
 // import JsBarcode from 'jsbarcode'
 
@@ -560,7 +565,9 @@ export default {
     },
     filteredPackages() {
       if (this.filter.customLabel) {
-        return this.packages.filter((pkg) => pkg.service.code === 'T')
+        return this.packages.filter(
+          (pkg) => pkg.service.code === 'T' || pkg.custom_tiktok_barcode !== ''
+        )
       }
       return this.packages
     },
@@ -758,7 +765,7 @@ export default {
     async handleOcrTiktok() {
       this.isFetching = true
       for (const pkg of this.selected) {
-        if (pkg.service.code !== 'T') {
+        if (pkg.service.code !== 'T' && pkg.custom_tiktok_barcode === '') {
           this.$toast.open({
             type: 'error',
             message: 'Có đơn không phải dịch vụ Tiktok được chọn.',
