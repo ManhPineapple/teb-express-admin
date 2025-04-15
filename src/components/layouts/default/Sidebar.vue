@@ -154,18 +154,6 @@ export default {
             //     this.$isSaleOperation(),
             // },
             // {
-            //   route: '/promotions',
-            //   title: 'Promotion',
-            //   alias: ['/promotions'],
-            //   disable:
-            //     this.$isAccountant() ||
-            //     this.$isWarehouse() ||
-            //     this.$isHub() ||
-            //     this.$isShipPartner() ||
-            //     this.$isSaleOperation() ||
-            //     this.$isBusinessManager(),
-            // },
-            // {
             //   route: '/coupons',
             //   title: 'Coupon',
             //   alias: ['/coupons'],
@@ -225,6 +213,18 @@ export default {
                 this.$isSupportLeader() ||
                 this.$isSupport() ||
                 this.$isSale() ||
+                this.$isBusinessManager(),
+            },
+            {
+              route: '/promotions',
+              title: 'Promotion',
+              alias: ['/promotions'],
+              disable:
+                this.$isAccountant() ||
+                this.$isWarehouse() ||
+                this.$isHub() ||
+                this.$isShipPartner() ||
+                this.$isSaleOperation() ||
                 this.$isBusinessManager(),
             },
             // {

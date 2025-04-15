@@ -24,8 +24,7 @@
         </div>
         <div class="mb-20" v-if="isTypeMarketing">
           <label for=""
-            >Chỉnh sửa giá
-            <a :href="templatePrice" target="_blank">template</a></label
+            >Chỉnh sửa giá <a :href="templatePrice" download>template</a></label
           >
           <upload
             class="order-uploader"
@@ -55,7 +54,7 @@
         <div class="mb-20" v-if="isTypeMarketing">
           <label for=""
             >Chỉnh sửa cân nặng
-            <a :href="templateWeight" target="_blank">template</a></label
+            <a :href="templateWeight" download>template</a></label
           >
           <upload
             drag
@@ -94,8 +93,8 @@
 </template>
 
 <script>
-import api from '../api'
 import { Upload } from '@/kit'
+import api from '../api'
 import { PROMOTION_TYPE_MARKETING } from '../constants'
 
 const PROMOTION_PRICE_BY_WEIGHT_ID =
@@ -127,10 +126,10 @@ export default {
   },
   computed: {
     templatePrice() {
-      return `${process.env.VUE_APP_ASSETS}/lionbay_template_promotion_prices.xlsx`
+      return `/Ananbay_template_promotion_prices.xlsx`
     },
     templateWeight() {
-      return `${process.env.VUE_APP_ASSETS}/lionbay_template_promotion_weights.xlsx`
+      return `/Ananbay_template_promotion_weights.xlsx`
     },
     title() {
       return this.current.id ? 'Sửa promotion' : 'Tạo promotion'
