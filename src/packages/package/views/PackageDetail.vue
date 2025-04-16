@@ -341,9 +341,38 @@
                         >
                           <div class="col-5 mb-8">Link mua hàng:</div>
                           <div class="col-7">
-                            {{
-                              package_detail.package.cn_product_link || 'N/A'
-                            }}
+                            <a
+                              class="col-7 text-truncate text-primary d-block"
+                              :href="package_detail.package.cn_product_link"
+                              target="_blank"
+                              :title="package_detail.package.cn_product_link"
+                            >
+                              {{
+                                truncateLink(
+                                  package_detail.package.cn_product_link
+                                )
+                              }}
+                            </a>
+                          </div>
+                        </div>
+                        <div
+                          class="row"
+                          v-if="package_detail.package.service.code === 'CN'"
+                        >
+                          <div class="col-5 mb-8">Link ảnh sản phẩm:</div>
+                          <div class="col-7">
+                            <a
+                              class="col-7 text-truncate text-primary d-block"
+                              :href="package_detail.package.cn_product_image"
+                              target="_blank"
+                              :title="package_detail.package.cn_product_image"
+                            >
+                              {{
+                                truncateLink(
+                                  package_detail.package.cn_product_image
+                                )
+                              }}
+                            </a>
                           </div>
                         </div>
                         <div
@@ -1262,6 +1291,15 @@ export default {
     ]),
     ...mapActions('bill', [CREATE_EXTRA_FEE]),
     truncate,
+    truncateLink(link) {
+      if (!link) {
+        return 'N/A'
+      }
+      if (link.length > 20) {
+        return link.slice(0, 20) + '...'
+      }
+      return link
+    },
     async init() {
       this.isFetching = true
       await this.fetchPackage(this.packageID)

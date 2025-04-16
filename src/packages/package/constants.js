@@ -81,10 +81,6 @@ export const PACKAGE_STATUS_TAB = [
     text: 'All',
   },
   {
-    value: PACKAGE_STATUS_PURCHASED_TEXT,
-    text: 'Purchased',
-  },
-  {
     value: PACKAGE_STATUS_CREATED_TEXT,
     text: 'Pending',
   },
