@@ -401,7 +401,6 @@ import EmptySearchResult from '@components/shared/EmptySearchResult'
 import OverLoading from '@components/shared/OverLoading'
 import mixinRoute from '@core/mixins/route'
 import mixinTable from '@core/mixins/table'
-import { cloneDeep } from '@core/utils'
 import { date } from '@core/utils/datetime'
 import { truncate } from '@core/utils/string'
 import jsPDF from 'jspdf'
@@ -595,7 +594,10 @@ export default {
       if (this.user_id > 0) {
         this.filter.user_id = this.user_id
       }
-      this.filter = cloneDeep(this.$route.query)
+      this.filter = {
+        ...this.$route.query,
+        ...this.filter,
+      }
       const r1 = await this[FETCH_LIST_PACKAGES](this.filter)
       this.isFetching = false
       if (!r1.success) {

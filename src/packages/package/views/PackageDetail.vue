@@ -213,6 +213,32 @@
                             }}</div>
                           </div>
                         </div>
+                        <div
+                          class="row"
+                          v-if="package_detail.package.custom_tiktok_barcode"
+                        >
+                          <div class="col-5 mt-2">Nhãn Ship by Tiktok</div>
+                          <div class="col-7 mt-2">
+                            <div>
+                              <a
+                                class="col-7 text-truncate text-primary d-block"
+                                :href="
+                                  package_detail.package.custom_tiktok_barcode
+                                "
+                                target="_blank"
+                                :title="
+                                  package_detail.package.custom_tiktok_barcode
+                                "
+                              >
+                                {{
+                                  truncateLink(
+                                    package_detail.package.custom_tiktok_barcode
+                                  )
+                                }}
+                              </a></div
+                            >
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
