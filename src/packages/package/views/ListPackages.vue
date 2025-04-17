@@ -401,6 +401,7 @@ import EmptySearchResult from '@components/shared/EmptySearchResult'
 import OverLoading from '@components/shared/OverLoading'
 import mixinRoute from '@core/mixins/route'
 import mixinTable from '@core/mixins/table'
+import { cloneDeep } from '@core/utils'
 import { date } from '@core/utils/datetime'
 import { truncate } from '@core/utils/string'
 import jsPDF from 'jspdf'
@@ -566,7 +567,7 @@ export default {
     filteredPackages() {
       if (this.filter.customLabel) {
         return this.packages.filter(
-          (pkg) => pkg.service.code === 'T' || pkg.custom_tiktok_barcode !== ''
+          (pkg) => pkg.service.code === 'T' || pkg.custom_tiktok_barcode
         )
       }
       return this.packages
@@ -594,6 +595,7 @@ export default {
       if (this.user_id > 0) {
         this.filter.user_id = this.user_id
       }
+      this.filter = cloneDeep(this.$route.query)
       const r1 = await this[FETCH_LIST_PACKAGES](this.filter)
       this.isFetching = false
       if (!r1.success) {

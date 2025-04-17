@@ -118,6 +118,12 @@ export default {
               alias: ['/packages', '/packages/:id'],
               disable: this.$isMarketing(),
             },
+            {
+              route: '/china-packages',
+              title: ' Đơn hàng Trung Quốc',
+              alias: ['/china-packages', '/china-packages/:id'],
+              disable: this.$isMarketing(),
+            },
             // {
             //   route: '/packages/return',
             //   title: ' Đơn hàng trả về',

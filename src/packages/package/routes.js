@@ -9,6 +9,25 @@ export const routes = [
       import(/* webpackChunkName: "package" */ './views/ListPackages.vue'),
   },
   {
+    path: '/china-packages',
+    name: 'list-package-cn',
+    meta: {
+      title: 'Quản lý đơn hàng Trung Quốc',
+    },
+    component: () =>
+      import(/* webpackChunkName: "package" */ './views/ListPackages.vue'),
+    beforeEnter: (to, from, next) => {
+      if (to.query.service !== 'CN') {
+        next({
+          path: to.path,
+          query: { ...to.query, service: 'CN' },
+        })
+      } else {
+        next()
+      }
+    },
+  },
+  {
     path: '/packages/return',
     name: 'list-package-return',
     meta: {
