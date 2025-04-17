@@ -1,7 +1,7 @@
 module.exports = {
   outputDir: process.env.NODE_ENV === 'development' ? 'dist/dev' : 'dist/prod',
-  publicPath: './', // Optional: Adjust if needed for relative paths
-  // publicPath: process.env.PUBLIC_PATH || '/',
+  // publicPath: './', // Optional: Adjust if needed for relative paths
+  publicPath: process.env.PUBLIC_PATH || '/',
   productionSourceMap: false,
   configureWebpack: {
     name: 'Shipping',
