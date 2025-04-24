@@ -102,6 +102,11 @@ export default {
           if (this.input_stack.length >= 2) {
             //DO ACTION HERE
             let keyword = this.input_stack.join('')
+            const lastIndex = keyword.lastIndexOf(']')
+            if (lastIndex !== -1) {
+              keyword = keyword.slice(lastIndex + 1)
+            }
+
             this.barcodeSubmit(keyword)
           }
 
