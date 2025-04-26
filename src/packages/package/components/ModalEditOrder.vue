@@ -45,21 +45,6 @@
                   </div>
                   <div class="card__w-item">
                     <label class="card__w-label">
-                      Thành phố: <span>*</span>
-                    </label>
-                    <div class="card__w-input">
-                      <p-input
-                        placeholder="Nhập thành phố"
-                        type="text"
-                        v-model="form.city"
-                        :input="form.city"
-                        name="city"
-                        :error="valider.error('city')"
-                      />
-                    </div>
-                  </div>
-                  <div class="card__w-item">
-                    <label class="card__w-label">
                       Địa chỉ: <span>*</span>
                     </label>
                     <div class="card__w-input">
@@ -83,6 +68,21 @@
                         :input="form.address2"
                         name="address2"
                         :error="valider.error('address2')"
+                      />
+                    </div>
+                  </div>
+                  <div class="card__w-item">
+                    <label class="card__w-label">
+                      Thành phố: <span>*</span>
+                    </label>
+                    <div class="card__w-input">
+                      <p-input
+                        placeholder="Nhập thành phố"
+                        type="text"
+                        v-model="form.city"
+                        :input="form.city"
+                        name="city"
+                        :error="valider.error('city')"
                       />
                     </div>
                   </div>

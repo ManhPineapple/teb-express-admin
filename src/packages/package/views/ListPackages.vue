@@ -119,6 +119,11 @@
                         @click="handleOcrTiktok"
                         >Quét thông tin người nhận</p-button
                       >
+                      <p-button
+                        class="bulk-actions__selection-status"
+                        @click="handlerDownloadLabels"
+                        >Tải xuống nhãn</p-button
+                      >
                     </div>
                   </div>
                   <tr>
@@ -136,7 +141,7 @@
                       <th :class="{ hidden: hiddenClass }">order no.</th>
                       <th
                         width="60"
-                        class="text-center d-flex align-items-center justify-content-center"
+                        class="text-center"
                         :class="{ hidden: hiddenClass }"
                       >
                         <img
@@ -147,8 +152,27 @@
                           height="20"
                         />
                         <p-checkbox
-                          :value="filter.customLabel"
-                          @input="toggleCustomLabelFilter"
+                          :value="filter.has_tiktok_label"
+                          @input="toggleHasTiktokLabel"
+                          class="ml-5 mt-1"
+                        ></p-checkbox>
+                      </th>
+
+                      <th
+                        width="60"
+                        class="text-center d-flex align-items-center justify-content-center"
+                        :class="{ hidden: hiddenClass }"
+                      >
+                        <img
+                          src="img/fast.svg"
+                          alt="early_scan"
+                          class="icon-fast"
+                          width="25"
+                          height="25"
+                        />
+                        <p-checkbox
+                          :value="filter.is_early_scan"
+                          @input="toggleIsEarlyScan"
                           class="ml-5 mt-1"
                         ></p-checkbox>
                       </th>
@@ -237,6 +261,7 @@
                         />
                       </span>
                     </td>
+                    <td></td>
                     <td class="text-nowrap code">
                       <span v-if="showPackageCode(item)" class="link-code">
                         {{ item.package_code.code }}
@@ -404,6 +429,8 @@ import mixinTable from '@core/mixins/table'
 import { date } from '@core/utils/datetime'
 import { truncate } from '@core/utils/string'
 import jsPDF from 'jspdf'
+import api from '../api'
+import { PDFDocument } from 'pdf-lib'
 import { mapActions, mapState } from 'vuex'
 import { CREATE_EXTRA_FEE } from '../../bill/store/index'
 import { FETCH_WAREHOUSE } from '../../shared/store'
@@ -492,7 +519,8 @@ export default {
         end_date: '',
         code: '',
         warehouse_id: null,
-        customLabel: false,
+        has_tiktok_label: false,
+        is_early_scan: false,
       },
       labelDate: `Tìm theo ngày`,
       isUploading: false,
@@ -564,11 +592,6 @@ export default {
       return maptext[this.filter.search_by] || maptext['id']
     },
     filteredPackages() {
-      if (this.filter.customLabel) {
-        return this.packages.filter(
-          (pkg) => pkg.service.code === 'T' || pkg.custom_tiktok_barcode
-        )
-      }
       return this.packages
     },
   },
@@ -828,6 +851,132 @@ export default {
       })
       this.init()
     },
+
+    async handlerDownloadLabels() {
+      const files = []
+      const selectedItems = this.selected.map((pkg) => ({
+        order_number: pkg.order_number,
+        code: pkg.code,
+        url: pkg.custom_tiktok_barcode || pkg.url,
+      }))
+
+      const allEmpty = selectedItems.every((item) => !item.url)
+      if (allEmpty) {
+        this.$toast.open({
+          type: 'error',
+          message: 'Đơn hàng đã chọn không có nhãn!',
+        })
+        return
+      }
+
+      await this.processItemsConcurrently(selectedItems, async (item) => {
+        try {
+          let blob, type
+
+          if (item.url.startsWith('http')) {
+            const res = await fetch(item.url)
+            if (!res.ok) throw new Error('Fetch failed')
+
+            blob = await res.blob()
+            type = blob.type
+          } else {
+            const res = await api.fetchFile({ url: item.url, type: 'labels' })
+            if (!res || res.error) throw new Error('Invalid file response')
+
+            blob = res
+            type = res.type || ''
+          }
+
+          if (type === 'application/pdf') {
+            files.push({ blob, type: 'pdf' })
+          } else if (type.startsWith('image/')) {
+            files.push({ blob, type })
+          } else {
+            this.$toast.open({
+              type: 'error',
+              message: `Không hỗ trợ: ${item.order_number}`,
+            })
+          }
+        } catch (err) {
+          this.$toast.open({
+            type: 'error',
+            message: `Lỗi: ${item.order_number}`,
+          })
+        }
+      })
+
+      await this.openPrintWindow(files)
+    },
+
+    async openPrintWindow(files) {
+      if (files.length === 0) return
+
+      const mergedPdf = await PDFDocument.create()
+
+      for (const { blob, type } of files) {
+        const bytes = await blob.arrayBuffer()
+
+        if (type === 'pdf') {
+          const pdf = await PDFDocument.load(bytes)
+          const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices())
+          pages.forEach((p) => mergedPdf.addPage(p))
+        } else {
+          const imagePdf = await PDFDocument.create()
+          const imgData = new Uint8Array(bytes)
+          const img =
+            type === 'image/png'
+              ? await imagePdf.embedPng(imgData)
+              : await imagePdf.embedJpg(imgData)
+
+          const page = imagePdf.addPage([img.width + 60, img.height + 60])
+          page.drawImage(img, {
+            x: 30,
+            y: 30,
+            width: img.width,
+            height: img.height,
+          })
+
+          const imgBytes = await imagePdf.save()
+          const tempPdf = await PDFDocument.load(imgBytes)
+          const tempPages = await mergedPdf.copyPages(
+            tempPdf,
+            tempPdf.getPageIndices()
+          )
+          tempPages.forEach((p) => mergedPdf.addPage(p))
+        }
+      }
+
+      const output = await mergedPdf.save()
+      const blob = new Blob([output], { type: 'application/pdf' })
+      const url = URL.createObjectURL(blob)
+      const win = window.open(url, '_blank')
+
+      if (win) {
+        win.onload = () => win.print()
+      } else {
+        console.error('Không thể mở cửa sổ in')
+      }
+    },
+    async processItemsConcurrently(items, handler, maxConcurrent = 10) {
+      const results = []
+      let i = 0
+
+      const next = async () => {
+        if (i >= items.length) return
+        const index = i++
+        try {
+          results[index] = await handler(items[index])
+        } catch (error) {
+          results[index] = null
+        }
+        return next()
+      }
+
+      // Kick off initial batch
+      await Promise.all(Array.from({ length: maxConcurrent }, next))
+      return results
+    },
+
     convertPrice(item) {
       if (item.status_string == PACKAGE_STATUS_CREATED_TEXT) {
         return this.calculateFee(item.weight) + item.shipping_fee
@@ -867,8 +1016,11 @@ export default {
         this.downloadPackage(result.url, 'packages', result.url.split('/')[1])
       }
     },
-    toggleCustomLabelFilter(value) {
-      this.filter.customLabel = value
+    toggleHasTiktokLabel(value) {
+      this.filter.has_tiktok_label = value
+    },
+    toggleIsEarlyScan(value) {
+      this.filter.is_early_scan = value
     },
   },
   watch: {
