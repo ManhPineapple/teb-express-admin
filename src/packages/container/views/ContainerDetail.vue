@@ -695,6 +695,14 @@ export default {
 
       const sheetData = [headers]
       container.packages.forEach((pkg) => {
+        let tracking_number, weight
+        if (pkg.tracking == null) {
+          tracking_number = ''
+          weight = ''
+        } else {
+          tracking_number = pkg.tracking.tracking_number
+          weight = pkg.tracking.weight
+        }
         const rowData = [
           'Thanh Xuan',
           '100000',
@@ -708,14 +716,14 @@ export default {
           pkg.zipcode || '',
           pkg.country_code || '',
           pkg.package_quantity || '',
-          pkg.tracking.weight || '',
+          weight,
           '',
           pkg.package_name,
           pkg.detail,
           'VN',
           pkg.product_price || '',
           'USD',
-          pkg.tracking.tracking_number || '',
+          tracking_number,
           '',
         ]
         sheetData.push(rowData)
