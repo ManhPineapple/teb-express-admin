@@ -429,11 +429,11 @@ import mixinTable from '@core/mixins/table'
 import { date } from '@core/utils/datetime'
 import { truncate } from '@core/utils/string'
 import jsPDF from 'jspdf'
-import api from '../api'
 import { PDFDocument } from 'pdf-lib'
 import { mapActions, mapState } from 'vuex'
 import { CREATE_EXTRA_FEE } from '../../bill/store/index'
 import { FETCH_WAREHOUSE } from '../../shared/store'
+import api from '../api'
 import ModalConfirmAddress from '../components/ModalConfirmAddress.vue'
 import ModalCreateExtraFee from '../components/ModalCreateExtraFee'
 import ModalExport from '../components/ModalExport'
@@ -857,7 +857,7 @@ export default {
       const selectedItems = this.selected.map((pkg) => ({
         order_number: pkg.order_number,
         code: pkg.code,
-        url: pkg.custom_tiktok_barcode || pkg.url,
+        url: pkg.label,
       }))
 
       const allEmpty = selectedItems.every((item) => !item.url)
