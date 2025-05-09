@@ -114,11 +114,11 @@
                         @click="isVisibleModalExtraFee = true"
                         >Tạo phí phát sinh</p-button
                       >
-                      <p-button
+                      <!-- <p-button
                         class="bulk-actions__selection-status"
                         @click="handleOcrTiktok"
                         >Quét thông tin người nhận</p-button
-                      >
+                      > -->
                       <p-button
                         class="bulk-actions__selection-status"
                         @click="handlerDownloadLabels"
