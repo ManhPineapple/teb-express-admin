@@ -464,7 +464,7 @@ import {
   OCR_TIKTOK_LABEL,
   PROCESS_PACKAGE,
 } from '../store'
-// import JsBarcode from 'jsbarcode'
+import JsBarcode from 'jsbarcode'
 
 export default {
   name: 'ListPackages',
@@ -738,20 +738,41 @@ export default {
 
       try {
         const pdf = new jsPDF()
-        let yOffset = 10
+        let currentY = 10
+        const lineHeight = 60
 
         for (const item of this.selected) {
           if (item.tracking === null) continue
+          // Create a high-res canvas
           const canvas = document.createElement('canvas')
-          const barcodeImage = canvas.toDataURL('image/png')
-
-          pdf.addImage(barcodeImage, 'PNG', 10, yOffset, 100, 50)
-          yOffset += 40 + 10
-
-          if (yOffset > 270) {
-            pdf.addPage()
-            yOffset = 10
+          const scale = 3 // Increase for better quality
+          const width = 300
+          const height = 100
+          canvas.width = width * scale
+          canvas.height = height * scale
+          const ctx = canvas.getContext('2d')
+          if (ctx) {
+            ctx.scale(scale, scale) // scale the drawing context
           }
+
+          JsBarcode(canvas, item.package_code.code, {
+            format: 'CODE128',
+            displayValue: true,
+            fontSize: 18,
+            height: 70,
+            width: 2,
+            margin: 0,
+          })
+
+          const imageDataUrl = canvas.toDataURL('image/png')
+
+          if (currentY + lineHeight > pdf.internal.pageSize.height) {
+            pdf.addPage()
+            currentY = 10
+          }
+
+          pdf.addImage(imageDataUrl, 'PNG', 10, currentY, 100, 40) // Smaller height but better quality
+          currentY += lineHeight
         }
 
         pdf.save('barcode_list.pdf')
