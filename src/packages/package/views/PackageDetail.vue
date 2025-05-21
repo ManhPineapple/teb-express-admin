@@ -997,6 +997,7 @@ import { cloneDeep } from '@core/utils'
 import { truncate } from '@core/utils/string'
 import { extension } from '@core/utils/url'
 import Uniq from 'lodash/uniq'
+import { ROLE_ADMIN } from '../../../core/constants'
 import { datetime } from '../../../core/utils/datetime'
 import { CREATE_EXTRA_FEE } from '../../bill/store/index'
 import api from '../api'
@@ -1542,10 +1543,11 @@ export default {
     },
     async cancelPackageAction() {
       if (
-        this.package_detail.package.status ==
+        this.user.role !== ROLE_ADMIN &&
+        (this.package_detail.package.status ==
           PACKAGE_STATUS_WAREHOUSE_IN_CONTAINER ||
-        this.package_detail.package.status ==
-          PACKAGE_STATUS_WAREHOUSE_IN_SHIPMENT
+          this.package_detail.package.status ==
+            PACKAGE_STATUS_WAREHOUSE_IN_SHIPMENT)
       ) {
         this.visibleConfirmCancel = false
         return this.$toast.open({
