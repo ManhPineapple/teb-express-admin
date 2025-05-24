@@ -86,7 +86,19 @@
             <p-button
               type="info"
               v-if="
-                package_detail.package.status != statusCreated &&
+                package_detail.package.custom_tiktok_barcode &&
+                package_detail.package.status >= statusPreTransit &&
+                package_detail.package.status <= statusShipping
+              "
+              @click="showModalTiktokWeight"
+              id="btn_tt_weight"
+            >
+              Sửa cân nặng Tiktok
+            </p-button>
+            <p-button
+              type="info"
+              v-if="
+                package_detail.package.status == statusCreated &&
                 package_detail.package.status != statusArchived &&
                 user.role != roleSupport &&
                 user.role != roleSale &&
@@ -933,6 +945,12 @@
       :loading="isSubmitting"
       @save="handleSubmitExtraFee"
     ></modal-create-extra-fee>
+    <modal-edit-tiktok-weight
+      :visible.sync="isVisibleModalTiktokWeight"
+      :initial-weight="package_detail.package.weight"
+      :loading="isSubmitting"
+      @save="handleSaveTiktokWeight"
+    />
     <modal-create-tracking
       @save="handleCreateTracking"
       :visible.sync="isVisisbleModalCreateTracking"
@@ -979,6 +997,7 @@ import {
   PACKAGE_STATUS_EXPIRED,
   PACKAGE_STATUS_IMPORT_HUB,
   PACKAGE_STATUS_IN_TRANSIT,
+  PACKAGE_STATUS_PENDING_PICKUP,
   PACKAGE_STATUS_RESHIP,
   PACKAGE_STATUS_RETURNED,
   PACKAGE_STATUS_TAB,
@@ -1004,6 +1023,7 @@ import api from '../api'
 import ModalCreateExtraFee from '../components/ModalCreateExtraFee'
 import ModalCreateTracking from '../components/ModalCreateTracking'
 import ModalEditOrder from '../components/ModalEditOrder'
+import ModalEditTiktokWeight from '../components/ModalEditTiktokWeight'
 import TrackLink from '../components/TrackLink.vue'
 import {
   CANCEL_PACKAGES,
@@ -1023,6 +1043,7 @@ export default {
     ModalCreateTracking,
     ModalConfirm,
     ModalCreateExtraFee,
+    ModalEditTiktokWeight,
     OverLoading,
     TrackLink,
   },
@@ -1034,6 +1055,7 @@ export default {
       displayDeliverDetail: false,
       isVisibleModal: false,
       isVisiblePopupMoreExtraFee: false,
+      isVisibleModalTiktokWeight: false,
       isVisibleConfirmWayBill: false,
       isReLabel: false,
       isVisibleModalExtraFee: false,
@@ -1212,6 +1234,9 @@ export default {
     },
     statusArchived() {
       return PACKAGE_STATUS_ARCHIVED
+    },
+    statusPreTransit() {
+      return PACKAGE_STATUS_PENDING_PICKUP
     },
     packageStatus() {
       return PACKAGE_STATUS_TAB
@@ -1623,7 +1648,6 @@ export default {
           this.package_detail.package.length
       )
     },
-
     showModalExtraFee() {
       this.isVisibleModalExtraFee = true
     },
@@ -1652,7 +1676,34 @@ export default {
       })
       this.init()
     },
-
+    showModalTiktokWeight() {
+      this.isVisibleModalTiktokWeight = true
+    },
+    async handleSaveTiktokWeight(param) {
+      console.log(param)
+      const payload = {
+        weight: param,
+      }
+      this.isSubmitting = true
+      const result = await api.updateTiktokWeight(
+        this.package_detail.package.id,
+        payload
+      )
+      this.isSubmitting = false
+      this.isVisibleModalTiktokWeight = false
+      if (!result.success) {
+        this.$toast.open({
+          type: 'error',
+          message: result.message,
+        })
+        return
+      }
+      this.$toast.open({
+        type: 'success',
+        message: 'Tạo phí phát sinh thành công',
+      })
+      this.init()
+    },
     async handleUpdate(params) {
       if (this.isSubmitting) return
 

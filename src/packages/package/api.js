@@ -16,6 +16,10 @@ export default {
     return http.post(`/packages/process_cn`, payload)
   },
 
+  updateTiktokWeight(package_id, payload) {
+    return http.put(`/packages/tiktok_weight/${package_id}`, payload)
+  },
+
   /**
    * fetch list product
    * @param payload
