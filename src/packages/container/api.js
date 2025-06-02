@@ -1,6 +1,6 @@
+import { RESPONSE_TYPE_BLOB } from '@core/constants/http'
 import http from '@core/services/http'
 import { buildQueryString } from '@core/utils/url'
-import { RESPONSE_TYPE_BLOB } from '@core/constants/http'
 
 export default {
   fetchListContainers(payload) {
@@ -58,5 +58,11 @@ export default {
   },
   importContainerEvent(payload) {
     return http.post('/containers/events/import', payload)
+  },
+  getManifestUrl(container_id) {
+    return http.get(`/containers/manifest/${container_id}`)
+  },
+  createManifestUrl(container_id) {
+    return http.post(`/containers/manifest/${container_id}`)
   },
 }

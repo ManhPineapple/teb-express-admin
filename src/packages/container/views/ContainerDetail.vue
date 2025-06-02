@@ -131,7 +131,7 @@
             <p-button
               v-if="container_detail.status === CONTAINER_WAITING_CLOSE"
               type="danger"
-              :class="`btn-cancel-shipment`"
+              :class="`btn-cancel-shipment mr-3`"
               @click="handelModal"
             >
               Hủy kiện hàng
@@ -144,6 +144,24 @@
             >
               <!-- modify accessable role -->
               Báo cáo Hải Quan
+            </p-button>
+            <!-- Manifest Buttons -->
+            <p-button
+              type="primary"
+              class="mr-3"
+              @click="handleCreateManifest"
+              v-if="!manifest_url"
+            >
+              Tạo manifest
+            </p-button>
+
+            <p-button
+              type="success"
+              class="mr-3"
+              @click="handlePrintManifest"
+              v-else
+            >
+              In manifest
             </p-button>
           </div>
         </div>
@@ -322,6 +340,7 @@ export default {
       containerClose: CONTAINER_CLOSE,
       CONTAINER_WAITING_CLOSE: CONTAINER_WAITING_CLOSE,
       visibleModalClose: false,
+      manifest_url: null,
     }
   },
   computed: {
@@ -381,8 +400,17 @@ export default {
       payload = { ...payload, ...{ code: this.$route.params.code } }
       const result = await this[FETCH_CONTAINER_DETAIL](payload)
       this.isFetching = false
+      await this.getManifest()
       if (!result.success) {
         this.$toast.open({ message: result.message, type: 'error' })
+      }
+    },
+    async getManifest() {
+      try {
+        const res = await api.getManifestUrl(this.container_detail.id)
+        this.manifest_url = res.manifest_url || null
+      } catch (e) {
+        this.manifest_url = null
       }
     },
     getBoxInfo(pkg) {
@@ -741,6 +769,72 @@ export default {
       worksheet['!cols'] = colWidths
 
       return worksheet
+    },
+    async handleCreateManifest() {
+      const containerId = this.container_detail.id
+      const res = await api.createManifestUrl(containerId)
+
+      if (!res || res.error) {
+        this.$toast.open({
+          type: 'error',
+          message: res.errorMessage || 'Lỗi khi tải manifest',
+          duration: 3000,
+        })
+        return
+      }
+      this.manifest_url = res.manifest_url
+      if (this.manifest_url && this.manifest_url.length > 0) {
+        await this.handlePrintManifest()
+      } else {
+        this.$toast.open({
+          type: 'error',
+          message: 'Manifest rỗng, không thể in',
+          duration: 3000,
+        })
+      }
+    },
+    async handlePrintManifest() {
+      if (!this.manifest_url || this.manifest_url.length === 0) {
+        this.$toast.open({
+          type: 'error',
+          message: 'Đơn không có manifest',
+          duration: 3000,
+        })
+        return
+      }
+
+      try {
+        for (const url of this.manifest_url) {
+          const res = await api.downloadLabel({ url, type: 'labels' })
+
+          if (!res || res.error) {
+            this.$toast.open({
+              type: 'error',
+              message: res.errorMessage || 'Lỗi khi tải manifest',
+              duration: 3000,
+            })
+            continue
+          }
+
+          const blobUrl = URL.createObjectURL(res)
+          for (let i = 0; i < 2; i++) {
+            const printWindow = window.open(blobUrl)
+            if (printWindow) {
+              printWindow.onload = () => {
+                printWindow.focus()
+                printWindow.print()
+              }
+            }
+          }
+          setTimeout(() => URL.revokeObjectURL(blobUrl), 10000)
+        }
+      } catch (error) {
+        this.$toast.open({
+          type: 'error',
+          message: 'Lỗi khi in manifest',
+          duration: 3000,
+        })
+      }
     },
     handleSearch(e) {
       this.filter.page = 1
