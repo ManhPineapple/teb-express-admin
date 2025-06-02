@@ -79,7 +79,7 @@ export default {
     return http.post(`/services/prices`, payload)
   },
   updateUserInfo(payload) {
-    return http.put(`/users/${payload.id}/info`, payload)
+    return http.put(`/users/info/${payload.id}`, payload)
   },
 
   fetchListCheckPriceLogs(payload) {
