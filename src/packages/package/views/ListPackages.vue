@@ -428,6 +428,7 @@ import mixinRoute from '@core/mixins/route'
 import mixinTable from '@core/mixins/table'
 import { date } from '@core/utils/datetime'
 import { truncate } from '@core/utils/string'
+import JsBarcode from 'jsbarcode'
 import jsPDF from 'jspdf'
 import { PDFDocument } from 'pdf-lib'
 import { mapActions, mapState } from 'vuex'
@@ -464,7 +465,6 @@ import {
   OCR_TIKTOK_LABEL,
   PROCESS_PACKAGE,
 } from '../store'
-import JsBarcode from 'jsbarcode'
 
 export default {
   name: 'ListPackages',
@@ -723,11 +723,11 @@ export default {
         return
       }
 
-      const allTrackingNumbersEmpty = this.selected.every(
-        (element) => element.tracking === null || element.tracking === ''
+      const allCodesEmpty = this.selected.every(
+        (element) => element.code === null || element.code === ''
       )
 
-      if (allTrackingNumbersEmpty) {
+      if (allCodesEmpty) {
         this.$toast.open({
           message: 'The selected order has no barcode!',
           type: 'error',
@@ -741,18 +741,27 @@ export default {
         let currentY = 10
         const lineHeight = 60
 
+        const barcodeX = 10
+        const barcodeWidth = 100
+
         for (const item of this.selected) {
-          if (item.tracking === null) continue
+          if (
+            item.code === null ||
+            !item.package_code ||
+            !item.package_code.code
+          )
+            continue
+
           // Create a high-res canvas
           const canvas = document.createElement('canvas')
-          const scale = 3 // Increase for better quality
+          const scale = 3
           const width = 300
           const height = 100
           canvas.width = width * scale
           canvas.height = height * scale
           const ctx = canvas.getContext('2d')
           if (ctx) {
-            ctx.scale(scale, scale) // scale the drawing context
+            ctx.scale(scale, scale)
           }
 
           JsBarcode(canvas, item.package_code.code, {
@@ -771,7 +780,26 @@ export default {
             currentY = 10
           }
 
-          pdf.addImage(imageDataUrl, 'PNG', 10, currentY, 100, 40) // Smaller height but better quality
+          // Draw order number, centered above the barcode
+          if (item.order_number) {
+            const fontSize = 10
+            pdf.setFontSize(fontSize)
+            const text = `${item.order_number}`
+            const textWidth = pdf.getTextWidth(text)
+            const textX = barcodeX + (barcodeWidth - textWidth) / 2
+            pdf.text(text, textX, currentY)
+            currentY += 5
+          }
+
+          // Draw barcode image
+          pdf.addImage(
+            imageDataUrl,
+            'PNG',
+            barcodeX,
+            currentY,
+            barcodeWidth,
+            40
+          )
           currentY += lineHeight
         }
 
