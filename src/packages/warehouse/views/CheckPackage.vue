@@ -557,13 +557,13 @@ export default {
       document.activeElement && document.activeElement.blur()
 
       try {
-        const url = this.tracking.label_url
+        const url = this.current.label
         if (!url) return
 
         if (url.startsWith('http://') || url.startsWith('https://')) {
           window.open(url, '_blank')
         } else {
-          print(this.tracking.label_url)
+          print(url)
         }
       } catch (error) {
         this.$toast.error('File error !!!')
