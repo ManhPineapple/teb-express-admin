@@ -80,6 +80,14 @@
                       <span>Trạng thái:</span>
                       <span v-status="current.status" type="warehouse"></span>
                     </div>
+                    <div class="d-flex">
+                      Destination Hub:
+                      {{
+                        current.tracking && current.tracking.warehouse
+                          ? `Hub ${current.tracking.warehouse.state}`
+                          : 'N/A'
+                      }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -373,30 +381,30 @@
   </div>
 </template>
 <script>
-import { mapActions, mapMutations, mapState } from 'vuex'
-import ModalReturn from '../components/ModalReturn'
-import mixinBarcode from '@core/mixins/barcode'
 import PageLoading from '@components/shared/OverLoading'
+import mixinBarcode from '@core/mixins/barcode'
+import mixinTable from '@core/mixins/table'
+import { mapActions, mapMutations, mapState } from 'vuex'
+import { yup } from '../../../core/valider'
+import ModalReturn from '../components/ModalReturn'
 import {
-  GET_PACKAGE_BY_CODE,
-  PACKAGE_CREATE_LABEL,
-  GET_CHECKIN_REQUEST,
-  CLOSE_CHECKIN_REQUEST,
-  RETURN_PACKAGE,
-  UPDATE_STATUS_PACKAGE,
-  CHECK_RELABEL,
-} from '../store'
-import {
+  CHECKIN_PACKAGE_STATUS_CHANGE_LABEL,
+  CHECKIN_PACKAGE_STATUS_FAILED,
+  CHECKIN_PACKAGE_STATUS_INVALID,
+  CHECKIN_PACKAGE_STATUS_SUCCESS,
+  CHECKIN_PACKAGE_STATUS_UPDATE_LABEL_FAILED,
   PACKAGE_STATUS_PENDING_PICKUP,
   PACKAGE_WAREHOUSE_STATUS_PICK,
-  CHECKIN_PACKAGE_STATUS_FAILED,
-  CHECKIN_PACKAGE_STATUS_SUCCESS,
-  CHECKIN_PACKAGE_STATUS_INVALID,
-  CHECKIN_PACKAGE_STATUS_UPDATE_LABEL_FAILED,
-  CHECKIN_PACKAGE_STATUS_CHANGE_LABEL,
 } from '../constants'
-import { yup } from '../../../core/valider'
-import mixinTable from '@core/mixins/table'
+import {
+  CHECK_RELABEL,
+  CLOSE_CHECKIN_REQUEST,
+  GET_CHECKIN_REQUEST,
+  GET_PACKAGE_BY_CODE,
+  PACKAGE_CREATE_LABEL,
+  RETURN_PACKAGE,
+  UPDATE_STATUS_PACKAGE,
+} from '../store'
 
 export default {
   name: 'CheckPackage',
