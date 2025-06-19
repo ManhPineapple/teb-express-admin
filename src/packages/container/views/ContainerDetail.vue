@@ -805,6 +805,16 @@ export default {
 
       try {
         for (const url of this.manifest_url) {
+          if (url.startsWith('http://') || url.startsWith('https://')) {
+            const printWindow = window.open(url)
+            if (printWindow) {
+              printWindow.onload = () => {
+                printWindow.focus()
+              }
+            }
+            continue
+          }
+
           const res = await api.downloadLabel({ url, type: 'labels' })
 
           if (!res || res.error) {
@@ -817,15 +827,13 @@ export default {
           }
 
           const blobUrl = URL.createObjectURL(res)
-          for (let i = 0; i < 2; i++) {
-            const printWindow = window.open(blobUrl)
-            if (printWindow) {
-              printWindow.onload = () => {
-                printWindow.focus()
-                printWindow.print()
-              }
+          const printWindow = window.open(blobUrl)
+          if (printWindow) {
+            printWindow.onload = () => {
+              printWindow.focus()
             }
           }
+
           setTimeout(() => URL.revokeObjectURL(blobUrl), 10000)
         }
       } catch (error) {
