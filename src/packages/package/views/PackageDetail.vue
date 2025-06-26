@@ -131,7 +131,8 @@
               @click="downloadLabelFile"
               v-if="
                 package_detail.package.status != statusCreated &&
-                package_detail.package.status != statusArchived
+                package_detail.package.status != statusArchived &&
+                package_detail.package.status != statusCancel
               "
               id="btn_print_label"
             >
