@@ -51,6 +51,13 @@
                   | datetime('dd/MM/yyyy HH:mm:ss')
               }}</div>
             </div>
+            <div>
+              <div>Ngày in label</div>
+              <div>{{
+                package_detail.package.last_print_label_at
+                  | datetime('dd/MM/yyyy HH:mm:ss')
+              }}</div>
+            </div>
             <div v-if="package_detail.estimate_process_date">
               <div>Ngày xử lý dự kiến </div>
               <div>

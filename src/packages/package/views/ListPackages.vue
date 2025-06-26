@@ -188,6 +188,9 @@
                       <th width="100" :class="{ hidden: hiddenClass }"
                         >created date
                       </th>
+                      <th width="100" :class="{ hidden: hiddenClass }"
+                        >label print date
+                      </th>
                       <th width="150" :class="{ hidden: hiddenClass }"
                         >status</th
                       >
@@ -336,6 +339,7 @@
                       {{ item.warehouse ? item.warehouse.name : '-' }}
                     </td>
                     <td>{{ item.created_at | date('dd/MM/yyyy') }}</td>
+                    <td>{{ item.last_print_label_at | date('dd/MM/yyyy') }}</td>
                     <td>
                       <span v-status="item.status"></span>
                       <span
