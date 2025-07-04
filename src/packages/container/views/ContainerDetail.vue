@@ -804,17 +804,8 @@ export default {
       }
 
       try {
-        for (const url of this.manifest_url) {
-          if (url.startsWith('http://') || url.startsWith('https://')) {
-            const printWindow = window.open(url)
-            if (printWindow) {
-              printWindow.onload = () => {
-                printWindow.focus()
-              }
-            }
-            continue
-          }
-
+        for (let i = 0; i < this.manifest_url.length; i++) {
+          const url = this.manifest_url[i]
           const res = await api.downloadLabel({ url, type: 'labels' })
 
           if (!res || res.error) {
@@ -827,14 +818,28 @@ export default {
           }
 
           const blobUrl = URL.createObjectURL(res)
-          const printWindow = window.open(blobUrl)
-          if (printWindow) {
-            printWindow.onload = () => {
-              printWindow.focus()
-            }
+
+          // Determine file extension based on MIME type
+          const mimeType = res.type
+          let extension = ''
+          if (mimeType === 'application/pdf') {
+            extension = '.pdf'
+          } else if (mimeType.startsWith('image/')) {
+            extension = '.' + mimeType.split('/')[1]
           }
 
-          setTimeout(() => URL.revokeObjectURL(blobUrl), 10000)
+          // Create a download link
+          const a = document.createElement('a')
+          a.href = blobUrl
+          a.download = 'manifest_' + (i + 1) + extension
+          document.body.appendChild(a)
+          a.click()
+          document.body.removeChild(a)
+
+          // Clean up blob URL
+          setTimeout(function () {
+            URL.revokeObjectURL(blobUrl)
+          }, 10000)
         }
       } catch (error) {
         this.$toast.open({
