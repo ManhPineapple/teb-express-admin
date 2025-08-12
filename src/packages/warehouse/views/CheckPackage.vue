@@ -343,11 +343,14 @@ export default {
       this.fetchPackageSubmit()
     },
     searchHandle(e) {
-      this.beforeFetchPackge(e.target.value || '')
+      const keyword = e.target.value
+      if (keyword == 'PrintAnanBayLabel') this.printLabel()
+      else this.beforeFetchPackge(keyword || '')
     },
 
     barcodeSubmit(keyword) {
-      this.beforeFetchPackge(keyword)
+      if (keyword == 'PrintAnanBayLabel') this.printLabel()
+      else this.beforeFetchPackge(keyword)
     },
 
     beforeFetchPackge(keyword) {
