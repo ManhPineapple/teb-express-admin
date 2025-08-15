@@ -52,6 +52,13 @@
               }}</div>
             </div>
             <div>
+              <div>Ngày cân mã vạch</div>
+              <div>{{
+                package_detail.package.scan_weight_at
+                  | datetime('dd/MM/yyyy HH:mm:ss')
+              }}</div>
+            </div>
+            <div>
               <div>Ngày in label</div>
               <div>{{
                 package_detail.package.last_print_label_at
