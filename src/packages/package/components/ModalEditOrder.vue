@@ -683,6 +683,9 @@ export default {
   created() {
     this.init()
     this.valider = valider.schema((y) => {
+      if (this.package_detail.package.service.code == 'T') {
+        return {}
+      }
       let fields = {
         fullname: y
           .string()
