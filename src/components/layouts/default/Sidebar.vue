@@ -230,8 +230,7 @@ export default {
                 this.$isWarehouse() ||
                 this.$isHub() ||
                 this.$isShipPartner() ||
-                this.$isSaleOperation() ||
-                this.$isBusinessManager(),
+                this.$isSaleOperation(),
             },
             // {
             //   route: '/claims-process',
