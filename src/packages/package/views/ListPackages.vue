@@ -389,13 +389,27 @@
               class="d-flex justify-content-between align-items-center mb-16"
               v-if="count > 0"
             >
+              <!-- Centered limit selector -->
+              <div class="limit-selector">
+                <span class="label">Hiển thị</span>
+                <select
+                  v-model.number="filter.limit"
+                  class="form-control form-control-sm"
+                >
+                  <option :value="20">20</option>
+                  <option :value="50">50</option>
+                  <option :value="100">100</option>
+                  <option :value="200">200</option>
+                </select>
+              </div>
+
+              <!-- Right-aligned pagination -->
               <p-pagination
                 :total="count"
                 :perPage.sync="filter.limit"
                 :current.sync="filter.page"
                 size="sm"
-              >
-              </p-pagination>
+              />
             </div>
           </template>
           <empty-search-result v-else></empty-search-result>
@@ -719,7 +733,7 @@ export default {
       this.isFetching = false
     },
     handleValue(e) {
-      this.selected = JSON.parse(JSON.stringify(e))
+      this.selected = [...e]
     },
 
     async downloadBarcode() {
@@ -1119,5 +1133,20 @@ td.code {
   position: relative;
   left: 50px;
   display: inline-block;
+}
+
+.form-control {
+  width: 80px;
+}
+.limit-selector {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.limit-selector .label {
+  white-space: nowrap;
 }
 </style>
