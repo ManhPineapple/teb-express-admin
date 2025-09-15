@@ -28,6 +28,20 @@
               {{ value }}
             </option>
           </p-select>
+          <p-select
+            style="
+              width: auto;
+              border-top-left-radius: unset !important;
+              border-bottom-left-radius: unset !important;
+              border-left: unset;
+            "
+            placeholder="Please select"
+            v-model="filter.service"
+          >
+            <option :value="key" v-for="(value, key) in serviceCode" :key="key">
+              {{ value }}
+            </option>
+          </p-select>
         </div>
 
         <div class="d-flex date-search">
@@ -63,23 +77,9 @@
           <p-button
             type="info"
             class="btn-create-noti mr-8"
-            @click="downloadBarcode"
-          >
-            Barcode
-          </p-button>
-          <p-button
-            type="info"
-            class="btn-create-noti mr-8"
             @click="showFormUpload"
           >
             Import
-          </p-button>
-          <p-button
-            type="info"
-            class="btn-create-noti"
-            @click="showModalExport"
-          >
-            Export
           </p-button>
         </div>
       </div>
@@ -119,6 +119,13 @@
                         @click="handleOcrTiktok"
                         >Quét thông tin người nhận</p-button
                       > -->
+                      <p-button
+                        type="info"
+                        class="bulk-actions__selection-status"
+                        @click="downloadBarcode"
+                      >
+                        Tải xuống mã vạch AB
+                      </p-button>
                       <p-button
                         class="bulk-actions__selection-status"
                         @click="handlerDownloadLabels"
@@ -422,12 +429,6 @@
       :loading="isUploading"
       @selected="importTrackingHandle"
     ></modal-import>
-    <modal-export-package
-      :visible.sync="visibleModalExport"
-      :loading="isExporting"
-      @export="handleExportPackage"
-    >
-    </modal-export-package>
     <modal-confirm-address
       :visible.sync="isVisibleComfirmAdress"
       :pkg="comfirmAddressPkg"
@@ -460,7 +461,6 @@ import api from '../api'
 import ModalConfirmAddress from '../components/ModalConfirmAddress.vue'
 import ModalCreateExtraFee from '../components/ModalCreateExtraFee'
 import ModalExport from '../components/ModalExport'
-import ModalExportPackage from '../components/ModalExportPackage'
 import PackageStatusTab from '../components/PackageStatusTab'
 import TrackLink from '../components/TrackLink.vue'
 import {
@@ -497,7 +497,6 @@ export default {
     ModalExport,
     TrackLink,
     ModalImport,
-    ModalExportPackage,
     ModalConfirmAddress,
     ModalCreateExtraFee,
     OverLoading,
@@ -517,6 +516,17 @@ export default {
           account: 'Tài khoản khách hàng',
           customer_full_name: 'Tên khách hàng',
           tracking: 'Last mile tracking',
+        }
+      },
+    },
+    serviceCode: {
+      type: Object,
+      default() {
+        return {
+          '': 'All service',
+          S: 'Standard',
+          E: 'Express',
+          T: 'Ship by tiktok',
         }
       },
     },
@@ -540,6 +550,7 @@ export default {
         start_date: '',
         end_date: '',
         code: '',
+        service: '',
         warehouse_id: null,
         has_tiktok_label: false,
         is_early_scan: false,
@@ -563,7 +574,6 @@ export default {
       PackageStatusDeactivate: PACKAGE_STATUS_DEACTIVATE,
       PackageStatusExpiredText: PACKAGE_STATUS_EXPIRED_TEXT,
       visibleModalImport: false,
-      visibleModalExport: false,
       isExporting: false,
     }
   },
@@ -664,9 +674,6 @@ export default {
         }
         this.warehoseLoaded = true
       }
-    },
-    showModalExport() {
-      this.visibleModalExport = true
     },
     showPackageCode(item) {
       if (item.status === PACKAGE_STATUS_ARCHIVED) {
