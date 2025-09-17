@@ -23,6 +23,7 @@ export const PACKAGE_STATUS_ARCHIVED = 55
 
 export const PACKAGE_STATUS_CREATED_TEXT = 'pending'
 export const PACKAGE_STATUS_PURCHASED_TEXT = 'purchased'
+export const PACKAGE_STATUS_WEIGHT_SCANNED_TEXT = 'weightscanned'
 export const PACKAGE_STATUS_PENDING_PICKUP_TEXT = 'pre-transit'
 export const PACKAGE_STATUS_PROCESSING_TEXT = 'processing'
 export const PACKAGE_STATUS_IN_TRANSIT_TEXT = 'in-transit'
@@ -87,6 +88,10 @@ export const PACKAGE_STATUS_TAB = [
   {
     value: PACKAGE_STATUS_PURCHASED_TEXT,
     text: 'Purchased',
+  },
+  {
+    value: PACKAGE_STATUS_WEIGHT_SCANNED_TEXT,
+    text: 'WeightScanned',
   },
   {
     value: PACKAGE_STATUS_PENDING_PICKUP_TEXT,
