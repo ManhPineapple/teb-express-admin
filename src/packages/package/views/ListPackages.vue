@@ -510,12 +510,9 @@ export default {
       type: Object,
       default() {
         return {
-          code: 'AnanBay tracking',
-          order_number: 'Mã đơn hàng',
+          code: 'Mã AB/Mã đơn/Mã tracking',
           recipient: 'Người nhận',
-          account: 'Tài khoản khách hàng',
-          customer_full_name: 'Tên khách hàng',
-          tracking: 'Last mile tracking',
+          account: 'Tên/Email/SĐT khách hàng',
         }
       },
     },
@@ -543,7 +540,7 @@ export default {
   data() {
     return {
       filter: {
-        limit: 200,
+        limit: 100,
         status: '',
         search: '',
         search_by: 'code',
