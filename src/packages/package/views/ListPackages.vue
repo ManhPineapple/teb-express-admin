@@ -114,23 +114,25 @@
                         @click="isVisibleModalExtraFee = true"
                         >Tạo phí phát sinh</p-button
                       >
-                      <!-- <p-button
-                        class="bulk-actions__selection-status"
-                        @click="handleOcrTiktok"
-                        >Quét thông tin người nhận</p-button
-                      > -->
-                      <p-button
-                        type="info"
-                        class="bulk-actions__selection-status"
-                        @click="downloadBarcode"
-                      >
-                        Tải xuống mã vạch AB
-                      </p-button>
                       <p-button
                         class="bulk-actions__selection-status"
                         @click="handlerDownloadLabels"
                         >Tải xuống nhãn</p-button
                       >
+                      <p-button
+                        type="info"
+                        class="bulk-actions__selection-status"
+                        @click="printBarcodePdf('code', 'order_number')"
+                      >
+                        Tải xuống mã vạch AB
+                      </p-button>
+                      <p-button
+                        type="info"
+                        class="bulk-actions__selection-status"
+                        @click="printBarcodePdf('order_number', 'code')"
+                      >
+                        Tải xuống mã vạch mã đơn
+                      </p-button>
                     </div>
                   </div>
                   <tr>
@@ -739,107 +741,64 @@ export default {
     handleValue(e) {
       this.selected = [...e]
     },
+    async printBarcodePdf(barcodeSource, labelSource) {
+      const selectedItems = this.selected.map((x) => ({
+        order_number: x.order_number,
+        code: x.package_code ? x.package_code.code : '',
+        tracking_number: x.tracking_number,
+      }))
 
-    async downloadBarcode() {
-      if (!this.selected.length) {
-        this.$toast.open({
-          type: 'warning',
-          message: 'Vui lòng chọn ít nhất một hàng để xuất mã vạch!',
-        })
-        return
-      }
-
-      const allCodesEmpty = this.selected.every(
-        (element) => element.code === null || element.code === ''
+      const allBarcodesEmpty = selectedItems.every(
+        (item) => !item[barcodeSource]
       )
-
-      if (allCodesEmpty) {
-        this.$toast.open({
-          message: 'The selected order has no barcode!',
-          type: 'error',
-          duration: 3000,
+      if (allBarcodesEmpty) {
+        this.$toast.error('Đơn hàng đã chọn không có mã vạch!', {
+          autoClose: 3000,
         })
         return
       }
 
-      try {
-        const pdf = new jsPDF()
-        let currentY = 10
-        const lineHeight = 60
+      const doc = new jsPDF({ orientation: 'landscape', format: [170, 85] })
 
-        const barcodeX = 10
-        const barcodeWidth = 100
+      selectedItems.forEach((item, index) => {
+        const barcodeValue = item[barcodeSource]
+        const labelValue = item[labelSource] || 'N/A'
 
-        for (const item of this.selected) {
-          if (
-            item.code === null ||
-            !item.package_code ||
-            !item.package_code.code
-          )
-            continue
+        if (!barcodeValue) return
 
-          // Create a high-res canvas
-          const canvas = document.createElement('canvas')
-          const scale = 3
-          const width = 300
-          const height = 100
-          canvas.width = width * scale
-          canvas.height = height * scale
-          const ctx = canvas.getContext('2d')
-          if (ctx) {
-            ctx.scale(scale, scale)
-          }
+        const canvas = document.createElement('canvas')
+        JsBarcode(canvas, barcodeValue, {
+          format: 'CODE128',
+          displayValue: true,
+          fontSize: 20,
+          height: 50,
+          width: 2,
+          margin: 0,
+        })
 
-          JsBarcode(canvas, item.package_code.code, {
-            format: 'CODE128',
-            displayValue: true,
-            fontSize: 18,
-            height: 70,
-            width: 2,
-            margin: 0,
-          })
+        const imageDataUrl = canvas.toDataURL('image/png')
+        doc.setFontSize(20)
+        doc.text(labelValue, 85, 15, null, null, 'center')
+        doc.addImage(imageDataUrl, 'PNG', 20, 25, 130, 40)
 
-          const imageDataUrl = canvas.toDataURL('image/png')
-
-          if (currentY + lineHeight > pdf.internal.pageSize.height) {
-            pdf.addPage()
-            currentY = 10
-          }
-
-          // Draw order number, centered above the barcode
-          if (item.order_number) {
-            const fontSize = 10
-            pdf.setFontSize(fontSize)
-            const text = `${item.order_number}`
-            const textWidth = pdf.getTextWidth(text)
-            const textX = barcodeX + (barcodeWidth - textWidth) / 2
-            pdf.text(text, textX, currentY)
-            currentY += 5
-          }
-
-          // Draw barcode image
-          pdf.addImage(
-            imageDataUrl,
-            'PNG',
-            barcodeX,
-            currentY,
-            barcodeWidth,
-            40
-          )
-          currentY += lineHeight
+        if (index < selectedItems.length - 1) {
+          doc.addPage()
         }
+      })
 
-        pdf.save('barcode_list.pdf')
-        this.$toast.open({
-          type: 'success',
-          message: 'Tải file PDF mã vạch thành công!',
-        })
-      } catch (error) {
-        console.error('Lỗi khi tạo file PDF:', error)
-        this.$toast.open({
-          type: 'error',
-          message: 'Đã xảy ra lỗi khi tạo file PDF. Vui lòng thử lại!',
-        })
+      // Open PDF in new tab and trigger print
+      const pdfBlob = doc.output('blob')
+      const pdfUrl = URL.createObjectURL(pdfBlob)
+
+      const printWindow = window.open(pdfUrl)
+      if (!printWindow) {
+        this.$toast.error('Không thể mở cửa sổ in!', { autoClose: 3000 })
+        return
+      }
+
+      printWindow.onload = function () {
+        printWindow.focus()
+        printWindow.print()
       }
     },
     async handleExport() {
@@ -863,33 +822,6 @@ export default {
         'danh_sach_van_don_'
       )
       this.isVisibleExport = false
-    },
-    async handleOcrTiktok() {
-      this.isFetching = true
-      for (const pkg of this.selected) {
-        if (pkg.service.code !== 'T' && pkg.custom_tiktok_barcode === '') {
-          this.$toast.open({
-            type: 'error',
-            message: 'Có đơn không phải dịch vụ Tiktok được chọn.',
-            duration: 3000,
-          })
-          this.isFetching = false
-          return
-        }
-      }
-      const result = await this[OCR_TIKTOK_LABEL]({
-        ids: this.selectedIds,
-      })
-      if (!result.success) {
-        this.$toast.open({
-          type: 'error',
-          message: result.message,
-          duration: 3000,
-        })
-        this.isFetching = false
-        return
-      }
-      this.isFetching = false
     },
     async handleSubmitExtraFee(param) {
       const payload = {
