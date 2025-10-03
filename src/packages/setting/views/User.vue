@@ -346,7 +346,7 @@ export default {
       current_user: (state) => state.user,
     }),
     showPhoneNumber() {
-      return this.$isAdmin() || this.$isSupport()
+      return this.$isAdmin() || this.$isSupport() || this.$isBusinessManager()
     },
   },
   methods: {
