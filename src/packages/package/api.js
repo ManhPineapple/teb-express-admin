@@ -20,6 +20,10 @@ export default {
     return http.put(`/packages/tiktok_weight/${package_id}`, payload)
   },
 
+  updateTiktokLabel(package_id, payload) {
+    return http.put(`/packages/tiktok_label/${package_id}`, payload)
+  },
+
   /**
    * fetch list product
    * @param payload

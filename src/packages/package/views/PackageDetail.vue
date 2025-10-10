@@ -111,6 +111,14 @@
             </p-button>
             <p-button
               type="info"
+              v-if="package_detail.package.custom_tiktok_barcode"
+              @click="showModalTiktokLabel"
+              id="btn_tt_weight"
+            >
+              Sửa link label Tiktok
+            </p-button>
+            <p-button
+              type="info"
               v-if="
                 package_detail.package.status == statusCreated &&
                 package_detail.package.status != statusArchived &&
@@ -966,6 +974,12 @@
       :loading="isSubmitting"
       @save="handleSaveTiktokWeight"
     />
+    <modal-edit-tiktok-label
+      :visible.sync="isVisibleModalTiktokLabel"
+      :initial-link="package_detail.package.custom_tiktok_barcode"
+      :loading="isSubmitting"
+      @save="handleSaveTiktokLabel"
+    />
     <modal-create-tracking
       @save="handleCreateTracking"
       :visible.sync="isVisisbleModalCreateTracking"
@@ -1038,6 +1052,7 @@ import api from '../api'
 import ModalCreateExtraFee from '../components/ModalCreateExtraFee'
 import ModalCreateTracking from '../components/ModalCreateTracking'
 import ModalEditOrder from '../components/ModalEditOrder'
+import ModalEditTiktokLabel from '../components/ModalEditTiktokLabel.vue'
 import ModalEditTiktokWeight from '../components/ModalEditTiktokWeight'
 import TrackLink from '../components/TrackLink.vue'
 import {
@@ -1059,6 +1074,7 @@ export default {
     ModalConfirm,
     ModalCreateExtraFee,
     ModalEditTiktokWeight,
+    ModalEditTiktokLabel,
     OverLoading,
     TrackLink,
   },
@@ -1071,6 +1087,7 @@ export default {
       isVisibleModal: false,
       isVisiblePopupMoreExtraFee: false,
       isVisibleModalTiktokWeight: false,
+      isVisibleModalTiktokLabel: false,
       isVisibleConfirmWayBill: false,
       isReLabel: false,
       isVisibleModalExtraFee: false,
@@ -1694,6 +1711,9 @@ export default {
     showModalTiktokWeight() {
       this.isVisibleModalTiktokWeight = true
     },
+    showModalTiktokLabel() {
+      this.isVisibleModalTiktokLabel = true
+    },
     async handleSaveTiktokWeight(param) {
       console.log(param)
       const payload = {
@@ -1716,6 +1736,30 @@ export default {
       this.$toast.open({
         type: 'success',
         message: 'Tạo phí phát sinh thành công',
+      })
+      this.init()
+    },
+    async handleSaveTiktokLabel(param) {
+      const payload = {
+        custom_tiktok_barcode: param,
+      }
+      this.isSubmitting = true
+      const result = await api.updateTiktokLabel(
+        this.package_detail.package.id,
+        payload
+      )
+      this.isSubmitting = false
+      this.isVisibleModalTiktokLabel = false
+      if (!result.success) {
+        this.$toast.open({
+          type: 'error',
+          message: result.message,
+        })
+        return
+      }
+      this.$toast.open({
+        type: 'success',
+        message: 'Cập nhật link label thành công',
       })
       this.init()
     },
