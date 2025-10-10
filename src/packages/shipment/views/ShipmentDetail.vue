@@ -89,11 +89,11 @@
               @click="handleAppendShipment"
               v-if="
                 !isClosedShipment &&
-                  !isCanceledShipment &&
-                  !isDeliveredShipment &&
-                  !isIntransitShipment &&
-                  !$isShipPartner() &&
-                  !$isSaleOperation()
+                !isCanceledShipment &&
+                !isDeliveredShipment &&
+                !isIntransitShipment &&
+                !$isShipPartner() &&
+                !$isSaleOperation()
               "
             >
               <p-svg name="plus_blue"></p-svg>
@@ -103,11 +103,11 @@
               type="info"
               v-if="
                 !isClosedShipment &&
-                  !isCanceledShipment &&
-                  !isDeliveredShipment &&
-                  !isIntransitShipment &&
-                  !$isShipPartner() &&
-                  !$isSaleOperation()
+                !isCanceledShipment &&
+                !isDeliveredShipment &&
+                !isIntransitShipment &&
+                !$isShipPartner() &&
+                !$isSaleOperation()
               "
               :class="'btn-add-container ml-3'"
               @click="handleShowModalListContainer"
@@ -119,11 +119,11 @@
             class="page-header__action col-6 text-right"
             v-if="
               !isClosedShipment &&
-                !isCanceledShipment &&
-                !isDeliveredShipment &&
-                !isIntransitShipment &&
-                !$isShipPartner() &&
-                !$isSaleOperation()
+              !isCanceledShipment &&
+              !isDeliveredShipment &&
+              !isIntransitShipment &&
+              !$isShipPartner() &&
+              !$isSaleOperation()
             "
           >
             <p-button
@@ -254,7 +254,7 @@
                           <p-tooltip
                             v-if="
                               item.type == containerTypeApi ||
-                                item.type == containerTypeFedEx
+                              item.type == containerTypeFedEx
                             "
                             class="item_name"
                             :label="` Download `"
@@ -296,9 +296,7 @@
                           >
                             <a
                               target="_blank"
-                              :href="
-                                `https://www.ups.com/track?loc=vi_VN&tracknum=${item.tracking_number}&requester=WT/`
-                              "
+                              :href="`https://www.ups.com/track?loc=vi_VN&tracknum=${item.tracking_number}&requester=WT/`"
                             >
                               <svg
                                 width="32"
@@ -341,10 +339,10 @@
                         <p-button
                           v-if="
                             !isClosedShipment &&
-                              !isDeliveredShipment &&
-                              !isIntransitShipment &&
-                              !$isShipPartner() &&
-                              !$isSaleOperation()
+                            !isDeliveredShipment &&
+                            !isIntransitShipment &&
+                            !$isShipPartner() &&
+                            !$isSaleOperation()
                           "
                           type="danger"
                           :class="`btn-cancel-container mr-3`"
@@ -431,9 +429,9 @@ import { mapActions, mapState } from 'vuex'
 import * as XLSX from 'xlsx'
 import { cloneDeep } from '../../../core/utils'
 import {
-  CONTAINER_TYPE_API,
   CONTAINER_TYPE_FEDEX,
   CONTAINER_TYPE_MANUAL,
+  CONTAINER_TYPE_UPS,
 } from '../../container/contants'
 import { GET_LABEL, UPDATE_CONTAINER } from '../../container/store'
 import ModalChoiceAccountUps from '../components/ModalChoiceAccountUps'
@@ -523,8 +521,8 @@ export default {
       showIntransitButton() {
         return this.isClosedShipment
       },
-      containerTypeApi() {
-        return CONTAINER_TYPE_API
+      containerTypeUps() {
+        return CONTAINER_TYPE_UPS
       },
       containerTypeFedEx() {
         return CONTAINER_TYPE_FEDEX
@@ -540,7 +538,7 @@ export default {
         let isShow = false
         const containers = this.containers || []
         containers.map((item) => {
-          if (item.type === CONTAINER_TYPE_API) {
+          if (item.type === CONTAINER_TYPE_UPS) {
             isShow = true
           }
         })
@@ -551,8 +549,8 @@ export default {
           item.type_text =
             item.type == CONTAINER_TYPE_MANUAL
               ? 'Label Ngoài'
-              : item.type == CONTAINER_TYPE_API
-              ? 'Label Ananbay'
+              : item.type == CONTAINER_TYPE_UPS
+              ? 'Label UPS'
               : 'Label FedEx'
           return item
         })
@@ -1010,13 +1008,13 @@ export default {
   },
   watch: {
     filter: {
-      handler: function() {
+      handler: function () {
         this.init()
       },
       deep: true,
     },
     visibleUpdateModal: {
-      handler: function(v) {
+      handler: function (v) {
         if (!v) {
           this.initBarcodeListener()
         } else {

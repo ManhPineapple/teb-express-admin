@@ -308,8 +308,8 @@ import ModalChoiceShippingBox from '../components/ModalChoiceShippingBox'
 import ModalUpdateContainer from '../components/ModalUpdateContainer'
 import {
   CONTAINER_CLOSE,
-  CONTAINER_TYPE_API,
   CONTAINER_TYPE_MANUAL,
+  CONTAINER_TYPE_UPS,
   CONTAINER_WAITING_CLOSE,
 } from '../contants'
 
@@ -371,8 +371,8 @@ export default {
       const containerType = (this.container_detail || {}).type
       return containerType == CONTAINER_TYPE_MANUAL
         ? 'Label Ngoài'
-        : containerType == CONTAINER_TYPE_API
-        ? 'Label Ananbay'
+        : containerType == CONTAINER_TYPE_UPS
+        ? 'Label UPS'
         : 'Label FedEx'
     },
   },

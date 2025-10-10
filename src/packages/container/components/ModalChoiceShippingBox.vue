@@ -193,9 +193,9 @@
 <script>
 import valider from '@core/valider'
 import {
-  CONTAINER_TYPE_API,
-  CONTAINER_TYPE_MANUAL,
   CONTAINER_TYPE_FEDEX,
+  CONTAINER_TYPE_MANUAL,
+  CONTAINER_TYPE_UPS,
 } from '../contants'
 
 export default {
@@ -297,8 +297,8 @@ export default {
       err: '',
       types: [
         {
-          key: CONTAINER_TYPE_API,
-          text: 'Label Ananbay',
+          key: CONTAINER_TYPE_UPS,
+          text: 'Label UPS',
         },
         {
           key: CONTAINER_TYPE_MANUAL,

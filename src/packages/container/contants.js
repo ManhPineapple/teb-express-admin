@@ -6,7 +6,7 @@ export const CONTAINER_DELIVERIED = 4
 export const CONTAINER_IMPORT_HUB = 6
 export const CONTAINER_EXPORT_HUB = 7
 
-export const CONTAINER_TYPE_API = 1
+export const CONTAINER_TYPE_UPS = 1
 export const CONTAINER_TYPE_MANUAL = 2
 export const CONTAINER_TYPE_FEDEX = 3
 
@@ -116,7 +116,7 @@ export const MAP_NAME_STATUS_CONTAINER = {
 }
 
 export const MAP_CONTAINER_TEXT_TYPES = {
-  [CONTAINER_TYPE_API]: 'Label Lionbay',
+  [CONTAINER_TYPE_UPS]: 'Label UPS',
   [CONTAINER_TYPE_MANUAL]: 'Label Ngoài',
   [CONTAINER_TYPE_FEDEX]: 'Label FedEx',
 }
