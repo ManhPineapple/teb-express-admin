@@ -17,11 +17,18 @@
               HUB {{ warehouse ? warehouse.state : '' }}
             </button>
             <button
-              :class="{ active: filter.fba }"
-              @click="handleFilterFba(1)"
+              :class="{ active: filter.fba_type == 1 }"
+              @click="handleFilterFba()"
               class="choose-warehouse btn btn-default mr-8 mb-8"
             >
               FBA
+            </button>
+            <button
+              :class="{ active: filter.fba_type == 2 }"
+              @click="handleFilterFFba()"
+              class="choose-warehouse btn btn-default mr-8 mb-8"
+            >
+              Fast FBA
             </button>
           </div>
           <div class="page__container-search d-flex jc-sb col-7">
@@ -291,45 +298,45 @@
   </div>
 </template>
 <script>
+import { mapActions, mapState } from 'vuex'
 import ContainerStatusTab from '../components/ContainerStatusTab'
 import ModalChoiceShippingBox from '../components/ModalChoiceShippingBox'
 import ModalUpdateContainer from '../components/ModalUpdateContainer'
-import { mapState, mapActions } from 'vuex'
 
 import EmptySearchResult from '@components/shared/EmptySearchResult'
 import mixinRoute from '@core/mixins/route'
 import mixinTable from '@core/mixins/table'
 
-import {
-  CONTAINER_STATUS_TAB,
-  MAP_NAME_STATUS_CONTAINER,
-  CONTAINER_CLOSE,
-  CONTAINER_DELIVERIED,
-  CONTAINER_IMPORT_HUB,
-  CONTAINER_EXPORT_HUB,
-  CONTAINER_TYPE_MANUAL,
-  CONTAINER_TYPE_FEDEX,
-  MAP_CONTAINER_TEXT_TYPES,
-} from '../contants'
-import {
-  FETCH_LIST_CONTAINERS,
-  CREATE_CONTAINER,
-  GET_LABEL,
-  UPDATE_CONTAINER,
-  GET_HISTORY_CONTAINER,
-} from '../store'
-import { FETCH_WAREHOUSE } from '../../shared/store'
 import Browser from '@core/helpers/browser'
-import api from '../api'
 import { printImage } from '@core/utils/print'
 import { cloneDeep } from '../../../core/utils'
-import ModalHistoryContainer from '../components/ModalHistoryContainer'
+import { FETCH_WAREHOUSE } from '../../shared/store'
 import {
-  WAREHOUSE_TYPE_INTERNATIONAL,
   WAREHOUSE_TYPE_INTERNAL,
+  WAREHOUSE_TYPE_INTERNATIONAL,
   WareHouseStatusActive,
 } from '../../shipment/constants'
+import api from '../api'
 import ModalAddEvent from '../components/ModalAddEvent.vue'
+import ModalHistoryContainer from '../components/ModalHistoryContainer'
+import {
+  CONTAINER_CLOSE,
+  CONTAINER_DELIVERIED,
+  CONTAINER_EXPORT_HUB,
+  CONTAINER_IMPORT_HUB,
+  CONTAINER_STATUS_TAB,
+  CONTAINER_TYPE_FEDEX,
+  CONTAINER_TYPE_MANUAL,
+  MAP_CONTAINER_TEXT_TYPES,
+  MAP_NAME_STATUS_CONTAINER,
+} from '../contants'
+import {
+  CREATE_CONTAINER,
+  FETCH_LIST_CONTAINERS,
+  GET_HISTORY_CONTAINER,
+  GET_LABEL,
+  UPDATE_CONTAINER,
+} from '../store'
 
 export default {
   name: 'ListContainers',
@@ -402,7 +409,7 @@ export default {
         warehouse: '',
         type: CONTAINER_TYPE_FEDEX,
         is_warning: false,
-        fba: 0,
+        fba_type: 0,
         warehouse_id: null,
       },
       listWarehouse: [],
@@ -452,7 +459,7 @@ export default {
         (i) =>
           i.type == WAREHOUSE_TYPE_INTERNAL && i.status == WareHouseStatusActive
       )
-      if (!this.filter.warehouse && !this.filter.fba) {
+      if (!this.filter.warehouse && this.filter.fba_type == 0) {
         const wareHouseActive = this.wareHouses.find(
           ({ type }) => type == WAREHOUSE_TYPE_INTERNATIONAL
         )
@@ -583,7 +590,7 @@ export default {
       }
     },
     async createContainerSubmit(body) {
-      if (body.warehouse_id == 0 && !body.is_fba) {
+      if (body.warehouse_id == 0 && body.fba_type == 0) {
         this.$toast.error('Chưa chọn kho')
         return
       }
@@ -608,18 +615,23 @@ export default {
       this.filter.page = 1
       this.filter.type = body.type
       this.filter.warehouse = body.warehouse_id
-      this.filter.fba = body.is_fba ? 1 : 0
+      this.filter.fba_type = body.fba_type
 
       this.init()
     },
     handleFilter(id) {
       this.filter.page = 1
       this.filter.warehouse = id
-      this.filter.fba = 0
+      this.filter.fba_type = 0
     },
-    handleFilterFba(val) {
+    handleFilterFba() {
       this.filter.page = 1
-      this.filter.fba = val
+      this.filter.fba_type = 1
+      this.filter.warehouse = 0
+    },
+    handleFilterFFba() {
+      this.filter.page = 1
+      this.filter.fba_type = 2
       this.filter.warehouse = 0
     },
     changeType(v) {

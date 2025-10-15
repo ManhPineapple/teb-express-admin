@@ -13,9 +13,15 @@
           >
           <button
             class="btn btn-warehouse mb-8"
-            :class="{ active: filter.fba > 0 }"
+            :class="{ active: filter.fba_type == 1 }"
             @click="selectFba(1)"
             >FBA</button
+          >
+          <button
+            class="btn btn-warehouse mb-8"
+            :class="{ active: filter.fba_type == 2 }"
+            @click="selectFba(2)"
+            >Fast FBA</button
           >
         </div>
         <div class="d-flex jc-sb col-6" id="search-box">
@@ -167,6 +173,15 @@
   </div>
 </template>
 <script>
+import EmptySearchResult from '@components/shared/EmptySearchResult'
+import ModalConfirm from '@components/shared/modal/ModalConfirm'
+import mixinRoute from '@core/mixins/route'
+import mixinTable from '@core/mixins/table'
+import { mapActions, mapState } from 'vuex'
+import { cloneDeep } from '../../../core/utils'
+import { FETCH_WAREHOUSE } from '../../shared/store'
+import ModalChoiceWarehouse from '../components/ModalChoiceWarehouse'
+import ShipmentStatusTab from '../components/ShipmentStatusTab'
 import {
   SHIPMENT_STATUS_TAB,
   ShipmentClosed,
@@ -174,20 +189,11 @@ import {
   WAREHOUSE_TYPE_INTERNATIONAL,
   WareHouseStatusActive,
 } from '../constants'
-import { mapState, mapActions } from 'vuex'
-import ModalConfirm from '@components/shared/modal/ModalConfirm'
-import EmptySearchResult from '@components/shared/EmptySearchResult'
-import mixinRoute from '@core/mixins/route'
-import mixinTable from '@core/mixins/table'
 import {
-  FETCH_LIST_SHIPMENT,
   CREATE_SHIPMENT,
+  FETCH_LIST_SHIPMENT,
   INTRANSIT_SHIPMENT,
 } from '../store'
-import ShipmentStatusTab from '../components/ShipmentStatusTab'
-import ModalChoiceWarehouse from '../components/ModalChoiceWarehouse'
-import { cloneDeep } from '../../../core/utils'
-import { FETCH_WAREHOUSE } from '../../shared/store'
 
 export default {
   name: 'ListShipment',
@@ -206,7 +212,7 @@ export default {
         status: '',
         hubID: '',
         warehouse_id: null,
-        fba: 0,
+        fba_type: 0,
       },
       listWarehouse: [],
       optionWarehouseFilter: [],
@@ -264,7 +270,7 @@ export default {
           i.type == WAREHOUSE_TYPE_INTERNAL && i.status == WareHouseStatusActive
       )
 
-      if (!this.filter.hubID && !this.filter.fba) {
+      if (!this.filter.hubID && !this.filter.fba_type) {
         const wareHouseActive = this.wareHouses.find(
           ({ type }) => type == WAREHOUSE_TYPE_INTERNATIONAL
         )
@@ -315,7 +321,7 @@ export default {
       this.init()
     },
     async handleCreate(body) {
-      if (!body.is_fba && body.warehouse_id == 0) {
+      if (body.fba_type == 0 && body.warehouse_id == 0) {
         this.$toast.error('Warehouse id is required')
         return
       }
@@ -332,9 +338,9 @@ export default {
       this.$toast.open({ message: 'Tạo lô thành công', type: 'success' })
       this.visibleConfirm = false
 
-      this.filter.fba = 0
-      if (body.is_fba) {
-        this.filter.fba = 1
+      this.filter.fba_type = 0
+      if (body.fba_type) {
+        this.filter.fba_type = body.fba_type
         this.filter.hubID = 0
       }
       this.init()
@@ -342,13 +348,13 @@ export default {
 
     selectWarehouse(id) {
       this.filter.page = 1
-      this.filter.fba = 0
+      this.filter.fba_type = 0
       if (this.filter.hubID == id) return
       this.filter.hubID = id
     },
     selectFba(val) {
       this.filter.page = 1
-      this.filter.fba = val
+      this.filter.fba_type = val
       this.filter.hubID = 0
     },
     sumWeight(containers) {

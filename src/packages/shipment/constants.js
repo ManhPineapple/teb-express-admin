@@ -16,6 +16,10 @@ export const OPTION_ACCOUNT_UPS2 = 2
 export const DEFAULT_ACCOUNT_FEDEX = 1
 export const OPTION_ACCOUNT_FEDEX = 2
 
+export const FBA_TYPE_NOT_FBA = 0
+export const FBA_TYPE_STANDARD_FBA = 1
+export const FBA_TYPE_FAST_FBA = 2
+
 export const SHIPMENT_STATUS_TAB = [
   {
     value: '',

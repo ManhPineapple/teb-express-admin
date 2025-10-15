@@ -11,7 +11,7 @@
         class="floating"
         v-model="warehouseID"
         name="warehouseID"
-        :disabled="isFBA"
+        :disabled="fbaType > 0"
       >
         <option value="0">Chọn kho</option>
         <option
@@ -24,7 +24,12 @@
     </div>
 
     <div class="mt-24" style="position: relative">
-      <p-checkbox v-model="isFBA" style="padding: 11px 0 0">IS FBA</p-checkbox>
+      <label for=""><b>Chọn dịch vụ FBA:</b></label>
+      <p-select class="" placeholder="Please select" v-model="fbaType">
+        <option :value="type.key" v-for="type in fbaOptions" :key="type.key">
+          {{ type.text }}
+        </option>
+      </p-select>
     </div>
 
     <template slot="footer">
@@ -39,6 +44,12 @@
 </template>
 
 <script>
+import {
+  FBA_TYPE_FAST_FBA,
+  FBA_TYPE_NOT_FBA,
+  FBA_TYPE_STANDARD_FBA,
+} from '../constants'
+
 export default {
   name: 'ModalChoiceWarehouse',
   props: {
@@ -60,7 +71,12 @@ export default {
       isShow: this.visible,
       warehouse: {},
       warehouseID: 0,
-      isFBA: false,
+      fbaType: FBA_TYPE_NOT_FBA,
+      fbaOptions: [
+        { text: 'Not FBA', key: FBA_TYPE_NOT_FBA },
+        { text: 'Standard FBA', key: FBA_TYPE_STANDARD_FBA },
+        { text: 'Fast FBA', key: FBA_TYPE_FAST_FBA },
+      ],
     }
   },
   methods: {
@@ -70,7 +86,7 @@ export default {
     async handleSave() {
       const payload = {
         warehouse_id: this.warehouseID,
-        is_fba: this.isFBA,
+        fba_type: this.fbaType,
       }
       this.$emit('save', payload)
     },
@@ -79,7 +95,7 @@ export default {
     visible(value) {
       this.isShow = value
       this.warehouseID = 0
-      this.isFBA = false
+      this.fbaType = FBA_TYPE_NOT_FBA
     },
   },
 }

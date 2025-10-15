@@ -3,12 +3,12 @@
     <div v-if="isCreate">
       <div class="row">
         <div class="col">
-          <label for="" v-if="!isFBA"><b>Kho:</b></label>
+          <label for="" v-if="fbaType == 0"><b>Kho:</b></label>
           <p-select
             class="floating"
             v-model="warehouseID"
             name="warehouseID"
-            v-if="!isFBA"
+            v-if="fbaType == 0"
           >
             <option value="0">Chọn kho</option>
             <option
@@ -18,8 +18,17 @@
               >HUB {{ warehouse.state }}
             </option>
           </p-select>
-          <div v-if="warehouseID == 0" style="height: 23px; margin: 11px 0">
-            <p-checkbox v-model="isFBA" class="fb-cb">IS FBA</p-checkbox>
+          <div v-if="warehouseID == 0" style="margin: 11px 0">
+            <label for=""><b>Chọn dịch vụ FBA:</b></label>
+            <p-select class="" placeholder="Please select" v-model="fbaType">
+              <option
+                :value="type.key"
+                v-for="type in fbaOptions"
+                :key="type.key"
+              >
+                {{ type.text }}
+              </option>
+            </p-select>
           </div>
         </div>
         <div class="col">
@@ -196,6 +205,9 @@ import {
   CONTAINER_TYPE_FEDEX,
   CONTAINER_TYPE_MANUAL,
   CONTAINER_TYPE_UPS,
+  FBA_TYPE_FAST_FBA,
+  FBA_TYPE_NOT_FBA,
+  FBA_TYPE_STANDARD_FBA,
 } from '../contants'
 
 export default {
@@ -285,7 +297,7 @@ export default {
         width: 0,
         max_weight: 0,
       },
-      isFBA: false,
+      fbaType: FBA_TYPE_NOT_FBA,
       actual_weight: 0,
       weight: 0,
       tracking_number: '',
@@ -308,6 +320,11 @@ export default {
           key: CONTAINER_TYPE_FEDEX,
           text: 'Label FedEx',
         },
+      ],
+      fbaOptions: [
+        { text: 'Not FBA', key: FBA_TYPE_NOT_FBA },
+        { text: 'Standard FBA', key: FBA_TYPE_STANDARD_FBA },
+        { text: 'Fast FBA', key: FBA_TYPE_FAST_FBA },
       ],
       containerType: CONTAINER_TYPE_FEDEX,
       typeManual: CONTAINER_TYPE_MANUAL,
@@ -354,10 +371,7 @@ export default {
         payload = {
           warehouse_id: parseInt(this.warehouseID),
           type: this.containerType,
-        }
-        payload.is_fba = false
-        if (this.isFBA) {
-          payload.is_fba = true
+          fba_type: this.fbaType,
         }
       } else {
         payload = {
@@ -381,7 +395,7 @@ export default {
       this.isShow = value
       this.type = 0
       this.warehouseID = 0
-      this.isFBA = false
+      this.fbaType = FBA_TYPE_STANDARD_FBA
       this.containerType = CONTAINER_TYPE_FEDEX
       this.actual_weight = 0
       this.weight = 0
@@ -411,5 +425,11 @@ export default {
 }
 .fb-cb {
   top: unset !important;
+}
+.fba-checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  height: 23px;
 }
 </style>

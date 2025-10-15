@@ -18,7 +18,7 @@ export default {
     return http.put(`/shipments/append/containers`, payload)
   },
   cancelContainer(payload) {
-    return http.put(`/shipments/cancel-container/`, payload)
+    return http.put(`/shipments/cancel-container`, payload)
   },
   cancelShipment(payload) {
     return http.put(`/shipments/cancel/${payload.id}`)

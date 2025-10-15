@@ -10,6 +10,10 @@ export const CONTAINER_TYPE_UPS = 1
 export const CONTAINER_TYPE_MANUAL = 2
 export const CONTAINER_TYPE_FEDEX = 3
 
+export const FBA_TYPE_NOT_FBA = 0
+export const FBA_TYPE_STANDARD_FBA = 1
+export const FBA_TYPE_FAST_FBA = 2
+
 export const CONTAINER_ITEM_INACTIVE = 0
 export const CONTAINER_ITEM_ACTIVE = 1
 export const CONTAINER_ITEM_FAIL = 2

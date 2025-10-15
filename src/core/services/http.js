@@ -1,12 +1,12 @@
-import isEmpty from 'lodash/isEmpty'
 import HttpError from '@core/errors/http-handler'
-import { isString } from '@core/utils/type'
 import AuthService from '@core/services/auth'
+import { isString } from '@core/utils/type'
+import isEmpty from 'lodash/isEmpty'
 
 import {
-  SERVER_ERROR_MESSAGE,
   RESPONSE_TYPE_BLOB,
   RESPONSE_TYPE_JSON,
+  SERVER_ERROR_MESSAGE,
 } from '@core/constants/http'
 
 /**
@@ -59,7 +59,15 @@ export const http = {
           data = {}
         }
 
-        data.errorMessage = data.message || data.error || SERVER_ERROR_MESSAGE
+        if (typeof data === 'string') {
+          const dataString = data
+          data = {
+            errorMessage: dataString,
+          }
+        } else {
+          data.errorMessage = data.message || data.error || SERVER_ERROR_MESSAGE
+        }
+
         return Object.assign(
           {
             success: false,

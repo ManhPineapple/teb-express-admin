@@ -14,16 +14,16 @@
             class="col-6 radio-inline"
             v-model="account_ups"
             :native-value="optionAccountDefault"
-            >Phoenix (default)</p-radio
+            >UPS</p-radio
           >
-          <p-radio
+          <!-- <p-radio
             type="info"
             class="col-6 radio-inline"
             v-model="account_ups"
             :native-value="optionAcocount2"
           >
             Viva</p-radio
-          >
+          > -->
         </div>
       </div>
     </div>
@@ -36,19 +36,19 @@
             class="col-6 radio-inline"
             v-model="account_fedex"
             :native-value="accountDefault"
-            >Fedex 1</p-radio
+            >Fedex</p-radio
           >
-          <p-radio
+          <!-- <p-radio
             type="info"
             class="col-6 radio-inline"
             v-model="account_fedex"
-            :native-value="optionAcocount"
+            :native-value="optionAccount"
             >Fedex 2</p-radio
-          >
+          > -->
         </div>
       </div>
       <div class="col-12">
-        <label class="form-label">Giá trị lô hàng:</label>
+        <label class="form-label">Giá trị lô hàng (FedEx):</label>
         <p-input
           type="text"
           :placeholder="`Nhập giá trị... Đơn vị: USD`"
@@ -101,7 +101,7 @@ export default {
       optionAcocount2: OPTION_ACCOUNT_UPS2,
       account_ups: DEFAULT_ACCOUNT_UPS,
       accountDefault: DEFAULT_ACCOUNT_FEDEX,
-      optionAcocount: OPTION_ACCOUNT_FEDEX,
+      optionAccount: OPTION_ACCOUNT_FEDEX,
       account_fedex: DEFAULT_ACCOUNT_FEDEX,
       value: '',
     }
