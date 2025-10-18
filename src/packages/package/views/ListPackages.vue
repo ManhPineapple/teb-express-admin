@@ -43,7 +43,6 @@
             </option>
           </p-select>
         </div>
-
         <div class="d-flex date-search">
           <p-datepicker
             :format="'dd/mm/yyyy'"
@@ -57,8 +56,23 @@
             }"
             @clear="clearSearchDate"
           ></p-datepicker>
+          <p-select
+            style="
+              width: auto;
+              border-top-left-radius: unset !important;
+              border-bottom-left-radius: unset !important;
+              border-left: unset;
+            "
+            placeholder="Tìm theo ngày"
+            v-model="filter.by_date"
+          >
+            <option value="created_at">Ngày tạo</option>
+            <option value="checkin_warehouse_at">Ngày nhập kho</option>
+            <option value="scan_weight_at">Ngày cân</option>
+            <option value="delivered_at">Ngày giao hàng</option>
+          </p-select>
         </div>
-        <div class="ml-8" style="min-width: 270px">
+        <div class="ml-8" style="min-width: 150px">
           <p-select
             style="width: 100%"
             :placeholder="`Tìm theo kho`"
@@ -554,6 +568,7 @@ export default {
         search_by: 'code',
         start_date: '',
         end_date: '',
+        by_date: 'created_at',
         code: '',
         service: '',
         warehouse_id: null,
