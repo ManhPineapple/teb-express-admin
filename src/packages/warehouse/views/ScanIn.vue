@@ -733,9 +733,10 @@ export default {
         keyword = keyword.slice(-26).trim()
       } else if (keyword.length > 40) {
         keyword = keyword.slice(-23).trim()
-      } else if (keyword.length > 24) {
-        keyword = keyword.slice(-22).trim()
       }
+      // else if (keyword.length > 24) {
+      //   keyword = keyword.slice(-22).trim()
+      // }
 
       this.keyword = keyword
       this.beforeFetchPackage(this.keyword)
