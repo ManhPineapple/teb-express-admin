@@ -384,7 +384,7 @@ export default {
       }
 
       if (this.user.email.includes('@')) {
-        payload.email = this.user.email.trim().toLowerCase()
+        payload.email = this.user.email.trim() // .toLowerCase()
       } else {
         payload.phone_number = this.user.email.trim()
       }

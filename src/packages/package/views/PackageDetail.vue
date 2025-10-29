@@ -1295,16 +1295,6 @@ export default {
       const arr = cloneDeep(this.extraFee),
         result = []
 
-      if (
-        this.package_detail.package.status == PACKAGE_STATUS_CREATED &&
-        !this.isPkgExceedNotEstimate
-      ) {
-        result.push({
-          extra_fee_types: { name: 'Peak season surcharge' },
-          amount: this.calculateFee(this.package_detail.package.weight),
-        })
-      }
-
       for (const ele of arr) {
         let index = result.findIndex(
           (x) => x.extra_fee_types.name == ele.extra_fee_types.name
